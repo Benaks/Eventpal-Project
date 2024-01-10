@@ -13,7 +13,7 @@ const Categories = () => {
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const eventsPerPage = 9;
-
+// fhh
   useEffect(() => {
     const fetchData = async () => {
       try {
