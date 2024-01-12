@@ -1,6 +1,9 @@
+// eslint-disable-next-line no-unused-vars
 import React, {useState} from 'react';
 import SearchApp from './SearchApp'
-import { AiOutlineClose, AiOutlineMenu, AiOutlineSearch} from 'react-icons/ai';
+import { AiOutlineClose, AiOutlineMenu} from 'react-icons/ai';
+import {Link} from 'react-router-dom'
+
 
 const Navbar = () => {
     const [nav, setNav] = useState(true)
@@ -12,13 +15,13 @@ const Navbar = () => {
   return (
     <div className='text-black justify-between flex items-center  px-5 py-4 h-36 max-w-[1240px] mx-auto bg-[#faf4fa]'>
      
-                <h1 className=' text-2xl font-bold cursor-pointer sh'><span className='text-red-500' >E</span>ventpal</h1>
+                <h1 className=' text-2xl font-bold cursor-pointer sh'><Link to='/'><span className='text-red-500' >E</span>ventpal</Link></h1>
                 
                 <ul className=' text-gray-500 font-[600] flex hidden lg:flex'  >
-                       <li className=' px-3 cursor-pointer'>Local event</li>
-                       <li className=' px-3 cursor-pointer'>Create event</li>
-                       <li className=' px-3 cursor-pointer'>Blog</li>
-                       <li className=' px-3 cursor-pointer'>Help centre</li>
+                       <li className=' px-3 cursor-pointer'> <Link to ='/local'>Local events</Link></li>
+                       <li className=' px-3 cursor-pointer'> <Link to='/create'>Create event</Link> </li>
+                       <li className=' px-3 cursor-pointer'><Link to='/blog'>Blog</Link></li>
+                       <li className=' px-3 cursor-pointer'><Link to='/help'>Help center</Link></li>
                </ul>           
 
                <SearchApp/>   

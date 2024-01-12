@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { BiLogoFacebook } from "react-icons/bi";
 import { RiTwitterXLine } from "react-icons/ri";
 import { FaInstagram } from "react-icons/fa";
@@ -22,7 +22,7 @@ function Footer() {
                                {
                                    eventPal.map(
                                    (eventPal) =>(
-                                      <li className='text-[0.7em] '>
+                                      <li className='text-[0.7em] ' key={eventPal}>
                                            {eventPal}
                                       </li>
                                     )
@@ -36,9 +36,9 @@ function Footer() {
 
  {
     services.map(
-      (services) =>(
-        <li className='text-[0.7em] '>
-          {services}
+      (service) =>(
+        <li className='text-[0.7em]' key={service}>
+          {service}
         </li>
       )
     )
@@ -52,7 +52,7 @@ function Footer() {
  {
     help.map(
       (help) =>(
-        <li className='text-[0.7em] '>
+        <li className='text-[0.7em]' key={help}>
           {help}
         </li>
       )
@@ -67,7 +67,7 @@ function Footer() {
  {
     contactUs.map(
       (contactUs) =>(
-        <li className='text-[0.7em] '>
+        <li className='text-[0.7em] ' key={contactUs}>
           {contactUs}
         </li>
       )
