@@ -3,7 +3,7 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 
 
-function CreateEventsPage() {
+function CreateEventsPage()  {
   return (
       <>
           <Navbar />

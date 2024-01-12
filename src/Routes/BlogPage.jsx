@@ -2,7 +2,7 @@
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 
-function BlogPage() {
+function BlogPage()  {
   return (
       <>
           <Navbar />

@@ -5,7 +5,7 @@ import { AiOutlineClose, AiOutlineMenu} from 'react-icons/ai';
 import {Link} from 'react-router-dom'
 
 
-const Navbar = () => {
+const Navbar = () =>  {
     const [nav, setNav] = useState(true)
 
     const handleNav = () => {
