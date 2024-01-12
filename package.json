@@ -12,8 +12,11 @@
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+<<<<<<< HEAD
+=======
  main
     "react-horizontal-scrolling-menu": "^4.1.2",
+>>>>>>> 99ac1335ae84f20537e385aa464f1ed77241b8de
     "react-icons": "^5.0.1"
 =======
     "react-router-dom": "^6.21.1"
