@@ -4,9 +4,20 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  theme: {
-    extend: {},
-  },
+  
   plugins: [],
+
+  theme: {
+    extend: {
+      colors: {
+        primary: '#381648',   
+        secondary: '#DC3239', 
+      },
+      fontFamily: {
+        poppins: ['Poppins', 'sans-serif'],
+        roboto: ['Roboto', 'sans-serif'],
+      },
+    },
+  },
 }
 

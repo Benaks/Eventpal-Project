@@ -1,14 +1,14 @@
 const list = [
   "Category",
-  "Porpular Events",
-  "Todays Events",
-  "Online Events",
-  "Personalise Events",
+  "PorpularEvents",
+  "TodaysEvents",
+  "OnlineEvents",
+  "PersonaliseEvents",
 ];
 
 function MenuBar() {
   return (
-    <div className="flex flex-col justify-center ml-auto mr-auto  mb-8  md:w-[80%] px-8">
+    <div className="flex flex-col justify-center ml-auto font-roboto mr-auto  mb-8  md:w-[80%] px-8">
       <div className="flex justify-center">
         <ul className="flex justify-around overflow-y-auto py-8 w-[100%]">
           {list.map((item) => (

@@ -1,7 +1,8 @@
- main
+
 import { useState } from "react";
 import SearchApp from "./SearchApp";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
+import {Link} from 'react-router-dom'
 
 const Navbar = () => {
   const [nav, setNav] = useState(true);
@@ -9,35 +10,14 @@ const Navbar = () => {
   const handleNav = () => {
     setNav[!nav];
   };
-=======
-// eslint-disable-next-line no-unused-vars
-import React, {useState} from 'react';
-import SearchApp from './SearchApp'
-import { AiOutlineClose, AiOutlineMenu} from 'react-icons/ai';
-import {Link} from 'react-router-dom'
 
+return(
 
-const Navbar = () =>  {
-    const [nav, setNav] = useState(true)
-    main
-
-  return ( main
-    <div className="text-black justify-between flex items-center  px-5 py-4 h-36 max-w-[1240px] mx-auto bg-[#faf4fa]">
-      <h1 className=" text-2xl font-bold cursor-pointer sh">
-        <span className="text-red-500">E</span>ventpal
-      </h1>
-
-      <ul className=" text-gray-500 font-[600] hidden lg:flex">
-        <li className=" px-3 cursor-pointer">Local event</li>
-        <li className=" px-3 cursor-pointer">Create event</li>
-        <li className=" px-3 cursor-pointer">Blog</li>
-        <li className=" px-3 cursor-pointer">Help centre</li>
-=======
-    <div className='text-black justify-between flex items-center  px-5 py-4 h-36 max-w-[1240px] mx-auto bg-[#faf4fa]'>
+    <div className='text-black justify-between flex items-center  px-5 py-4 h-[20vh] max-w-[1240px] mx-auto bg-[#faf4fa] font-poppins'>
      
-                <h1 className=' text-2xl font-bold cursor-pointer sh'><Link to='/'><span className='text-red-500' >E</span>ventpalE</Link></h1>
+                <h1 className=' text-2xl font-bold cursor-pointer sh'><Link to='/'><span className='text-secondary' >E</span>ventpal</Link></h1>
                 
-                <ul className=' text-gray-500 font-[600] flex hidden lg:flex'  >
+                <ul className=' text-gray-500 font-[600] flex hidden lg:flex font-thin'  >
                        <li className=' px-3 cursor-pointer'> <Link to ='/local'>Local events</Link></li>
                        <li className=' px-3 cursor-pointer'> <Link to='/create'>Create event</Link> </li>
                        <li className=' px-3 cursor-pointer'><Link to='/blog'>Blog</Link></li>
@@ -47,8 +27,8 @@ const Navbar = () =>  {
                <SearchApp/>   
           
                
-                <button className='p-2 text-red-500 font-bold '>Login</button> 
-                <button className='px-4 py-2 shadow-lg font-bold  bg-red-500 text-[white] text-[1em] rounded-full text-bold'>sign in</button>
+                <button className='p-2 text-secondary font-bold '>Login</button> 
+                <button className='px-4 py-2 shadow-lg font-bold  bg-secondary text-[white] text-[1em] rounded-full text-bold'>sign in</button>
 
 
       
@@ -100,7 +80,8 @@ const Navbar = () =>  {
           <li className="p-4 border-b border-gray-600">Help centre</li>
         </ul>
       </div>
-    </div>
+      </div>
+      </div>
   );
 };
 

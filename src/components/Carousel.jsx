@@ -33,7 +33,7 @@ const Carousel = ({error, eventData, currentEvents}) => {
             // carousel
             <div
               key={result.id}
-              className="my-10 md:my-4 rounded-tl-2xl rounded-tr-2xl bg-purple-100 shadow-lg cursor-pointer w-[90%]  md:w-80 h-[40em] md:h-auto hover:scale-105 duration-300 hover:bg-purple-200"
+              className="my-10 md:my-4 rounded-tl-2xl font-roboto rounded-tr-2xl bg-purple-100 shadow-lg cursor-pointer w-[90%]  md:w-80 h-[40em] md:h-auto hover:scale-105 duration-300 hover:bg-purple-200"
             >
               {/* image */}
               <div className="w-full  h-[12em]">
@@ -78,16 +78,23 @@ const Carousel = ({error, eventData, currentEvents}) => {
                     </p>
                   </div>
 
-                  {/* buy button */}
-                  <div className=" py-1 ">
+
+
+                  
+                  {/* get tickets and button div */}
+                 
+                  <div className=" flex justify-between">
+                    
+                     {/* buy button */}
+                    
+                    <div>
+                    <div className=" py-1 ">
                     {result.accessibility ? (
                       <Button text="Get tickets!" />
                     ) : (
                       <Button text="get tickets!" />
                     )}
                   </div>
-
-                  {/* tickets */}
                   <div className="text-xs text-gray-400 md:text-sm ml ">
                     {result.accessibility ? (
                       <p>
@@ -97,25 +104,43 @@ const Carousel = ({error, eventData, currentEvents}) => {
                       <p>No tickets restrictions</p>
                     )}
                   </div>
+                    </div>
+                   
+                    
+                     {/* download and price range*/}
 
-                  {/* download and price range */}
-                  <div className="ml-44">
-                    <i className="absolute  bg-purple-200 p-2 rounded-full shadow-lg">
-                      <FaArrowRightToBracket className="text-2xl text-red-600 font-extrabold rotate-90 cursor-pointer " />
+                    <div className="mr-4 flex ">
+
+                    <div className=""> 
+                    <i className=" bg-red-100 w-6">
+                          <div className="bg-slate-200 shadow-lg p-3 rounded-full">
+                          <FaArrowRightToBracket className="text-2xl text-red-600 font-extrabold rotate-90 cursor-pointer ml-0.1  " />
+                      </div>
                     </i>
                     {result.priceRanges ? (
-                      <p className="absolute  mt-11 font-[500] text-slate-500">
+                      <p className=" font-[400] text-slate-500 mt-1">
                         {new Intl.NumberFormat("en-US", {
                           style: "currency",
                           currency: result.priceRanges[0].currency,
                         }).format(result.priceRanges[0].min)}
                       </p>
                     ) : (
-                      <p className="absolute   font-bold text-purple-300 capitalize">
+                      <p className="   font-bold text-purple-300 capitalize">
                         free
                       </p>
                     )}
+                  </div> 
+                    </div>
+
                   </div>
+
+                  
+                  
+                  {/* tickets */}
+                  
+
+                 
+                   
 
                   {/* share buttons */}
                   <div className="py-4">
