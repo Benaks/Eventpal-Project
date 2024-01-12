@@ -1,69 +1,16 @@
-import { useState, useEffect } from "react";
+/* eslint-disable react/prop-types */
+// import { useState, useEffect } from "react";
 import Button from "./Button";
-import CarouselHead from "./CarouselHead";
 import { FaArrowRightToBracket } from "react-icons/fa6";
 import { CiLocationArrow1 } from "react-icons/ci";
 import { BiLogoFacebook } from "react-icons/bi";
 import { RiTwitterXLine } from "react-icons/ri";
 import { FaInstagram } from "react-icons/fa";
 import { TiSocialGooglePlus } from "react-icons/ti";
+// import Pagination from "./Pagination";
 
-const Categories = () => {
-  const [eventData, setEventData] = useState(null);
-  const [error, setError] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1);
-  const eventsPerPage = 9;
-// fhh
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const apiKey = "AIVGQYcF0AuWAIlXChYiRGcEaFuEwR9l";
-        const response = await fetch(
-          `https://app.ticketmaster.com/discovery/v2/events.json?size=45&apikey=${apiKey}`
-        );
+const Carousel = ({error, eventData, currentEvents}) => {
 
-        if (!response.ok) {
-          throw new Error(`Failed to fetch data. Status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        console.log(data);
-        setEventData(data);
-      } catch (err) {
-        setError(err);
-        console.error("Error:", err);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  // pagination function
-
-  // Check if eventData is null before accessing its properties
-  const currentEvents =
-    // eslint-disable-next-line no-prototype-builtins
-    eventData?.hasOwnProperty("_embedded") && eventData._embedded.events
-      ? eventData._embedded.events.slice(
-          (currentPage - 1) * eventsPerPage,
-          currentPage * eventsPerPage
-        )
-      : [];
-
-  // const handlePrevPage = () => {
-  //   console.log("Previous page clicked");
-  //   setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
-  // };
-
-  const handleNextPage = () => {
-    console.log("Next page clicked");
-    setCurrentPage((prevPage) =>
-      Math.min(
-        prevPage + 1,
-        Math.ceil((eventData?._embedded?.events?.length || 0) / eventsPerPage)
-      )
-    );
-  };
 
   // options for date conversion
   const dateOptions = {
@@ -77,13 +24,8 @@ const Categories = () => {
   const timeOptions = { hour: "numeric", hour12: true };
 
   return (
-    <div className=" w-[80%] m-auto ">
-      <CarouselHead
-        head="categories"
-        subHead="Select an event to attend today"
-      />
+    <>
       {/* carousel ctn */}
-      <div className=" flex flex-col justify-around items-center lg:flex-row md:flex-wrap w-[100%]">
         {error ? (
           <p>Error: {error.message}</p>
         ) : eventData ? (
@@ -91,14 +33,14 @@ const Categories = () => {
             // carousel
             <div
               key={result.id}
-              className=" my-4 rounded-tl-2xl rounded-tr-2xl bg-purple-100 shadow-lg cursor-pointer w-80 hover:scale-105 duration-300 hover:bg-purple-200"
+              className="my-10 md:my-4 rounded-tl-2xl rounded-tr-2xl bg-purple-100 shadow-lg cursor-pointer w-[90%]  md:w-80 h-[40em] md:h-auto hover:scale-105 duration-300 hover:bg-purple-200"
             >
               {/* image */}
               <div className="w-full  h-[12em]">
                 <img
                   src={result.images[0].url}
                   alt={result.name}
-                  className="h-full w-full rounded-tl-2xl rounded-tr-2xl"
+                  className="h-[100%] w-full rounded-tl-2xl rounded-tr-2xl"
                 />
               </div>
 
@@ -194,28 +136,11 @@ const Categories = () => {
             Loading events for you...
           </p>
         )}
-      </div>
-
-      {/* pagination buttons */}
-      <div>
-        <button
-          onClick={handleNextPage}
-          disabled={
-            currentPage ===
-            Math.ceil(
-              (eventData?._embedded?.events?.length || 0) / eventsPerPage
-            )
-          }
-          className="cursor-pointer text-red-600 font-semibold"
-        >
-          See more
-        </button>
-      </div>
-    </div>
+    </>
   );
 };
 
-export default Categories;
+export default Carousel;
 
 /* name 
   venue
