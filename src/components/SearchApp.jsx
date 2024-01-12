@@ -72,6 +72,7 @@ const SearchApp = () => {
         eventData._embedded.events.map((result) => (
           <div key={result.id}>
             <h2>{result.name}</h2>
+            <h1>cool stuffs bro.......... just using this to test pull</h1>
             <img
               src={result.images[0].url}
               alt={result.name}
