@@ -15,7 +15,7 @@ const Navbar = () => {
   return (
     <div className='text-black justify-between flex items-center  px-5 py-4 h-36 max-w-[1240px] mx-auto bg-[#faf4fa]'>
      
-                <h1 className=' text-2xl font-bold cursor-pointer sh'><Link to='/'><span className='text-red-500' >E</span>ventpal</Link></h1>
+                <h1 className=' text-2xl font-bold cursor-pointer sh'><Link to='/'><span className='text-red-500' >E</span>ventpalE</Link></h1>
                 
                 <ul className=' text-gray-500 font-[600] flex hidden lg:flex'  >
                        <li className=' px-3 cursor-pointer'> <Link to ='/local'>Local events</Link></li>
