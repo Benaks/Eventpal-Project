@@ -56,7 +56,7 @@ function App() {
       <Hero />
       <MenuBar />
 
-      <div className="w-[80%] m-auto">
+      <div className="w-[95%] m-auto bg-purple-900">
         <CarouselHead
           head="categories"
           subHead="Select an event to attend today"
@@ -76,12 +76,12 @@ function App() {
         />
       </div>
 
-      <div className="w-[80%] m-auto">
+      <div className="w-[95%] m-auto">
         <CarouselHead
           head="popular"
           subHead="Most engaged events you migt be interested to attend"
         />
-        <div className="flex flex-col justify-around items-center lg:flex-row md:flex-wrap w-[100%]">
+        <div className="flex flex-col justify-around items-center lg:flex-row md:flex-wrap w-[100%] bg-green-600">
           <Popular
             error={error}
             eventData={eventData}

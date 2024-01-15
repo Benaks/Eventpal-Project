@@ -3,7 +3,6 @@ import SearchApp from "./SearchApp";
 import { Link } from "react-router-dom";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 
-
 const Navbar = () => {
   const [nav, setNav] = useState(true);
 
@@ -12,7 +11,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="text-black justify-between flex items-center  px-5 py-4 h-[20vh] max-w-[1240px] mx-auto bg-[#faf4fa] font-poppins">
+    <div className="text-black justify-between flex items-center px-5 py-4 h-[20vh] w-full mx-auto font-poppins bg-red-500">
       <h1 className=" text-2xl font-bold cursor-pointer sh">
         <Link to="/">
           <span className="text-secondary">E</span>ventpal
@@ -22,7 +21,7 @@ const Navbar = () => {
       <ul className=" text-gray-500 font-[600] flex hidden lg:flex font-thin">
         <li className=" px-3 cursor-pointer">
           {" "}
-          <Link to="/local">Local events</Link>
+          <Link to="/">Local events</Link>
         </li>
         <li className=" px-3 cursor-pointer">
           {" "}
@@ -35,13 +34,6 @@ const Navbar = () => {
           <Link to="/help">Help center</Link>
         </li>
       </ul>
-
-      <SearchApp />
-
-      <button className="p-2 text-secondary font-bold ">Login</button>
-      <button className="px-4 py-2 shadow-lg font-bold  bg-secondary text-[white] text-[1em] rounded-full text-bold">
-        sign in
-      </button>
 
       <SearchApp />
 
