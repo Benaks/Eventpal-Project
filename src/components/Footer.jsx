@@ -13,8 +13,8 @@ const contactUs = ['Facebook', 'Twitter','Instagram','Linkedin','Whatsapp','Cont
 
 function Footer() {
   return (
-    <div>
-        <div className=' grid grid-cols-4 bg-[#3e184b] p-4 text-slate-300 mt-4 mx-auto pl-10 '>
+    <div className="font-roboto2 mt-20">
+        <div className=' grid grid-cols-4 bg-primary p-4 text-slate-300 mt-4 mx-auto pl-10 '>
 
                     <div>
                             <ul className=' '>

@@ -5,21 +5,21 @@ import { AiOutlineDown } from "react-icons/ai";
 function Hero() {
   return (
     <div
-      className="h-[77vh] w-full  mx-30 px-2 md:px-10 lg:px-64 bg-cover bg-center"
+      className="h-[80vh] w-full  mx-30 px-2 md:px-10 lg:px-64 bg-cover bg-center"
       style={{ backgroundImage: `url(${Heroimg})` }}
     >
       <div className="flex flex-col w-full h-full justify-center items-center text-center  ">
-        <h1 className="text-5xl px-20 font-bold   text-[white] md:text-6xl ">
+        <h1 className="text-5xl px-20 font-bold   text-[white] md:text-6xl font-poppins leading-6">
           We have got your day lifely all in one place
         </h1>
-        <p className=" text-[1.2em] py-10 px-20 text-[white]">
+        <p className=" text-[1.2em] py-10 px-20 text-[white] font-poppins">
           Create, Book, Plan Attend and Manage events seamlessly
         </p>
 
         <div className=" flex justify-between px-100">
           <button className="shadow-lg text-[1em] bg-purple-100 px-4 py-2 w-32 h-12  rounded-md text-slate-800 flex justify-between items-center font-[600] ">
             {" "}
-            Location <AiOutlineDown className=" font-bold text-red-600" />{" "}
+            Location <AiOutlineDown className=" font-bold text-secondary" />{" "}
           </button>
 
           <form action="">
@@ -49,7 +49,7 @@ function Hero() {
             </div>
           </form>
 
-          <button className=" focus:outline-none px-4 py-2 bg-red-500 text-[white] text-[1em] rounded-lg font-[500]">
+          <button className=" focus:outline-none px-4 py-2 bg-secondary text-[white] text-[1em] rounded-lg font-[500]">
             search
           </button>
         </div>

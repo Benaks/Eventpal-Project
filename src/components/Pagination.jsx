@@ -17,7 +17,7 @@ const Pagination = ({eventData, eventsPerPage, setCurrentPage, currentPage}) => 
   };
 
   return (
-    <div className="bg-blue-900 absolute m-auto">
+    <div className=" absolute ml-24 font-roboto">
       {/* pagination buttons */}
       <div>
         <button

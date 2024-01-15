@@ -102,7 +102,7 @@ function App() {
           subHead="You may be interested to know what's up today"
         />
         <div className="w-[100%] overflow-x-auto">
-          <div className="flex justify-around items-center w-[300%] mb-10">
+          <div className="flex justify-around items-center w-[400%] my-10">
             <Today
               error={error}
               eventData={eventData}
@@ -113,12 +113,12 @@ function App() {
       </div>
 
       <div className="w-[80%] m-auto">
-        <CarouselHead
+        <CarouselHead 
           head="online events"
           subHead="You might also love to know what we have online today"
         />
         <div className=" w-[100%] overflow-x-auto">
-          <div className="flex justify-around items-center w-[300%] mb-10">
+          <div className="flex justify-around items-center w-[400%] mb-10">
             <Online
               error={error}
               eventData={eventData}
