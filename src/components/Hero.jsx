@@ -5,11 +5,11 @@ import { AiOutlineDown } from "react-icons/ai";
 function Hero() {
   return (
     <div
-      className="h-[80vh] w-full  mx-30 px-2 md:px-10 lg:px-64 bg-cover bg-center"
+      className="h-[50vh] w-full  mx-30 px-2 md:px-10 lg:px-64 bg-cover bg-center md:h-[80vh]"
       style={{ backgroundImage: `url(${Heroimg})` }}
     >
       <div className="flex flex-col w-full h-full justify-center items-center text-center  ">
-        <h1 className="text-5xl px-20 font-bold   text-[white] md:text-6xl font-poppins leading-6">
+        <h1 className="text-5xl px-20 font-bold   text-[white] md:text-6xl font-poppins leading-20">
           We have got your day lifely all in one place
         </h1>
         <p className=" text-[1.2em] py-10 px-20 text-[white] font-poppins">

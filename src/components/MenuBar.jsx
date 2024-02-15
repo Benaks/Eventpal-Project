@@ -1,9 +1,9 @@
 const list = [
   "Category",
-  "PorpularEvents",
-  "TodaysEvents",
-  "OnlineEvents",
-  "PersonaliseEvents",
+  "Porpular Events",
+  "Todays Events",
+  "Online Events",
+  "Personalise Events",
 ];
 
 function MenuBar() {

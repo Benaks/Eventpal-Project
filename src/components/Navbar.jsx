@@ -1,87 +1,89 @@
-
 import { useState } from "react";
 import SearchApp from "./SearchApp";
+import { Link } from "react-router-dom";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
-import {Link} from 'react-router-dom'
+
 
 const Navbar = () => {
-  const [nav, setNav] = useState(true);
-
-  const handleNav = () => {
-    setNav[!nav];
-  };
-
-return(
-
-    <div className='text-black justify-between flex items-center  px-5 py-4 h-[20vh] max-w-[1240px] mx-auto bg-[#faf4fa] font-poppins'>
-     
-                <h1 className=' text-2xl font-bold cursor-pointer sh'><Link to='/'><span className='text-secondary' >E</span>ventpal</Link></h1>
-                
-                <ul className=' text-gray-500 font-[600] flex hidden lg:flex font-thin'  >
-                       <li className=' px-3 cursor-pointer'> <Link to ='/local'>Local events</Link></li>
-                       <li className=' px-3 cursor-pointer'> <Link to='/create'>Create event</Link> </li>
-                       <li className=' px-3 cursor-pointer'><Link to='/blog'>Blog</Link></li>
-                       <li className=' px-3 cursor-pointer'><Link to='/help'>Help center</Link></li>
-               </ul>           
-
-               <SearchApp/>   
-          
-               
-                <button className='p-2 text-secondary font-bold '>Login</button> 
-                <button className='px-4 py-2 shadow-lg font-bold  bg-secondary text-[white] text-[1em] rounded-full text-bold'>sign in</button>
+  const [nav, setNav] = useState(false);
 
 
-      
-      
+  const menuItems = [
+    {
+      text: "Local Events",
+      link: "/",
+    },
+    {
+      text: "Create events",
+      link: "/create",
+    },
+    {
+      text: "Blog",
+      link: "/blog",
+    },
+    {
+      text: "Help center",
+      link: "/help",
+    },
+  ];
 
-   <div onClick={handleNav} className=' text-slate-500 cursor-pointer'> 
-      {!nav ? <AiOutlineClose onClick={handleNav} size={30}/> : <AiOutlineMenu size={30}/> }
-   </div>
+  return (
+    <div className="text-black justify-between flex items-center py-4 h-[10vh] md:h-[20vh] w-full mx-auto font-poppins px-10 md:px-40">
+      <h1 className=" text-2xl font-bold cursor-pointer sh">
+        <Link to="/">
+          <span className="text-secondary">e</span>ventrybe
+        </Link>
+      </h1>
 
-   <div className={!nav ? 'fixed left-0 top-0  w-[60%] h-full border-r-red-900 bg-black ease-in-out duration-500 ' : 'fixed left-[-100%]'}>
-       <h1 className='w-full pt-12 pl-4 text-3xl font-bold text-white'><span className='text-[#f36c6c]' >E</span>ventpal</h1>
-      <ul className='pt-12 text-white uppercase font-[300]'  >
-         <li className='p-4 border-b border-gray-500'>Local event</li>
-         <li className='p-4 border-b border-gray-600'>Create event</li>
-         <li className='p-4 border-b border-gray-600'>Blog</li>
-         <li className='p-4 border-b border-gray-600'>Help centre</li>
- main
+      {/* desktop menubar */}
+      <ul className="hidden md:flex text-gray-500  font-thin">
+        {menuItems.map((item) => (
+          <li key={item.link} className="px-3 cursor-pointer">
+            <Link to={item.link}>{item.text}</Link>
+          </li>
+        ))}
       </ul>
 
       <SearchApp />
 
-      <button className="p-2 text-red-500 font-bold ">Login</button>
-      <button className="px-4 py-2 shadow-lg font-bold  bg-red-500 text-[white] text-[1em] rounded-full text-bold">
-        sign in
-      </button>
+      <Link to= "/SignIn">
+        <button className="p-2 text-red-500 font-bold ">Login</button>
+      </Link>
 
-      <div onClick={handleNav} className=" text-slate-500 cursor-pointer">
-        {!nav ? (
-          <AiOutlineClose onClick={handleNav} size={30} />
-        ) : (
-          <AiOutlineMenu size={30} />
-        )}
-      </div>
+      <Link to="/SignUp">
+        <button className="px-4 py-2 shadow-lg font-bold bg-secondary text-[white] text-[1em] rounded-full text-bold">
+          sign up
+        </button>
+      </Link>
 
+      {/* mobile menu bar */}
       <div
-        className={
-          !nav
-            ? "fixed left-0 top-0  w-[60%] h-full border-r-red-900 bg-black ease-in-out duration-500 "
-            : "fixed left-[-100%]"
-        }
+        onClick={() => setNav(!nav)}
+        className=" text-slate-500 cursor-pointer block md:hidden ali"
       >
-        <h1 className="w-full pt-12 pl-4 text-3xl font-bold text-white">
-          <span className="text-[#f36c6c]">E</span>ventpal
-        </h1>
-        <ul className="pt-12 text-white uppercase font-[300]">
-          <li className="p-4 border-b border-gray-500">Local event</li>
-          <li className="p-4 border-b border-gray-600">Create event</li>
-          <li className="p-4 border-b border-gray-600">Blog</li>
-          <li className="p-4 border-b border-gray-600">Help centre</li>
+        {!nav ? (
+          <AiOutlineMenu size={30} />
+        ) : (
+          <AiOutlineClose onClick={() => setNav(!nav)} size={30} className="" />
+        )}
+        <ul
+          className={
+            !nav
+              ? "hidden"
+              : "  w-[100%] fixed h-[30vh] bg-slate-300  flex flex-col justify-around items-center my-10 -ml-[92%]"
+          }
+        >
+          {menuItems.map((item) => (
+            <li
+              key={item.link}
+              className="px-3 cursor-pointer bg-slate-100 p-4 h-[20%] flex border-2 w-full "
+            >
+              <Link to={item.link}>{item.text}</Link>
+            </li>
+          ))}
         </ul>
       </div>
-      </div>
-      </div>
+    </div>
   );
 };
 
