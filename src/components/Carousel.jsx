@@ -25,13 +25,13 @@ const Carousel = ({ error, eventData, currentEvents }) => {
     <>
       {/* carousel ctn */}
       {error ? (
-        <p>Error: {error.message}</p>
+        <small>no avialable events</small>
       ) : eventData ? (
         currentEvents.map((result) => (
           // carousel
           <div
             key={result.id}
-            className="my-10 md:my-10 font-roboto bg-purple-100 cursor-pointer rounded-3xl w-[90%] md:w-[30%] h-[45em] md:h-[35em] hover:scale-105 duration-300 hover:bg-purple-200 hover:shadow-lg flex flex-col justify-around items-start"
+            className="my-10 md:my-10 mx-5 font-roboto bg-purple-100 cursor-pointer rounded-3xl w-[90%] md:w-[25%] h-[45em] md:h-[35em] hover:scale-105 duration-300 hover:bg-purple-200 hover:shadow-lg flex flex-col justify-around items-start"
           >
             {/* image */}
             <div className="w-full h-1/2 overflow-y-hidden">
