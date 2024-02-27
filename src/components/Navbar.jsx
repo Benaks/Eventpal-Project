@@ -1,6 +1,7 @@
 import { useState } from "react";
 import SearchApp from "./SearchApp";
 import { Link } from "react-router-dom";
+import LoginButton from "./accounts/LoginButton";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 
 
@@ -49,6 +50,11 @@ const Navbar = () => {
       <Link to= "/SignIn">
         <button className="p-2 text-red-500 font-bold ">Login</button>
       </Link>
+      
+
+      {/* AUTH0 LOGIN BUTTON */ }
+      <LoginButton/>
+
 
       <Link to="/SignUp">
         <button className="px-4 py-2 shadow-lg font-bold bg-secondary text-[white] text-[1em] rounded-full text-bold">

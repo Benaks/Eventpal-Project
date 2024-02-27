@@ -17,24 +17,31 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const eventsPerPage = 6;
 
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const apiKey = "AIVGQYcF0AuWAIlXChYiRGcEaFuEwR9l";
         const response = await fetch(
-          `https://app.ticketmaster.com/discovery/v2/events.json?size=60&apikey=${apiKey}`
+         `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apiKey}`
         );
 
+
         if (!response.ok) {
-          throw new Error(`Failed to fetch data. Status: ${response.status}`);
+          throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
         const data = await response.json();
         console.log(data);
-        setEventData(data);
+        setEventData( data );
+        
+        console.log(response);
+
+
       } catch (err) {
         setError(err);
-        console.error("Error:", err);
+        console.error( "Error:", err );
+        
       }
     };
 

@@ -20,8 +20,8 @@ const SearchApp = () => {
       }
 
       const data = await response.json();
+       console.log(data);
       setEventData(data);
-      console.log(data);
     } catch (err) {
       setError(err);
       console.error("Error:", err);
@@ -38,7 +38,7 @@ const SearchApp = () => {
     if (searchTerm.trim() !== "") {
       fetchData();
     }
-  }, []);
+  }, [searchTerm]);
 
   return (
     <div>
@@ -75,7 +75,7 @@ const SearchApp = () => {
         </div>
       </div>
       {isLoading
-        ? (<p></p>)(<p>Error: {error.message}</p>)
+        ? (<p>i am loading events</p>)
         : eventData
         ? eventData._embedded.events.map((result) => (
             <div key={result.id}>
