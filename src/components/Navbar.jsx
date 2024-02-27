@@ -49,6 +49,10 @@ const Navbar = () => {
       <Link to= "/SignIn">
         <button className="p-2 text-red-500 font-bold ">Login</button>
       </Link>
+      
+
+     
+
 
       <Link to="/SignUp">
         <button className="px-4 py-2 shadow-lg font-bold bg-secondary text-[white] text-[1em] rounded-full text-bold">
