@@ -1,12 +1,9 @@
 import { useState } from "react";
-import SearchApp from "./SearchApp";
 import { Link } from "react-router-dom";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 
-
 const Navbar = () => {
   const [nav, setNav] = useState(false);
-
 
   const menuItems = [
     {
@@ -43,16 +40,15 @@ const Navbar = () => {
           </li>
         ))}
       </ul>
+      <Link to="/SearchApp">
+        <div className="bg-red-900">
+          <button className="bg-green-900 cursor-pointer">search events</button>
+        </div>
+      </Link>
 
-      <SearchApp />
-
-      <Link to= "/SignIn">
+      <Link to="/SignIn">
         <button className="p-2 text-red-500 font-bold ">Login</button>
       </Link>
-      
-
-     
-
 
       <Link to="/SignUp">
         <button className="px-4 py-2 shadow-lg font-bold bg-secondary text-[white] text-[1em] rounded-full text-bold">
