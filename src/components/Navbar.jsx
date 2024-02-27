@@ -1,7 +1,6 @@
 import { useState } from "react";
 import SearchApp from "./SearchApp";
 import { Link } from "react-router-dom";
-import LoginButton from "./accounts/LoginButton";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 
 
@@ -52,8 +51,7 @@ const Navbar = () => {
       </Link>
       
 
-      {/* AUTH0 LOGIN BUTTON */ }
-      <LoginButton/>
+     
 
 
       <Link to="/SignUp">

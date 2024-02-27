@@ -20,7 +20,7 @@ const SearchApp = () => {
       }
 
       const data = await response.json();
-       console.log(data);
+      console.log(data);
       setEventData(data);
     } catch (err) {
       setError(err);
@@ -46,7 +46,7 @@ const SearchApp = () => {
         <div>
           <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
             <svg
-              className="w-4 h-4 text-gray-500 dark:text-gray-400"
+              className="w-4 h-4 text-black"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -66,7 +66,7 @@ const SearchApp = () => {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder=" search events..."
-            className="shadow-lg focus:outline-none text-[1em] bg-slate-100 px-8 py-2 w-90 rounded-full placeholder:text-[0.7em] "
+            className=" border-[0.2em] border-gray-500 focus:outline-none text-[1em] px-8 py-2 md:w-[35em]  rounded-[1em] h-12 placeholder:text-[0.7em] "
           />
 
           <button onClick={handleSearch}>
@@ -74,20 +74,20 @@ const SearchApp = () => {
           </button>
         </div>
       </div>
-      {isLoading
-        ? (<p>i am loading events</p>)
-        : eventData
-        ? eventData._embedded.events.map((result) => (
-            <div key={result.id}>
-              <h2>{result.name}</h2>
-              <img
-                src={result.images[0].url}
-                alt={result.name}
-                className="h-20 w-40"
-              />
-            </div>
-          ))
-        : null}
+      {isLoading ? (
+        <p>i am loading events</p>
+      ) : eventData ? (
+        eventData._embedded.events.map((result) => (
+          <div key={result.id}>
+            <h2>{result.name}</h2>
+            <img
+              src={result.images[0].url}
+              alt={result.name}
+              className="h-20 w-40"
+            />
+          </div>
+        ))
+      ) : null}
     </div>
   );
 };
