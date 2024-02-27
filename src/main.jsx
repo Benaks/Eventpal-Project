@@ -9,6 +9,7 @@ import Create from "./Routes/CreateEventsPage.jsx";
 import Help from "./Routes/HelpCentrePage.jsx";
 import Local from "./Routes/LocalEventsPage.jsx";
 import Landing from "./Landing.jsx";
+import SearchApp from "./components/Search/SearchApp.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
@@ -21,6 +22,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Route path="/SignUp" element={<SignUp />} />
       <Route path="/SignIn" element={<SignIn />} />
       <Route path="/Landing" element={<Landing />} />
+      <Route path="/SearchApp" element={<SearchApp />} />
     </Routes>
   </BrowserRouter>
 );

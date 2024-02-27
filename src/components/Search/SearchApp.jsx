@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import { CiLocationArrow1 } from "react-icons/ci";
+import Footer from "../Footer";
+import Navbar from "../Navbar";
 
 const SearchApp = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [eventData, setEventData] = useState(null);
+  // eslint-disable-next-line no-unused-vars
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -38,13 +41,14 @@ const SearchApp = () => {
     if (searchTerm.trim() !== "") {
       fetchData();
     }
-  }, [searchTerm]);
+  }, []);
 
   return (
     <div>
+      <Navbar />
       <div className="relative">
         <div>
-          <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+          <div className="absolute inset-y-0 start-0 flex items-center ps-3">
             <svg
               className="w-4 h-4 text-black"
               aria-hidden="true"
@@ -74,20 +78,23 @@ const SearchApp = () => {
           </button>
         </div>
       </div>
-      {isLoading ? (
-        <p>i am loading events</p>
-      ) : eventData ? (
-        eventData._embedded.events.map((result) => (
-          <div key={result.id}>
-            <h2>{result.name}</h2>
-            <img
-              src={result.images[0].url}
-              alt={result.name}
-              className="h-20 w-40"
-            />
-          </div>
-        ))
-      ) : null}
+      <div>
+        {isLoading ? (
+          <p>i am loading events</p>
+        ) : eventData ? (
+          eventData._embedded.events.map((result) => (
+            <div key={result.id}>
+              <h2>{result.name}</h2>
+              <img
+                src={result.images[0].url}
+                alt={result.name}
+                className="h-20 w-40"
+              />
+            </div>
+          ))
+        ) : null}
+      </div>
+      <Footer />
     </div>
   );
 };
