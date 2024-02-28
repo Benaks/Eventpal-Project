@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
-import { CiLocationArrow1 } from "react-icons/ci";
 import Footer from "../Footer";
 import Navbar from "../Navbar";
+import Heroimg from "../../assets/concert.svg";
+import { MutatingDots } from 'react-loader-spinner';
+import { FaArrowRightLong } from "react-icons/fa6";
 
 const SearchApp = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -44,8 +46,9 @@ const SearchApp = () => {
   }, []);
 
   return (
-    <div>
+    <div className="font-poppins">
       <Navbar />
+      <div className="bg-purple-300 h-80 flex items-center justify-center" style={{ backgroundImage: `url(${Heroimg})` }}>
       <div className="relative">
         <div>
           <div className="absolute inset-y-0 start-0 flex items-center ps-3">
@@ -73,27 +76,49 @@ const SearchApp = () => {
             className=" border-[0.2em] border-gray-500 focus:outline-none text-[1em] px-8 py-2 md:w-[35em]  rounded-[1em] h-12 placeholder:text-[0.7em] "
           />
 
-          <button onClick={handleSearch}>
-            <CiLocationArrow1 className="absolute ml-[-30px] mt-[-14px] mx-1  text-gray-500 font-[900] text-xl" />
+            <button onClick={handleSearch}>
+            <FaArrowRightLong className="absolute ml-[-30px] mt-[-14px] mx-1 hover:text-red-600 animate-pulse text-purple-900 font-[900] text-xl" />
+            
           </button>
         </div>
       </div>
-      <div>
+      </div>
+
+      <div className=" grid lg:grid-cols-3 sm:grid-cols-2 p-6 md:p-20">
         {isLoading ? (
-          <p>i am loading events</p>
+          <div className="flex  justify-center ml-[45vw]">
+          
+          {/* loading animation */}
+          <MutatingDots
+             visible={true}
+             height="100"
+             width="100"
+             color="#702963"
+             secondaryColor="#e53935"
+             radius="12.5"
+             ariaLabel="mutating-dots-loading"
+             wrapperStyle={{}}
+             wrapperClass=""
+             />
+          
+          </div>
         ) : eventData ? (
           eventData._embedded.events.map((result) => (
-            <div key={result.id}>
-              <h2>{result.name}</h2>
+            <div key={result.id} className="bg-purple-200 cursor-pointer shadow-md p-4 rounded-md m-4 flex flex-col-reverse  hover:scale-105 duration-300 hover:bg-purple-200">
+              <h2
+              className="h-1/2 text-[1.2em] font-bold py-4"
+              >{result.name}</h2>
               <img
                 src={result.images[0].url}
                 alt={result.name}
-                className="h-20 w-40"
+                className="h-2/3 rounded-t-md"
               />
             </div>
           ))
         ) : null}
       </div>
+
+      {/* footer */}
       <Footer />
     </div>
   );
