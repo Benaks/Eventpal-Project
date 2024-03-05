@@ -1,14 +1,15 @@
 import Heroimg from "../assets/concert.svg";
+import { Link } from "react-router-dom";
 // import Location from "./Location";
 import { AiOutlineDown } from "react-icons/ai";
+import Button from "./Button";
 
 function Hero() {
   return (
     <div
-      className="h-[50vh] w-full  mx-30 px-2 md:px-10 lg:px-64 bg-cover bg-center md:h-[80vh]"
+      className="h-[50vh] w-full  mx-30 px-2 md:px-10 bg-cover bg-center md:h-[80vh]"
       style={{ backgroundImage: `url(${Heroimg})` }}
     >
-      
       <div className="flex flex-col w-full h-full justify-center items-center text-center  ">
         <h1 className="text-5xl px-20 font-bold   text-[white] md:text-6xl font-poppins leading-20">
           We have got your day lifely all in one place
@@ -23,36 +24,23 @@ function Hero() {
             Location <AiOutlineDown className=" font-bold text-secondary" />{" "}
           </button>
 
-          <form action="">
-            <div className="relative mx-4">
-              <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none ">
-                <svg
-                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                  />
-                </svg>
-              </div>
-              <input
-                type="text"
-                placeholder="search by artiste,date,time,city,town or event"
-                className="shadow-lg focus:outline-none text-[1em] bg-purple-100 px-9 py-3 w-90 rounded-md placeholder:text-[0.6em] "
-              />
-            </div>
-          </form>
+          <div className="relative mx-4">
+            <input
+              type="text"
+              placeholder="search by artiste,date,time,city,town or event"
+              className="shadow-lg focus:outline-none text-xl bg-purple-100 px-9 py-3 w-90 rounded-md placeholder:text-[0.6em] "
+            />
+          </div>
 
-          <button className=" focus:outline-none px-4 py-2 bg-secondary text-[white] text-[1em] rounded-lg font-[500]">
-            search
-          </button>
+          <Link to="SearchApp">
+            <Button
+              text="search"
+              bgColor="red"
+              textColor="white"
+              btnWidth="100px"
+              btnHeight="40px"
+            />
+          </Link>
         </div>
       </div>
     </div>

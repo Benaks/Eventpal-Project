@@ -17,17 +17,29 @@ const Location = () => {
       }
 
       const data = await res.json();
-      console.log( data );
-      
+      // console.log( data );
 
-      if (data._embedded && Array.isArray(data._embedded.events)) {
+      if (
+        data._embedded &&
+        data._embedded.events &&
+        Array.isArray(data._embedded.events)
+      ) {
         const eventsInCity = data._embedded.events.filter((event) => {
           return (
             event._embedded &&
             Array.isArray(event._embedded.venues) &&
-            event._embedded.venues.some(
-              (venue) => venue.city && venue.city.name === city
-            )
+            event._embedded.venues.some((venue) => {
+              console.log("Entered City:", city.toLowerCase());
+              console.log(
+                "Venue City:",
+                venue.city && venue.city.name.toLowerCase()
+              );
+              console.log("Venue Data:", venue);
+              return (
+                venue.city &&
+                venue.city.name.toLowerCase() === city.toLowerCase()
+              );
+            })
           );
         });
 
@@ -58,18 +70,24 @@ const Location = () => {
       <div>
         {error ? (
           <p>Error: {error.message}</p>
-        ) : locationData ? (
-          locationData._embedded.events.map((result) => (
-            <div key={result.id}>
-              <h2>{result.name}</h2>
-              <img
-                src={result.images[0].url}
-                alt={result.name}
-                className="h-20 w-40"
-              />
-            </div>
-          ))
-        ) : null}
+        ) : (
+          <div>
+            {locationData && locationData.length > 0 ? (
+              locationData.map((result) => (
+                <div key={result.id}>
+                  <h2>{result.name}</h2>
+                  <img
+                    src={result.images[0].url}
+                    alt={result.name}
+                    className="h-20 w-40"
+                  />
+                </div>
+              ))
+            ) : (
+              <p>No events found in the entered city.</p>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

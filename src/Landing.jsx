@@ -3,7 +3,7 @@ import "./App.css";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import MenuBar from "./components/MenuBar";
-import Footer from "./components/Footer";
+import Footer from "./components/footers/Footer";
 import Categories from "./components/Carousel";
 import Popular from "./components/Carousel";
 import Today from "./components/Carousel";
@@ -17,7 +17,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const eventsPerPage = 6;
 
-
+ // fetch event data
   useEffect(() => {
     const fetchData = async () => {
       try {

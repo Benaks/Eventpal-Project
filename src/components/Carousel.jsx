@@ -7,7 +7,7 @@ import { BiLogoFacebook } from "react-icons/bi";
 import { RiTwitterXLine } from "react-icons/ri";
 import { FaInstagram } from "react-icons/fa";
 import { TiSocialGooglePlus } from "react-icons/ti";
-import { MutatingDots } from 'react-loader-spinner';
+import { MutatingDots } from "react-loader-spinner";
 // import Pagination from "./Pagination";
 
 const Carousel = ({ error, eventData, currentEvents }) => {
@@ -144,31 +144,29 @@ const Carousel = ({ error, eventData, currentEvents }) => {
             </div>
           </div>
         ))
-        ) : (
-            
-            // loading animation
-            // <BallTriangle
-            // height={100}
-            // width={100}
-            // radius={5}
-            // color="#702963"
-            // ariaLabel="ball-triangle-loading"
-            // wrapperStyle={{}}
-            // wrapperClass=""
-            // visible={true}
-                       // />
-                       <MutatingDots
-             visible={true}
-             height="100"
-             width="100"
-             color="#702963"
-             secondaryColor="#e53935"
-             radius="12.5"
-             ariaLabel="mutating-dots-loading"
-             wrapperStyle={{}}
-             wrapperClass=""
-             />
-            
+      ) : (
+        // loading animation
+        // <BallTriangle
+        // height={100}
+        // width={100}
+        // radius={5}
+        // color="#702963"
+        // ariaLabel="ball-triangle-loading"
+        // wrapperStyle={{}}
+        // wrapperClass=""
+        // visible={true}
+        // />
+        <MutatingDots
+          visible={true}
+          height="100"
+          width="100"
+          color="#702963"
+          secondaryColor="#e53935"
+          radius="12.5"
+          ariaLabel="mutating-dots-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+        />
       )}
     </>
   );
