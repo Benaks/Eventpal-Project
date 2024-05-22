@@ -2,43 +2,7 @@ import { BiLogoFacebook } from "react-icons/bi";
 import { RiTwitterXLine } from "react-icons/ri";
 import { FaInstagram } from "react-icons/fa";
 import { TiSocialGooglePlus } from "react-icons/ti";
-
-const Eventrybe = [
-  "What is Eventrybe",
-  "What do we do",
-  "Why use Eventrybe",
-  "Eventrybe Pricing",
-  "Events we service",
-  "Faq",
-  "Eventrybe",
-  "Eventrybe",
-];
-const services = [
-  "Create events",
-  "Book events",
-  "Attend events",
-  "Eventrybe pricing",
-  "Our partners",
-  "Purchase ",
-  "Manage events",
-  "Find events",
-];
-const help = [
-  "Your account",
-  "Cant attend events",
-  "Cant get tickets",
-  "Cant buy tickets",
-  "Terms and condition",
-  "Privacy and Policy",
-];
-const contactUs = [
-  "Facebook",
-  "Twitter",
-  "Instagram",
-  "Linkedin",
-  "Whatsapp",
-  "Contact with us",
-];
+import footerData from "./data";
 
 function Footer() {
   return (
@@ -47,8 +11,8 @@ function Footer() {
         <div>
           <ul className=" ">
             <h6 className="font-[600] pb-2">Event Pal</h6>
-            {Eventrybe.map((Eventrybe) => (
-              <li className="text-[0.9em] " key={Eventrybe}>
+            {footerData.Eventrybe.map((Eventrybe) => (
+              <li className="text-[0.9em]" key={Eventrybe}>
                 {Eventrybe}
               </li>
             ))}
@@ -58,7 +22,7 @@ function Footer() {
           <ul className=" ">
             <h6 className="font-[600] pb-2">Services</h6>
 
-            {services.map((service) => (
+            {footerData.services.map((service) => (
               <li className="text-[0.9em]" key={service}>
                 {service}
               </li>
@@ -69,7 +33,7 @@ function Footer() {
           <ul className=" ">
             <h6 className="font-[600] pb-2">Help</h6>
 
-            {help.map((help) => (
+            {footerData.help.map((help) => (
               <li className="text-[0.9em]" key={help}>
                 {help}
               </li>
@@ -80,7 +44,7 @@ function Footer() {
           <ul className=" ">
             <h6 className="font-[600] pb-2">Contact Us</h6>
 
-            {contactUs.map((contactUs) => (
+            {footerData.contactUs.map((contactUs) => (
               <li className="text-[0.9em] " key={contactUs}>
                 {contactUs}
               </li>
