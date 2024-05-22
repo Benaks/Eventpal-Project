@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 // import { useState, useEffect } from "react";
-import Button from "./Button";
+import Button from "../Button";
 import { FaArrowRightToBracket } from "react-icons/fa6";
 import { CiLocationArrow1 } from "react-icons/ci";
 import { BiLogoFacebook } from "react-icons/bi";

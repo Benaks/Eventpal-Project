@@ -3,6 +3,8 @@ import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { IoImageOutline } from "react-icons/io5";
 
+// using drag and drop api
+
 const DragDrop = () => {
   const [files, setFiles] = useState([]);
   const onDrop = useCallback((acceptedFiles, rejectedFiles) => {

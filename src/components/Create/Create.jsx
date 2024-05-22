@@ -3,24 +3,19 @@ import Button from "./Button";
 import { useState } from "react";
 
 const Create = () => {
-  const [venue, setVenue] = useState(false);
-  const [online, setOnline] = useState(false);
-  const [announced, setAnnounced] = useState(false);
+  const [venue, setVenue] = useState('');
+  // const [online, setOnline] = useState(false);
+  // const [announced, setAnnounced] = useState(false);
 
-  const handleVenue = () => {
-    setVenue(!venue);
-    setOnline(false);
-    setAnnounced(false);
+  const handleOnSite = () => {
+    setVenue('onSite');
+   
   };
   const handleOnline = () => {
-    setOnline(!online);
-    setVenue(false);
-    setAnnounced(false);
+    setVenue('online');
   };
   const handleToBeAnnounced = () => {
-    setAnnounced(!announced);
-    setOnline(false);
-    setVenue(false);
+    setVenue('unAnnounced');
   };
 
   return (
@@ -120,7 +115,7 @@ const Create = () => {
           </div>
         </div>
 
-        {/* Dradg and drop */}
+        {/* Drag and drop */}
         <div className="my-10">
           <p className="text-[1.2em]  font-[600]">Upload photo</p>
           <DragDrop />
@@ -137,13 +132,13 @@ const Create = () => {
           </div>
           {/* buttons */}
           <div className="my-10">
-            <Button text="venue" onClick={handleVenue} />
+            <Button text="venue" onClick={handleOnSite} />
             <Button text="online" onClick={handleOnline} />
             <Button text="to be announced" onClick={handleToBeAnnounced} />
           </div>
 
           {/* Venue Address */}
-          {!venue ? null : (
+          {venue !== "onSite" ? null : (
             <div>
               <p className="font-[600] pb-1 text-[1.2em]">Venue Address</p>
               <div className="grid grid-cols-3 gap-6 mb-10">
@@ -190,9 +185,11 @@ const Create = () => {
             </div>
           )}
 
-          {!online ? null : <p>This is the section for online events</p>}
+          {venue !== "online" ? null : (
+            <p>This is the section for online events</p>
+          )}
 
-          {!announced ? null : (
+          {venue !== "unAnnounced" ? null : (
             <p>This is the section for unknown date events</p>
           )}
         </section>
