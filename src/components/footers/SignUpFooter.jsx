@@ -1,55 +1,21 @@
+// NOT IN USE
+
 import { BiLogoFacebook } from "react-icons/bi";
 import { RiTwitterXLine } from "react-icons/ri";
 import { FaInstagram } from "react-icons/fa";
 import { TiSocialGooglePlus } from "react-icons/ti";
+import footerData from "./data";
 
-const eventPal = [
-  "What is EventPal",
-  "What do we do",
-  "Why use EventPal",
-  "EventPal Pricing",
-  "Events we service",
-  "Faq",
-  "EventPal",
-  "EventPal",
-];
-const services = [
-  "Create events",
-  "Book events",
-  "Attend events",
-  "EventPal pricing",
-  "Our partners",
-  "Purchase ",
-  "Manage events",
-  "Find events",
-];
-const help = [
-  "Your account",
-  "Cant attend events",
-  "Cant get tickets",
-  "Cant buy tickets",
-  "Terms and condition",
-  "Privacy and Policy",
-];
-const contactUs = [
-  "Facebook",
-  "Twitter",
-  "Instagram",
-  "Linkedin",
-  "Whatsapp",
-  "Contact with us",
-];
-
-function SignUpFooter() {
+const SignUpFooter = () => {
   return (
     <div className="font-roboto2 mt-20">
       <div className="flex flex-col md:flex-row md:justify-center items-center justify-centertext-center align-center  bg-primary p-4 text-slate-300 mt-4 mx-auto ">
         <div>
           <ul className=" ">
             <h6 className="font-[600] pb-2">Event Pal</h6>
-            {eventPal.map((eventPal) => (
-              <li className="text-[0.7em] " key={eventPal}>
-                {eventPal}
+            {footerData.Eventrybe.map((Eventrybe) => (
+              <li className="text-[0.7em] " key={Eventrybe}>
+                {Eventrybe}
               </li>
             ))}
           </ul>
@@ -59,7 +25,7 @@ function SignUpFooter() {
           <ul className=" ">
             <h6 className="font-[600] pb-2">Services</h6>
 
-            {services.map((service) => (
+            {footerData.services.map((service) => (
               <li className="text-[0.7em]" key={service}>
                 {service}
               </li>
@@ -70,7 +36,7 @@ function SignUpFooter() {
           <ul className=" ">
             <h6 className="font-[600] pb-2">Help</h6>
 
-            {help.map((help) => (
+            {footerData.help.map((help) => (
               <li className="text-[0.7em]" key={help}>
                 {help}
               </li>
@@ -81,7 +47,7 @@ function SignUpFooter() {
           <ul className=" ">
             <h6 className="font-[600] pb-2">Contact Us</h6>
 
-            {contactUs.map((contactUs) => (
+            {footerData.contactUs.map((contactUs) => (
               <li className="text-[0.7em] " key={contactUs}>
                 {contactUs}
               </li>
@@ -92,7 +58,7 @@ function SignUpFooter() {
 
       <div className="bg-[#563c5c] flex flex-col-reverse justify-around p-2 items-center">
         <p className="text-[0.7em] text-slate-300">
-          2024. All Rights Reserved, EventPal Limited{" "}
+          2024. All Rights Reserved, Eventrybe Limited
         </p>
         <div className="flex gap-3 pb-4">
           <BiLogoFacebook className="bg-purple-300 py-1 rounded-full text-2xl cursor-pointer" />
@@ -106,3 +72,5 @@ function SignUpFooter() {
 }
 
 export default SignUpFooter;
+
+// NOT IN USE
