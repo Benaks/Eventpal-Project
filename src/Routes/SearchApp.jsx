@@ -1,49 +1,36 @@
 import { useState, useEffect } from "react";
-import Footer from "../components/Footer";
+import Footer from "../components/footers/Footer";
 import Navbar from "../components/Navbar";
 import Heroimg from "../assets/concert.svg";
 import { MutatingDots } from "react-loader-spinner";
 import { FaArrowRightLong } from "react-icons/fa6";
+import { fetchData } from "../components/api/data";
 
 const SearchApp = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [eventData, setEventData] = useState(null);
-  // eslint-disable-next-line no-unused-vars
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const fetchData = async () => {
+
+  const handleSearch = async () => {
     setIsLoading(true);
-    try {
-      const apiKey = "AIVGQYcF0AuWAIlXChYiRGcEaFuEwR9l";
-      const response = await fetch(
-        `https://app.ticketmaster.com/discovery/v2/events.json?keyword=${searchTerm}&apikey=${apiKey}`
-      );
-
-      if (!response.ok) {
-        throw new Error(`Failed to fetch data. Status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      console.log(data);
+    const { data, error } = await fetchData(searchTerm);
+    if (error) {
+      setError(error);
+      setEventData(null);
+    } else {
+      setError(null);
       setEventData(data);
-    } catch (err) {
-      setError(err);
-      console.error("Error:", err);
-    } finally {
-      setIsLoading(false);
     }
+    setIsLoading(false);
   };
 
-  const handleSearch = () => {
-    fetchData();
-  };
-
-  useEffect(() => {
-    if (searchTerm.trim() !== "") {
-      fetchData();
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      handleSearch();
     }
-  }, [searchTerm]);
+  };
 
   return (
     <div className="font-poppins">
@@ -75,6 +62,7 @@ const SearchApp = () => {
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
+              onKeyDown={handleKeyPress}
               placeholder=" search events..."
               className=" border-[0.2em] border-gray-500 focus:outline-none text-[1em] px-8 py-2 md:w-[35em]  rounded-[1em] h-12 placeholder:text-[0.7em] "
             />
@@ -102,7 +90,7 @@ const SearchApp = () => {
               wrapperClass=""
             />
           </div>
-        ) : eventData ? (
+        ) : eventData && eventData._embedded ? (
           eventData._embedded.events.map((result) => (
             <div
               key={result.id}
