@@ -1,17 +1,15 @@
+import Navbar from "../components/Navbar";
+import Footer from "../components/footers/Footer";
+import Create from "../components/Create/Create";
 
-import Navbar from '../components/Navbar'
-import Footer from '../components/Footer'
-import Create from '../components/Create'
-
-
-function CreateEventsPage()  {
+function CreateEventsPage() {
   return (
-      <>
-          <Navbar />
-          <Create/>
-          <Footer/>
-      </>
-  )
+    <div>
+      <Navbar />
+      <Create />
+      <Footer />
+    </div>
+  );
 }
 
-export default CreateEventsPage
+export default CreateEventsPage;

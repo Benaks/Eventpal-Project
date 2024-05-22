@@ -9,7 +9,8 @@ import Create from "./Routes/CreateEventsPage.jsx";
 import Help from "./Routes/HelpCentrePage.jsx";
 import Local from "./Routes/LocalEventsPage.jsx";
 import Landing from "./Landing.jsx";
-import SearchApp from "./components/Search/SearchApp.jsx";
+import SearchApp from "./Routes/SearchApp.jsx";
+import Location from './Routes/Location'
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
@@ -23,6 +24,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Route path="/SignIn" element={<SignIn />} />
       <Route path="/Landing" element={<Landing />} />
       <Route path="/SearchApp" element={<SearchApp />} />
+      <Route path="/location" element={<Location />} />
     </Routes>
   </BrowserRouter>
 );

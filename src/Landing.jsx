@@ -1,56 +1,44 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
+import Hero from "./components/HeroSection/Hero";
 import MenuBar from "./components/MenuBar";
-import Footer from "./components/Footer";
-import Categories from "./components/Carousel";
-import Popular from "./components/Carousel";
-import Today from "./components/Carousel";
-import Online from "./components/Carousel";
+import Footer from "./components/footers/Footer";
+import Categories from "./components/Carousel/Carousel";
+import Popular from "./components/Carousel/Carousel";
+import Today from "./components/Carousel/Carousel";
+import Online from "./components/Carousel/Carousel";
 import Pagination from "./components/Pagination";
-import CarouselHead from "./components/CarouselHead";
+import CarouselHead from "./components/Carousel/CarouselHead";
+import {fetchData}  from "./components/api/data";
+
 
 function App() {
   const [eventData, setEventData] = useState(null);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const eventsPerPage = 6;
+  const [inputLocation, setInputLocation] = useState('')
 
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const apiKey = "AIVGQYcF0AuWAIlXChYiRGcEaFuEwR9l";
-        const response = await fetch(
-         `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apiKey}`
-        );
-
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        console.log(data);
-        setEventData( data );
-        
-        console.log(response);
-
-
-      } catch (err) {
-        setError(err);
-        console.error( "Error:", err );
-        
+  // fetch event data [imported from api/data.js file]
+ 
+    const loadEventsData = async()=> {
+      const {data, error} = await fetchData();
+      console.log(inputLocation);
+      if(error){
+        setError(error)
+        setEventData(null)
+      }else{
+        setError(null);
+        setEventData(data);
       }
-    };
+    }
+    loadEventsData()
 
-    fetchData();
-  }, []);
 
-  // Check if eventData is null before accessing its properties
+  // Check if eventData is null before accessing its properties [for pagination]
   const currentEvents =
-    // eslint-disable-next-line no-prototype-builtins
     eventData?.hasOwnProperty("_embedded") && eventData._embedded.events
       ? eventData._embedded.events.slice(
           (currentPage - 1) * eventsPerPage,
@@ -60,7 +48,7 @@ function App() {
   return (
     <>
       <Navbar />
-      <Hero />
+      <Hero inputLocation={inputLocation} setInputLocation={setInputLocation} loadEventsData={loadEventsData} />
       <MenuBar />
       <div className="w-[95%] m-auto">
         <CarouselHead

@@ -1,6 +1,23 @@
 import DragDrop from "./DragDrop";
+import Button from "./Button";
+import { useState } from "react";
 
 const Create = () => {
+  const [venue, setVenue] = useState('');
+  // const [online, setOnline] = useState(false);
+  // const [announced, setAnnounced] = useState(false);
+
+  const handleOnSite = () => {
+    setVenue('onSite');
+   
+  };
+  const handleOnline = () => {
+    setVenue('online');
+  };
+  const handleToBeAnnounced = () => {
+    setVenue('unAnnounced');
+  };
+
   return (
     //   main ctn
     <div className=" my-20 flex justify-center font-poppins">
@@ -87,97 +104,99 @@ const Create = () => {
             </label>
             <div>
               <input
-                type="text"
+                type="number"
                 name=""
                 id=""
                 placeholder="Ticket price"
                 className="py-4 px-4 rounded-md border-black border-[0.2em] w-48"
               />
-              <button
-                name=""
-                id=""
-                className="bg-red-500 p-4 w-48 rounded-md text-white font-bold text-2xl ml-10 shadow-xl"
-              >
-                Free
-              </button>
+              <Button text="free" />
             </div>
           </div>
         </div>
 
-        {/* Dradg and drop */}
+        {/* Drag and drop */}
         <div className="my-10">
           <p className="text-[1.2em]  font-[600]">Upload photo</p>
           <DragDrop />
         </div>
-        {/* 
-        <div>
-          <label htmlFor="event">Name of Event</label>
-          <input type="text" placeholder="Event title" />
-        </div> */}
 
         {/* Location */}
-        <div className="py-8">
-          <div>
-            <h1 className="font-bold text-3xl py-2  ">Location</h1>
+        <section className=" flex flex-col justify-around">
+          <div className="">
+            <h1 className="font-bold text-3xl py-2">Location</h1>
             <p>
               Help people discover your event and let your atendees know where
               to show up
             </p>
           </div>
-          <div></div>
-        </div>
-
-        {/* Venue Address */}
-        <div>
-          <p className="font-[600] pb-1 text-[1.2em]">Venue Address</p>
-          <div className="grid grid-cols-3 gap-6 mb-10">
-            <div className="flex flex-col">
-              <input
-                type="text"
-                placeholder="State"
-                className="py-4 px-4 rounded-md border-black border-[0.2em]"
-              />
-            </div>
-
-            <div className="flex flex-col">
-              <input
-                type="text"
-                name=""
-                id=""
-                placeholder="Town/Area"
-                className="py-4 px-4 rounded-md border-black border-[0.2em]"
-              />
-            </div>
-
-            <div className="flex flex-col">
-              <input
-                type="text"
-                name=""
-                id=""
-                placeholder="Street"
-                className="py-4 px-4 rounded-md border-black border-[0.2em]"
-              />
-            </div>
+          {/* buttons */}
+          <div className="my-10">
+            <Button text="venue" onClick={handleOnSite} />
+            <Button text="online" onClick={handleOnline} />
+            <Button text="to be announced" onClick={handleToBeAnnounced} />
           </div>
-        </div>
 
-        {/* Upload photo of place */}
-        <div className="my-8">
-          <p className="font-[600] pb-1 text-[1.2em]">
-            Upload Photo of the Place
-          </p>
-          <div className="grid grid-cols-3 gap-2">
-            <DragDrop />
-            <DragDrop />
-            <DragDrop />
-          </div>
-        </div>
+          {/* Venue Address */}
+          {venue !== "onSite" ? null : (
+            <div>
+              <p className="font-[600] pb-1 text-[1.2em]">Venue Address</p>
+              <div className="grid grid-cols-3 gap-6 mb-10">
+                <div className="flex flex-col">
+                  <input
+                    type="text"
+                    placeholder="State"
+                    className="py-4 px-4 rounded-md border-black border-[0.2em]"
+                  />
+                </div>
+
+                <div className="flex flex-col">
+                  <input
+                    type="text"
+                    name=""
+                    id=""
+                    placeholder="Town/Area"
+                    className="py-4 px-4 rounded-md border-black border-[0.2em]"
+                  />
+                </div>
+
+                <div className="flex flex-col">
+                  <input
+                    type="text"
+                    name=""
+                    id=""
+                    placeholder="Street"
+                    className="py-4 px-4 rounded-md border-black border-[0.2em]"
+                  />
+                </div>
+              </div>
+
+              {/* Upload photo for venue */}
+              <div className="my-8">
+                <p className="font-[600] pb-1 text-[1.2em]">
+                  Upload Photo of the Place
+                </p>
+                <div className="grid grid-cols-3 gap-2">
+                  <DragDrop />
+                  <DragDrop />
+                  <DragDrop />
+                </div>
+              </div>
+            </div>
+          )}
+
+          {venue !== "online" ? null : (
+            <p>This is the section for online events</p>
+          )}
+
+          {venue !== "unAnnounced" ? null : (
+            <p>This is the section for unknown date events</p>
+          )}
+        </section>
 
         {/* Short Description */}
         <div>
-          <p className="font-[600] pb-1 text-[1.2em]">
-            Upload Photo of the Place
-          </p>
+          <p className="font-[600] pb-1 text-[1.2em]">Short description</p>
           <textarea
             name=""
             id=""
@@ -197,6 +216,7 @@ const Create = () => {
             <input
               type="text"
               placeholder="https://"
+              disabled
               className="w-1/4 py-4 px-4 rounded-md border-black border-[0.2em]"
             />
             <input

@@ -41,35 +41,26 @@ const Navbar = () => {
         ))}
       </ul>
 
-
-      
-    <Link to="/SearchApp">
-      <div className=" border-[0.2em] border-gray-500 focus:outline-none text-[1em] px-8 py-2 md:w-[25em]  rounded-[1em] h-12 placeholder:text-[0.7em]">
-    
-            <svg
-              className="w-4 h-4 text-black mt-2 "
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 20 20"
-            >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-              />
-            </svg>
-          
-          
-          <button className=" cursor-pointer">
-            
-        </button>
-      </div>
-    </Link>
-
-      
+      <Link to="/SearchApp">
+        <div className=" border-[0.2em] border-gray-500 focus:outline-none text-[1em] px-8 py-2 md:w-[25em]  rounded-[1em] h-12 placeholder:text-[0.7em]">
+          <svg
+            className="w-4 h-4 text-black mt-2 "
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 20 20"
+          >
+            <path
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+            />
+          </svg>
+          <p>Search events</p>
+        </div>
+      </Link>
 
       <Link to="/SignIn">
         <button className="p-2 text-red-500 font-bold ">Login</button>
