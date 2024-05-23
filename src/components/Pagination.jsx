@@ -1,6 +1,8 @@
-/* eslint-disable react/prop-types */
+import { useContext } from "react";
+import { AppContext } from "../Landing";
 
-const Pagination = ({eventData, eventsPerPage, setCurrentPage, currentPage}) => {
+const Pagination = () => {
+  const {eventData, eventsPerPage, setCurrentPage, currentPage} = useContext(AppContext)
   // pagination function
   // const handlePrevPage = () => {
   //   console.log("Previous page clicked");

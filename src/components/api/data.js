@@ -2,7 +2,8 @@ export const fetchData = async () => {
   try {
     const apiKey = "AIVGQYcF0AuWAIlXChYiRGcEaFuEwR9l";
     const response = await fetch(
-      `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apiKey}`
+      // `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apiKey}`
+      `/api/events.json?apikey=${apiKey}`
     );
 
     if (!response.ok) {

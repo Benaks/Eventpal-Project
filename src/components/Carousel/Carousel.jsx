@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
-// import { useState, useEffect } from "react";
+import { useContext } from "react";
+import { AppContext } from "../../Landing";
 import Button from "../Button";
 import { FaArrowRightToBracket } from "react-icons/fa6";
 import { CiLocationArrow1 } from "react-icons/ci";
@@ -10,7 +11,9 @@ import { TiSocialGooglePlus } from "react-icons/ti";
 import { MutatingDots } from "react-loader-spinner";
 // import Pagination from "./Pagination";
 
-const Carousel = ({ error, eventData, currentEvents }) => {
+const Carousel = () => {
+  const { error, eventData, currentEvents } = useContext(AppContext);
+
   // options for date conversion
   const dateOptions = {
     weekday: "long",
@@ -145,17 +148,6 @@ const Carousel = ({ error, eventData, currentEvents }) => {
           </div>
         ))
       ) : (
-        // loading animation
-        // <BallTriangle
-        // height={100}
-        // width={100}
-        // radius={5}
-        // color="#702963"
-        // ariaLabel="ball-triangle-loading"
-        // wrapperStyle={{}}
-        // wrapperClass=""
-        // visible={true}
-        // />
         <MutatingDots
           visible={true}
           height="100"

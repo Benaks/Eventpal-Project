@@ -1,11 +1,15 @@
 import Heroimg from "../../assets/concert.svg";
 import { Link } from "react-router-dom";
 // import Location from "./Location";
+import { useContext } from "react";
+import { AppContext } from "../../Landing";
 import { AiOutlineDown } from "react-icons/ai";
 import Button from "../Button";
 import heroData from "./data";
 
-function Hero({inputLocation, setInputLocation, loadEventsData}) {
+function Hero() {
+  const { inputLocation, setInputLocation, loadEventsData } =
+    useContext(AppContext);
   return (
     <div
       className="h-[50vh] w-full  mx-30 px-2 md:px-10 bg-cover bg-center md:h-[80vh]"
@@ -20,16 +24,18 @@ function Hero({inputLocation, setInputLocation, loadEventsData}) {
         </p>
 
         <div className=" flex justify-between px-100">
-         
-            <input className="shadow-lg text-[1em] bg-purple-100 px-4 py-2 w-32 h-12  rounded-md text-slate-800 flex justify-between items-center font-[600]"
+          <input
+            className="shadow-lg text-[1em] bg-purple-100 px-4 py-2 w-32 h-12  rounded-md text-slate-800 flex justify-between items-center font-[600]"
             placeholder="location"
-            type='text'
+            type="text"
             value={inputLocation}
-            onChange={(e)=> setInputLocation(e.target.value)} />
-              <AiOutlineDown className=" font-bold text-secondary text-4xl cursor-pointer"
-              onClick={loadEventsData} />
-         
-          
+            onChange={(e) => setInputLocation(e.target.value)}
+          />
+          <AiOutlineDown
+            className=" font-bold text-secondary text-4xl cursor-pointer"
+            onClick={loadEventsData}
+          />
+
           <div className="relative mx-4">
             <input
               type="text"
