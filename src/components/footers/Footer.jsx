@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom'
 import { BiLogoFacebook } from "react-icons/bi";
 import { RiTwitterXLine } from "react-icons/ri";
 import { FaInstagram } from "react-icons/fa";
@@ -11,10 +12,12 @@ function Footer() {
         <div>
           <ul className=" ">
             <h6 className="font-[600] pb-2">Event Pal</h6>
-            {footerData.Eventrybe.map((Eventrybe) => (
-              <li className="text-[0.9em]" key={Eventrybe}>
-                {Eventrybe}
-              </li>
+            {footerData.eventrybe.map((item) => (
+              <Link to={item.link}>
+                <li className="text-[0.9em]" key={item.text}>
+                  {item.text}
+                </li>
+              </Link>
             ))}
           </ul>
         </div>
@@ -22,10 +25,12 @@ function Footer() {
           <ul className=" ">
             <h6 className="font-[600] pb-2">Services</h6>
 
-            {footerData.services.map((service) => (
-              <li className="text-[0.9em]" key={service}>
-                {service}
+            {footerData.services.map((item) => (
+              <a href='https://facebook.com'>
+                <li className="text-[0.9em]" key={item.text}>
+                {item.text}
               </li>
+              </a>
             ))}
           </ul>
         </div>
@@ -33,10 +38,12 @@ function Footer() {
           <ul className=" ">
             <h6 className="font-[600] pb-2">Help</h6>
 
-            {footerData.help.map((help) => (
-              <li className="text-[0.9em]" key={help}>
-                {help}
+            {footerData.help.map((item) => (
+            <Link to={item.link}>
+                <li className="text-[0.9em]" key={item.text}>
+                {item.text}
               </li>
+            </Link>
             ))}
           </ul>
         </div>
@@ -44,10 +51,12 @@ function Footer() {
           <ul className=" ">
             <h6 className="font-[600] pb-2">Contact Us</h6>
 
-            {footerData.contactUs.map((contactUs) => (
-              <li className="text-[0.9em] " key={contactUs}>
-                {contactUs}
+            {footerData.contactUs.map((item) => (
+             <Link to={item.link}>
+               <li className="text-[0.9em] " key={item.text}>
+                {item.text}
               </li>
+             </Link>
             ))}
           </ul>
         </div>

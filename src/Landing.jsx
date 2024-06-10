@@ -35,7 +35,10 @@ function App() {
       setEventData(data);
     }
   };
-  loadEventsData();
+
+  useEffect(() => {
+    loadEventsData();
+  }, []);
 
   // Check if eventData is null before accessing its properties [for pagination]
   const currentEvents =
@@ -58,7 +61,7 @@ function App() {
         inputLocation,
         setInputLocation,
         currentEvents,
-        loadEventsData
+        loadEventsData,
       }}
     >
       <Navbar />

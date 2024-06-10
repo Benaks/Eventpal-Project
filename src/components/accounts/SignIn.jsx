@@ -26,7 +26,11 @@ function Signin() {
 
             <div className="hidden md:w-[60%] md:flex justify-center items-center p-4 ">
               {/* Sign up image */}
-              <img src={SignInImg} alt="Sign-in-hero-image" className="pl-14 w-[35em]" />
+              <img
+                src={SignInImg}
+                alt="Sign-in-hero-image"
+                className="pl-14 w-[35em]"
+              />
             </div>
 
             {/* Sign up info div */}
@@ -68,10 +72,8 @@ function Signin() {
                   btnHeight={60}
                 />
               </div>
-              
-              
+
               <p className="my-8 text-slate-400 ">or with</p>
-              
 
               {/* Social media icons */}
               <div className=" flex justify-between">
@@ -94,7 +96,6 @@ function Signin() {
               </div>
 
               <p className="mt-8 text-slate-400">
-               
                 <Link to="/SignUp">
                   <span className="text-secondary font-bold">Sign Up</span>
                 </Link>

@@ -1,4 +1,11 @@
 // NOT IN USE
+// NOT IN USE
+// NOT IN USE
+// NOT IN USE
+// NOT IN USE
+// NOT IN USE
+// NOT IN USE
+// NOT IN USE
 
 import { BiLogoFacebook } from "react-icons/bi";
 import { RiTwitterXLine } from "react-icons/ri";
@@ -73,4 +80,10 @@ const SignUpFooter = () => {
 
 export default SignUpFooter;
 
+// NOT IN USE
+// NOT IN USE
+// NOT IN USE
+// NOT IN USE
+// NOT IN USE
+// NOT IN USE
 // NOT IN USE
