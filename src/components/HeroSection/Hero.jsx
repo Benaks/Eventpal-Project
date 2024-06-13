@@ -1,46 +1,75 @@
+import { useState } from "react";
 import Heroimg from "../../assets/concert.svg";
 import { Link } from "react-router-dom";
 // import Location from "./Location";
-import { useContext } from "react";
-import { AppContext } from "../../Landing";
+// import { useContext } from "react";
+// import { AppContext } from "../../Landing";
 import { AiOutlineDown } from "react-icons/ai";
+import { AiOutlineArrowRight } from "react-icons/ai";
+import { FiSearch } from "react-icons/fi";
 import Button from "../Button";
 import heroData from "./data";
 
-function Hero() {
-  const { inputLocation, setInputLocation, loadEventsData } =
-    useContext(AppContext);
+function Hero({ inputLocation, setInputLocation, loadEventsData }) {
+  const [showLocationBox, setShowLocationBox] = useState(false);
+  // const {inputLocation, setInputLocation, loadEventsData} = useContext(AppContext);
   return (
     <div
-      className="h-[50vh] w-full  mx-30 px-2 md:px-10 bg-cover bg-center md:h-[80vh]"
+      className="bg-cover bg-center flex justify-center items-center w-full"
       style={{ backgroundImage: `url(${Heroimg})` }}
     >
-      <div className="flex flex-col w-full h-full justify-center items-center text-center  ">
-        <h1 className="text-5xl px-20 font-bold   text-[white] md:text-6xl font-poppins leading-20">
+      {/* hero items */}
+      <div className="flex flex-col justify-center items-center text-center p-24 md:p-32 lg:p-40 w-[100%]">
+        <h1 className="font-bold text-white font-poppins leading-relaxed word-widest text-3xl md:text-5xl lg:text-6xl my-5 w-80 md:w-[80%] lg:w-[60%]">
           {heroData.Head}
         </h1>
-        <p className=" text-[1.2em] py-10 px-20 text-[white] font-poppins">
+        <p className="text-xs md:text-lg lg:text-xl text-white font-poppins w-80 md:w-[70%] lg:w-[45%]">
           {heroData.Text}
         </p>
 
-        <div className=" flex justify-between px-100">
-          <input
-            className="shadow-lg text-[1em] bg-purple-100 px-4 py-2 w-32 h-12  rounded-md text-slate-800 flex justify-between items-center font-[600]"
-            placeholder="location"
-            type="text"
-            value={inputLocation}
-            onChange={(e) => setInputLocation(e.target.value)}
-          />
-          <AiOutlineDown
-            className=" font-bold text-secondary text-4xl cursor-pointer"
-            onClick={loadEventsData}
-          />
+        {/* location & search ctn */}
+        <div className="flex flex-col md:flex-row justify-between items-center md:items-start mt-20 w-80 md:w-[90%] lg:w-[56%]">
+          {/* location ctn */}
+          <div className="flex flex-col justify-between items-start w-3/4 md:w-[25%]">
+            <div className="bg-gray-200 p-1 w-full flex justify-between items-center shadow-2xl rounded-md cursor-pointer">
+              <p className="ml-2 md:text-md lg:text-lg text-gray-700 font-[600]">
+                Location
+              </p>
+              <i
+                className="my-3 mx-3"
+                onClick={() => setShowLocationBox(!showLocationBox)}
+              >
+                <AiOutlineDown className="text-secondary md:text-sm lg:text-xl cursor-pointer font-[600]" />
+              </i>
+            </div>
+            {showLocationBox ? (
+              <div className="flex justify-around items-center bg-gray-200 p-1 my-3 w-full">
+                <input
+                  className="text-[1em] bg-gray-200 text-slate-800 justify-between h-10 outline-none mx-3 w-full"
+                  placeholder="location"
+                  type="text"
+                  value={inputLocation}
+                  onChange={(e) => setInputLocation(e.target.value)}
+                />
+                <i
+                  onClick={loadEventsData}
+                  className="text-lg text-gray-700 cursor-pointer mx-2"
+                >
+                  <AiOutlineArrowRight />
+                </i>
+              </div>
+            ) : null}
+          </div>
 
-          <div className="relative mx-4">
+          {/* search ctn */}
+          <div className="bg-gray-200 w-full md:w-1/2 shadow-custom rounded-lg p-1 h-auto my-4 md:my-0">
+            <i className="text-gray-700 font-bold text-nd absolute m-3">
+              <FiSearch />
+            </i>
             <input
               type="text"
-              placeholder="search by artiste,date,time,city,town or event"
-              className="shadow-lg focus:outline-none text-xl bg-purple-100 px-9 py-3 w-90 rounded-md placeholder:text-[0.6em] "
+              placeholder="Search by artist, date, time, city or events"
+              className="bg-gray-200 border-none outline-none mx-10 placeholder:text-gray-600 placeholder:text-xs w-[80%] lg:w-[85%] h-10"
             />
           </div>
 
@@ -49,8 +78,8 @@ function Hero() {
               text="search"
               bgColor="red"
               textColor="white"
-              btnWidth="100px"
-              btnHeight="40px"
+              btnWidth={110}
+              btnHeight={50}
             />
           </Link>
         </div>

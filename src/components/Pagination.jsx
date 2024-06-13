@@ -1,21 +1,23 @@
-import { useContext } from "react";
-import { AppContext } from "../Landing";
+// import { useContext } from "react";
+// import { AppContext } from "../Landing";
 
-const Pagination = () => {
-  const {eventData, eventsPerPage, setCurrentPage, currentPage} = useContext(AppContext)
-  // pagination function
-  // const handlePrevPage = () => {
-  //   console.log("Previous page clicked");
-  //   setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
-  // };
+const Pagination = ({
+  eventData,
+  eventsPerPage,
+  setCurrentPage,
+  currentPage,
+}) => {
+  // const { eventData, eventsPerPage, setCurrentPage, currentPage } =
+  //   useContext(AppContext);
+
+  // hanlde page changing
+  const totalEvents = eventData?._embedded?.events?.length || 0;
+  const totalPages = Math.ceil(totalEvents / eventsPerPage);
+
   const handleNextPage = () => {
-    console.log("Next page clicked");
-    setCurrentPage((prevPage) =>
-      Math.min(
-        prevPage + 1,
-        Math.ceil((eventData?._embedded?.events?.length || 0) / eventsPerPage)
-      )
-    );
+    console.log("Next page requested");
+    setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
+    console.log("Next page displayed");
   };
 
   return (
@@ -24,13 +26,8 @@ const Pagination = () => {
       <div>
         <button
           onClick={handleNextPage}
-          disabled={
-            currentPage ===
-            Math.ceil(
-              (eventData?._embedded?.events?.length || 0) / eventsPerPage
-            )
-          }
-          className="cursor-pointer text-red-600 font-semibold"
+          disabled={currentPage === totalPages}
+          className="cursor-pointer text-xs md:text-md text-red-600 font-semibold"
         >
           See more
         </button>

@@ -5,7 +5,7 @@ import Button from "../Button";
 import AppleLogo from "../../assets/icons8-apple-logo.svg";
 import FacebookLogo from "../../assets/icons8-facebook.svg";
 import GoogleLogo from "../../assets/icons8-google.svg";
-import SignUpFooter from "../footers/SignUpFooter";
+import Footer from '../footers/Footer'
 import { AiOutlineArrowLeft } from "react-icons/ai";
 
 function Signin() {
@@ -103,7 +103,7 @@ function Signin() {
             </div>
           </div>
         </div>
-        <SignUpFooter />
+        <Footer />
       </div>
     </div>
   );

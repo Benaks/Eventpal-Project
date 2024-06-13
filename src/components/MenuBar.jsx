@@ -1,20 +1,21 @@
 const list = [
   "Category",
-  "Porpular Events",
+  "Popular Events",
   "Todays Events",
   "Online Events",
   "Personalise Events",
 ];
 
-function MenuBar() {
+const MenuBar = () => {
   return (
-    <div className="flex flex-col justify-center ml-auto font-roboto mr-auto  mb-8  md:w-[80%] px-8">
-      <div className="flex justify-center">
-        <ul className="flex justify-around overflow-y-auto py-8 w-[100%]">
+    <div className="flex flex-col justify-center items-center w-full overflow-auto ">
+      <div className="flex justify-center items-center w-[140%] md:w-[80%]">
+        <ul className="flex justify-around items-center w-full">
           {list.map((item) => (
             <li
               key={item}
-              className="px-2 py-1 font-[500] text-[1.1em] text-slate-600 mx-6 cursor-pointer after:bg-red-700 after:w-0 after:h-[3px] after:m-auto after:content-[''] after:block after:rounded-md after:transition-transform after:duration-1000 hover:after:w-1/2"
+              tabIndex="0"
+              className="my-6 font-[500] text-sm md:text-md lg:text-lg text-slate-600 cursor-pointer after:bg-secondary after:w-0 after:h-[2px] after:m-auto after:content-[''] after:block after:rounded-md after:transition-transform after:duration-1000 hover:after:w-1/2 focus:outline-none focus:text-secondary focus:font-[600]"
             >
               {item}
             </li>
@@ -23,6 +24,6 @@ function MenuBar() {
       </div>
     </div>
   );
-}
+};
 
 export default MenuBar;

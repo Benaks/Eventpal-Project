@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
-import { useContext } from "react";
-import { AppContext } from "../../Landing";
+// import { useContext } from "react";
+// import { AppContext } from "../../Landing";
 import Button from "../Button";
 import { FaArrowRightToBracket } from "react-icons/fa6";
 import { CiLocationArrow1 } from "react-icons/ci";
@@ -9,10 +9,9 @@ import { RiTwitterXLine } from "react-icons/ri";
 import { FaInstagram } from "react-icons/fa";
 import { TiSocialGooglePlus } from "react-icons/ti";
 import { MutatingDots } from "react-loader-spinner";
-// import Pagination from "./Pagination";
 
-const Carousel = () => {
-  const { error, eventData, currentEvents } = useContext(AppContext);
+const Carousel = ({ error, eventData, currentEvents }) => {
+  // const { error, eventData, currentEvents } = useContext(AppContext);
 
   // options for date conversion
   const dateOptions = {
