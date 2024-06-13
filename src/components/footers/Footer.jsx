@@ -1,20 +1,23 @@
+import { Link } from "react-router-dom";
 import { BiLogoFacebook } from "react-icons/bi";
 import { RiTwitterXLine } from "react-icons/ri";
 import { FaInstagram } from "react-icons/fa";
 import { TiSocialGooglePlus } from "react-icons/ti";
 import footerData from "./data";
 
-function Footer() {
+const Footer = () => {
   return (
     <div className="font-roboto2 mt-20">
       <div className=" grid grid-cols-4 bg-primary p-4 text-slate-300 mt-4 mx-auto pl-10 font-poppins ">
         <div>
           <ul className=" ">
             <h6 className="font-[600] pb-2">Event Pal</h6>
-            {footerData.Eventrybe.map((Eventrybe) => (
-              <li className="text-[0.9em]" key={Eventrybe}>
-                {Eventrybe}
-              </li>
+            {footerData.eventrybe.map((item) => (
+              <Link to={item.link}>
+                <li className="text-[0.9em]" key={item.text}>
+                  {item.text}
+                </li>
+              </Link>
             ))}
           </ul>
         </div>
@@ -22,10 +25,12 @@ function Footer() {
           <ul className=" ">
             <h6 className="font-[600] pb-2">Services</h6>
 
-            {footerData.services.map((service) => (
-              <li className="text-[0.9em]" key={service}>
-                {service}
-              </li>
+            {footerData.services.map((item) => (
+              <a href="https://facebook.com">
+                <li className="text-[0.9em]" key={item.text}>
+                  {item.text}
+                </li>
+              </a>
             ))}
           </ul>
         </div>
@@ -33,10 +38,12 @@ function Footer() {
           <ul className=" ">
             <h6 className="font-[600] pb-2">Help</h6>
 
-            {footerData.help.map((help) => (
-              <li className="text-[0.9em]" key={help}>
-                {help}
-              </li>
+            {footerData.help.map((item) => (
+              <Link to={item.link}>
+                <li className="text-[0.9em]" key={item.text}>
+                  {item.text}
+                </li>
+              </Link>
             ))}
           </ul>
         </div>
@@ -44,10 +51,12 @@ function Footer() {
           <ul className=" ">
             <h6 className="font-[600] pb-2">Contact Us</h6>
 
-            {footerData.contactUs.map((contactUs) => (
-              <li className="text-[0.9em] " key={contactUs}>
-                {contactUs}
-              </li>
+            {footerData.contactUs.map((item) => (
+              <Link to={item.link}>
+                <li className="text-[0.9em] " key={item.text}>
+                  {item.text}
+                </li>
+              </Link>
             ))}
           </ul>
         </div>
@@ -66,6 +75,6 @@ function Footer() {
       </div>
     </div>
   );
-}
+};
 
 export default Footer;

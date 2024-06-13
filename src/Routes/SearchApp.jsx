@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect} from "react";
 import Footer from "../components/footers/Footer";
 import Navbar from "../components/Navbar";
 import Heroimg from "../assets/concert.svg";
@@ -12,8 +12,7 @@ const SearchApp = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-
-  const handleSearch = async () => {
+ const handleSearch = async () => {
     setIsLoading(true);
     const { data, error } = await fetchData(searchTerm);
     if (error) {
@@ -26,14 +25,14 @@ const SearchApp = () => {
     setIsLoading(false);
   };
 
-  const handleKeyPress = (event) => {
+   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
       handleSearch();
     }
   };
 
   return (
-    <div className="font-poppins">
+    <div className="">
       <Navbar />
       <div
         className="bg-purple-300 h-80 flex items-center justify-center"

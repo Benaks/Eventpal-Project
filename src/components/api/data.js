@@ -1,9 +1,7 @@
 export const fetchData = async () => {
   try {
-    const apiKey = "AIVGQYcF0AuWAIlXChYiRGcEaFuEwR9l";
-    const response = await fetch(
-      `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apiKey}`
-    );
+    const API_URL = `${import.meta.env.VITE_APP_EVENTRYBE_API_URL}/events`;
+    const response = await fetch(API_URL);
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -11,11 +9,9 @@ export const fetchData = async () => {
 
     const data = await response.json();
     console.log(data);
-    return {data, error: null}
-
+    return { data, error: null };
   } catch (err) {
-    // console.error("Error:", err);
-    return {data: null, error:err}
-
+    console.log(err);
+    return { data: null, error: err };
   }
 };

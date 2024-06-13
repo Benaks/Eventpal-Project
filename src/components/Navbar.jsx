@@ -1,6 +1,9 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { AppContext } from "../Landing";
 import { Link } from "react-router-dom";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
+import { FiSearch } from "react-icons/fi";
+import Button from "./Button";
 
 const Navbar = () => {
   const [nav, setNav] = useState(false);
@@ -25,81 +28,109 @@ const Navbar = () => {
   ];
 
   return (
-    <div className="text-black justify-between flex items-center py-4 h-[10vh] md:h-[20vh] w-full mx-auto font-poppins px-10 md:px-40">
-      <h1 className=" text-2xl font-bold cursor-pointer sh">
-        <Link to="/">
-          <span className="text-secondary">e</span>ventrybe
-        </Link>
-      </h1>
-
-      {/* desktop menubar */}
-      <ul className="hidden md:flex text-gray-500  font-thin">
-        {menuItems.map((item) => (
-          <li key={item.link} className="px-3 cursor-pointer">
-            <Link to={item.link}>{item.text}</Link>
-          </li>
-        ))}
-      </ul>
-
-      <Link to="/SearchApp">
-        <div className=" border-[0.2em] border-gray-500 focus:outline-none text-[1em] px-8 py-2 md:w-[25em]  rounded-[1em] h-12 placeholder:text-[0.7em]">
-          <svg
-            className="w-4 h-4 text-black mt-2 "
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 20 20"
-          >
-            <path
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-            />
-          </svg>
-          <p>Search events</p>
+    <header className="w-full h-auto flex flex-col justify-center items-center">
+      <nav className="flex justify-between items-center w-full h-auto">
+        {/* logo */}
+        <div className="mx-3">
+          <h1 className=" md:text-xl lg:text-2xl font-bold cursor-pointer">
+            <Link to="/">
+              <span className="text-secondary">e</span>ventrybe
+            </Link>
+          </h1>
         </div>
-      </Link>
 
-      <Link to="/SignIn">
-        <button className="p-2 text-red-500 font-bold ">Login</button>
-      </Link>
-
-      <Link to="/SignUp">
-        <button className="px-4 py-2 shadow-lg font-bold bg-secondary text-[white] text-[1em] rounded-full text-bold">
-          sign up
-        </button>
-      </Link>
-
-      {/* mobile menu bar */}
-      <div
-        onClick={() => setNav(!nav)}
-        className=" text-slate-500 cursor-pointer block hidden"
-      >
-        {!nav ? (
-          <AiOutlineMenu size={30} />
-        ) : (
-          <AiOutlineClose onClick={() => setNav(!nav)} size={30} className="" />
-        )}
-        <ul
-          className={
-            !nav
-              ? "hidden"
-              : "  w-[100%] fixed h-[30vh] bg-slate-300  flex flex-col justify-around items-center my-10 -ml-[92%]"
-          }
-        >
+        {/* desktop navbar */}
+        <div className="hidden lg:flex text-gray-600 font-thin">
           {menuItems.map((item) => (
             <li
               key={item.link}
-              className="px-3 cursor-pointer bg-slate-100 p-4 h-[20%] flex border-2 w-full "
+              className="font-semibold px-3 cursor-pointer list-none"
+            >
+              <Link to={item.link}>{item.text}</Link>
+            </li>
+          ))}
+        </div>
+
+        {/* deskotp search ctn */}
+        <div className="hidden lg:block bg-white p-1 w-[25%] shadow-2xl rounded-lg h-auto my-2">
+          <Link to="/SearchApp">
+            <i className="text-gray-700 font-bold text-2xl absolute m-2">
+              <FiSearch />
+            </i>
+            <input
+              type="text"
+              placeholder="Search events ..."
+              className="border-none outline-none mx-10 placeholder:text-xs w-[75%] lg:w-[85%] h-10"
+            />
+          </Link>
+        </div>
+        {/* login & signin ctn */}
+        <div className="flex justify-around items-center lg:w-[18%]">
+          <Link to="/SignIn">
+            <Button
+              text="Login"
+              bgColor="transparent"
+              textColor="red"
+              btnWidth={100}
+              btnHeight={40}
+            />
+          </Link>
+
+          <Link to="/SignUp" className="">
+            <Button
+              text="Sign Up"
+              bgColor="red"
+              textColor="#fff"
+              btnWidth={100}
+              btnHeight={40}
+              textSize={12}
+            />
+          </Link>
+        </div>
+
+        {/* condition to display mobile menu bar */}
+        <div
+          onClick={() => setNav(!nav)}
+          className="lg:hidden text-slate-500 cursor-pointer mx-4"
+        >
+          {!nav ? (
+            <AiOutlineMenu size={30} />
+          ) : (
+            <AiOutlineClose
+              onClick={() => setNav(!nav)}
+              size={30}
+              className=""
+            />
+          )}
+        </div>
+      </nav>
+
+      {/* mobile search ctn */}
+      <div className="lg:hidden bg-white p-1 w-[85%] md:w-[50%] shadow-2xl rounded-lg h-auto mt-6">
+        <i className="text-gray-700 font-bold text-2xl absolute m-2">
+          <FiSearch />
+        </i>
+        <input
+          type="text"
+          placeholder="Search events ..."
+          className="border-none outline-none mx-10 placeholder:text-xs w-[75%] lg:w-[85%] h-10"
+        />
+      </div>
+
+       {/* mobile nav box */}
+      {!nav ? null : (
+        <ul className="w-[40%] fixed h-[50vh] bg-slate-300  flex flex-col justify-around items-center mt-[75%] ml-[50%]">
+          {menuItems.map((item) => (
+            <li
+              key={item.link}
+              className="cursor-pointer p-4 h-[20%] flex w-full "
             >
               <Link to={item.link}>{item.text}</Link>
             </li>
           ))}
         </ul>
-      </div>
-    </div>
+      )}
+    </header>
   );
 };
 

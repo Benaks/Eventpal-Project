@@ -1,22 +1,62 @@
 import DragDrop from "./DragDrop";
 import Button from "./Button";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 const Create = () => {
-  const [venue, setVenue] = useState('');
-  // const [online, setOnline] = useState(false);
-  // const [announced, setAnnounced] = useState(false);
+  const [venue, setVenue] = useState("");
+  const [data, setData] = useState([]);
+  const [price, setPrice] = useState("");
+  // const [online, setOnline]= useState('')
+  // const [noVenue, setNoVenue] = useState('')
 
   const handleOnSite = () => {
-    setVenue('onSite');
-   
+    setVenue("onSite");
   };
   const handleOnline = () => {
-    setVenue('online');
+    const online = setVenue("online");
+    return online;
   };
   const handleToBeAnnounced = () => {
-    setVenue('unAnnounced');
+    setVenue("unAnnounced");
   };
+
+  const nameRef = useRef(null);
+  const dateRef = useRef(null);
+  const startTimeRef = useRef(null);
+  const endTimeRef = useRef(null);
+  const stateRef = useRef(null);
+  const townRef = useRef(null);
+  const streetRef = useRef(null);
+  const descRef = useRef(null);
+  const websiteRef = useRef(null);
+
+  const handlePricing = () => {
+    const btn = "free";
+    setPrice(btn);
+  };
+
+  const handleSubmit = () => {
+    setData({
+      name: nameRef.current.value,
+      date: dateRef.current.value,
+      time: {
+        start: startTimeRef.current.value,
+        end: endTimeRef.current.value,
+      },
+      price: price,
+      location: {
+        venue: {
+          state: stateRef.current.value,
+          town: townRef.current.value,
+          street: streetRef.current.value,
+        },
+        online: online
+      },
+      desc: desc.current.value,
+      website: website.current.value,
+    });
+  };
+  console.log(data);
 
   return (
     //   main ctn
@@ -39,6 +79,7 @@ const Create = () => {
           <input
             type="text"
             placeholder="Event title"
+            ref={nameRef}
             className="py-4 px-4 rounded-md border-black border-[0.2em]"
           />
         </div>
@@ -52,6 +93,7 @@ const Create = () => {
             <input
               type="date"
               placeholder="choose a date"
+              ref={dateRef}
               className="py-4 px-4 rounded-md border-black border-[0.2em]"
             />
           </div>
@@ -68,6 +110,7 @@ const Create = () => {
               name=""
               id=""
               placeholder="00:00 AM"
+              ref={startTimeRef}
               className="py-4 px-4 rounded-md border-black border-[0.2em]"
             />
           </div>
@@ -81,6 +124,7 @@ const Create = () => {
               name=""
               id=""
               placeholder="00:00 PM"
+              ref={endTimeRef}
               className="py-4 px-4 rounded-md border-black border-[0.2em]"
             />
           </div>
@@ -105,12 +149,13 @@ const Create = () => {
             <div>
               <input
                 type="number"
-                name=""
-                id=""
+                name="price"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
                 placeholder="Ticket price"
                 className="py-4 px-4 rounded-md border-black border-[0.2em] w-48"
               />
-              <Button text="free" />
+              <Button text="free" onClick={handlePricing} />
             </div>
           </div>
         </div>
@@ -146,6 +191,7 @@ const Create = () => {
                   <input
                     type="text"
                     placeholder="State"
+                    ref={stateRef}
                     className="py-4 px-4 rounded-md border-black border-[0.2em]"
                   />
                 </div>
@@ -156,6 +202,7 @@ const Create = () => {
                     name=""
                     id=""
                     placeholder="Town/Area"
+                    ref={townRef}
                     className="py-4 px-4 rounded-md border-black border-[0.2em]"
                   />
                 </div>
@@ -166,6 +213,7 @@ const Create = () => {
                     name=""
                     id=""
                     placeholder="Street"
+                    ref={streetRef}
                     className="py-4 px-4 rounded-md border-black border-[0.2em]"
                   />
                 </div>
@@ -203,6 +251,7 @@ const Create = () => {
             cols="10"
             rows="10"
             placeholder="Description"
+            ref={descRef}
             className="py-4 px-4 rounded-md border-black border-[0.2em] w-3/4 h-[12em] mb-10"
           ></textarea>
         </div>
@@ -222,10 +271,12 @@ const Create = () => {
             <input
               type="text"
               placeholder="URL"
+              ref={websiteRef}
               className="w-3/4 py-4 px-4 rounded-md border-black border-[0.2em]"
             />
           </div>
         </div>
+        <Button text="submit" onClick={handleSubmit} />
       </section>
     </div>
   );
