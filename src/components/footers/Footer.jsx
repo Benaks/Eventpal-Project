@@ -1,11 +1,11 @@
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 import { BiLogoFacebook } from "react-icons/bi";
 import { RiTwitterXLine } from "react-icons/ri";
 import { FaInstagram } from "react-icons/fa";
 import { TiSocialGooglePlus } from "react-icons/ti";
 import footerData from "./data";
 
-function Footer() {
+const Footer = () => {
   return (
     <div className="font-roboto2 mt-20">
       <div className=" grid grid-cols-4 bg-primary p-4 text-slate-300 mt-4 mx-auto pl-10 font-poppins ">
@@ -26,10 +26,10 @@ function Footer() {
             <h6 className="font-[600] pb-2">Services</h6>
 
             {footerData.services.map((item) => (
-              <a href='https://facebook.com'>
+              <a href="https://facebook.com">
                 <li className="text-[0.9em]" key={item.text}>
-                {item.text}
-              </li>
+                  {item.text}
+                </li>
               </a>
             ))}
           </ul>
@@ -39,11 +39,11 @@ function Footer() {
             <h6 className="font-[600] pb-2">Help</h6>
 
             {footerData.help.map((item) => (
-            <Link to={item.link}>
+              <Link to={item.link}>
                 <li className="text-[0.9em]" key={item.text}>
-                {item.text}
-              </li>
-            </Link>
+                  {item.text}
+                </li>
+              </Link>
             ))}
           </ul>
         </div>
@@ -52,11 +52,11 @@ function Footer() {
             <h6 className="font-[600] pb-2">Contact Us</h6>
 
             {footerData.contactUs.map((item) => (
-             <Link to={item.link}>
-               <li className="text-[0.9em] " key={item.text}>
-                {item.text}
-              </li>
-             </Link>
+              <Link to={item.link}>
+                <li className="text-[0.9em] " key={item.text}>
+                  {item.text}
+                </li>
+              </Link>
             ))}
           </ul>
         </div>
@@ -75,6 +75,6 @@ function Footer() {
       </div>
     </div>
   );
-}
+};
 
 export default Footer;

@@ -6,7 +6,7 @@ import Blog from "./Routes/BlogPage.jsx";
 import SignUp from "./components/accounts/SignUp.jsx";
 import SignIn from "./components/accounts/SignIn.jsx";
 import Create from "./Routes/CreateEventsPage.jsx";
-import Help from "./Routes/HelpCentrePage.jsx";
+import Help from "./Routes/help-center/HelpCentrePage.jsx";
 import Local from "./Routes/LocalEventsPage.jsx";
 import Landing from "./Landing.jsx";
 import SearchApp from "./Routes/SearchApp.jsx";

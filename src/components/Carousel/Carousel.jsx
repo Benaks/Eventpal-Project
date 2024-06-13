@@ -8,7 +8,8 @@ import { BiLogoFacebook } from "react-icons/bi";
 import { RiTwitterXLine } from "react-icons/ri";
 import { FaInstagram } from "react-icons/fa";
 import { TiSocialGooglePlus } from "react-icons/ti";
-import { MutatingDots } from "react-loader-spinner";
+// import { MutatingDots } from "react-loader-spinner";
+import { ThreeDots } from "react-loader-spinner";
 
 const Carousel = ({ error, eventData, currentEvents }) => {
   // const { error, eventData, currentEvents } = useContext(AppContext);
@@ -147,16 +148,14 @@ const Carousel = ({ error, eventData, currentEvents }) => {
           </div>
         ))
       ) : (
-        <MutatingDots
+        <ThreeDots
           visible={true}
-          height="100"
-          width="100"
+          height="45"
+          width="45"
           color="#702963"
           secondaryColor="#e53935"
-          radius="12.5"
-          ariaLabel="mutating-dots-loading"
-          wrapperStyle={{}}
-          wrapperClass=""
+          radius="9"
+          ariaLabel="three-dots-loading"
         />
       )}
     </>
