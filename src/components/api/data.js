@@ -1,6 +1,6 @@
 export const fetchData = async () => {
   try {
-    const API_URL = `${import.meta.env.VITE_APP_EVENTRYBE_API_URL}/events`;
+    const API_URL = `${import.meta.env.VITE_APP_EVENTRYBE_API_URL}/organizers`;
     const response = await fetch(API_URL);
 
     if (!response.ok) {
@@ -11,7 +11,7 @@ export const fetchData = async () => {
     console.log(data);
     return { data, error: null };
   } catch (err) {
-    console.log(err);
+    console.log(`This Error was gotten from fetching the data ${err}`);
     return { data: null, error: err };
   }
 };

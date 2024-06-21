@@ -13,8 +13,7 @@ const Create = () => {
     setVenue("onSite");
   };
   const handleOnline = () => {
-    const online = setVenue("online");
-    return online;
+    setVenue("online");
   };
   const handleToBeAnnounced = () => {
     setVenue("unAnnounced");
@@ -35,8 +34,53 @@ const Create = () => {
     setPrice(btn);
   };
 
+  // const handleSubmit = async () => {
+  //   const formData = {
+  //     name: nameRef.current.value,
+  //     date: dateRef.current.value,
+  //     time: {
+  //       start: startTimeRef.current.value,
+  //       end: endTimeRef.current.value,
+  //     },
+  //     price: price,
+  //     location: {
+  //       venue: {
+  //         state: stateRef.current.value,
+  //         town: townRef.current.value,
+  //         street: streetRef.current.value,
+  //       },
+  //       online: venue === "online",
+  //       toBeAnnounced: venue === "unAnnounced",
+  //     },
+  //     desc: descRef.current.value,
+  //     website: websiteRef.current.value,
+  //   };
+
+  //   try {
+  //     const API_URL = `${
+  //       import.meta.env.VITE_APP_EVENTRYBE_API_URL
+  //     }/create event`;
+  //     const res = await fetch(API_URL, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(formData),
+  //     });
+  //     if (res.ok) {
+  //       const result = await res.json();
+  //       console.log("Successfully created event", result);
+  //       setData(result);
+  //     } else {
+  //       console.error("Error creating event", res.status, res.statusText);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error creating event", error);
+  //   }
+  // };
+  
   const handleSubmit = () => {
-    setData({
+    const formData = {
       name: nameRef.current.value,
       date: dateRef.current.value,
       time: {
@@ -50,13 +94,15 @@ const Create = () => {
           town: townRef.current.value,
           street: streetRef.current.value,
         },
-        online: online
+        online: venue === "online",
+        toBeAnnounced: venue === "unAnnounced",
       },
-      desc: desc.current.value,
-      website: website.current.value,
-    });
+      desc: descRef.current.value,
+      website: websiteRef.current.value,
+    };
+    setData(formData)
+    console.log('Form data:', formData);
   };
-  console.log(data);
 
   return (
     //   main ctn
@@ -183,7 +229,7 @@ const Create = () => {
           </div>
 
           {/* Venue Address */}
-          {venue !== "onSite" ? null : (
+          {venue === "onSite" && (
             <div>
               <p className="font-[600] pb-1 text-[1.2em]">Venue Address</p>
               <div className="grid grid-cols-3 gap-6 mb-10">
@@ -233,11 +279,9 @@ const Create = () => {
             </div>
           )}
 
-          {venue !== "online" ? null : (
-            <p>This is the section for online events</p>
-          )}
+          {venue === "online" && <p>This is the section for online events</p>}
 
-          {venue !== "unAnnounced" ? null : (
+          {venue === "unAnnounced" && (
             <p>This is the section for unknown date events</p>
           )}
         </section>
