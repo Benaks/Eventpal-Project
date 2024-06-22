@@ -8,7 +8,7 @@ import { IoImageOutline } from "react-icons/io5";
 const DragDrop = () => {
   const [files, setFiles] = useState([]);
   const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
-    console.log(acceptedFiles);
+    // console.log(acceptedFiles);
     const mapAccepted = acceptedFiles.map((file) => ({ file, errors: [] }));
     const mapRejected = rejectedFiles.map((file) => ({
       file,

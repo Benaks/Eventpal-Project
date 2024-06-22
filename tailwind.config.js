@@ -6,6 +6,11 @@ export default {
 
   theme: {
     extend: {
+      backgroundImage: (theme) => ({
+        "signup-image": "url('./assets/signup-hero.svg')",
+        "signin-image": "url('./assets/Standing.png')"
+      }),
+
       colors: {
         primary: "#381648",
         secondary: "#DC3239",
