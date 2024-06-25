@@ -22,6 +22,9 @@ const Create = () => {
     event_town: "",
     event_street: "",
     event_website: "",
+    event_website: "",
+    event_link: "",
+    platform_details: "",
   });
 
   const handleOnSite = () => {
@@ -62,6 +65,9 @@ const Create = () => {
       event_town: data.event_town,
       event_street: data.event_street,
       event_website: data.event_website,
+      event_website: data.event_website,
+      event_link: data.event_link,
+      platform_details: data.platform_details,
     };
 
     try {
