@@ -7,20 +7,18 @@ const CarouselSection = ({
   children,
   eventData,
   eventsPerPage,
-  setCurrentPage,
-  currentPage,
 }) => {
   return (
     <div className="w-[95%] m-auto">
       <CarouselHead head={head} subHead={subHead} />
-      <div className="flex flex-col md:flex-wrap lg:flex-row justify-around items-center w-full">
+      <div className="flex flex-col md:flex-row flex-wrap justify-around items-center w-full bg-red-900">
         {children}
       </div>
       <Pagination
         eventData={eventData}
         eventsPerPage={eventsPerPage}
-        setCurrentPage={setCurrentPage}
-        currentPage={currentPage}
+        // setCurrentPage={setCurrentPage}
+        // currentPage={currentPage}
       />
     </div>
   );

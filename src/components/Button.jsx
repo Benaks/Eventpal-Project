@@ -1,5 +1,5 @@
 // eslint-disable-next-line react/prop-types
-const Button = ({ text, bgColor, textColor, btnWidth, btnHeight, textSize }) => {
+const Button = ({ text, bgColor, textColor, btnWidth, btnHeight, textSize, onClick }) => {
   const btnColor = {
     backgroundColor: bgColor,
     color: textColor,
@@ -13,6 +13,7 @@ const Button = ({ text, bgColor, textColor, btnWidth, btnHeight, textSize }) => 
         className="text-white font-semibold capitalize cursor-pointer p-2 rounded-lg"
         style={ btnColor }
         type="submit"
+        onClick={onClick}
       >
         {text}
       </button>

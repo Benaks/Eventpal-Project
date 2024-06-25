@@ -1,6 +1,6 @@
 export const fetchData = async () => {
   try {
-    const API_URL = `${import.meta.env.VITE_APP_EVENTRYBE_API_URL}/organizers`;
+    const API_URL = `${import.meta.env.VITE_APP_EVENTRYBE_API_URL}/events`;
     const response = await fetch(API_URL);
 
     if (!response.ok) {

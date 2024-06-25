@@ -3,12 +3,9 @@ import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { IoImageOutline } from "react-icons/io5";
 
-// using drag and drop api
-
-const DragDrop = () => {
+const DragDrop = ({ event_image, handleChange }) => {
   const [files, setFiles] = useState([]);
   const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
-    // console.log(acceptedFiles);
     const mapAccepted = acceptedFiles.map((file) => ({ file, errors: [] }));
     const mapRejected = rejectedFiles.map((file) => ({
       file,
@@ -20,41 +17,46 @@ const DragDrop = () => {
       ...mapRejected,
     ]);
   }, []);
+
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
   });
- 
+
   return (
     <div className="">
       <div
         {...getRootProps()}
-        className="border-[0.2em] p-20 border-red-500 rounded-md cursor-pointer border-dashed flex justify-center items-center flex-col-reverse"
+        className="flex justify-center items-center flex-col-reverse border-[0.2em] p-5 md:p-6 lg:p-8 border-red-500 rounded-md cursor-pointer border-dashed"
       >
-        <input {...getInputProps()} />
-        <p className="cursor-pointer text-[1.2em] font-[600] text-gray-400 text-center">
+        <input
+          {...getInputProps()}
+          value={event_image}
+          onChange={handleChange}
+        />
+        <p className="cursor-pointer text-xs font-[600] text-gray-400 text-center">
           Click or drag image
         </p>
         <IoImageOutline className="w-10 h-10" />
       </div>
 
-      <div className="mt-4 ">
+      <div className="mt-4">
         {files.length > 0 && (
-          <div className="mt-4  w-full">
-            <h3 className="text-lg font-semibold">Selected Files:</h3>
-            <ul className="flex justify-around items-center">
+          <div className="my-2 w-full overflow-auto">
+            <ul className="flex space-x-4">
               {files.map((fileWrapper, index) => (
-                <li key={index} className="mt-4 flex flex-col items-center">
-                  <img
-                    src={URL.createObjectURL(fileWrapper.file)}
-                    alt={fileWrapper.file.name}
-                    className="w-32 h-32 object-cover mb-2"
-                  />
-                  <span>{fileWrapper.file.name}</span>
-                  {fileWrapper.errors.length > 0 && (
-                    <span className="text-red-500 mt-1">
-                      (Error: {fileWrapper.errors.join(", ")})
-                    </span>
-                  )}
+                <li key={index} className="flex-shrink-0">
+                  <div className="flex flex-col items-center">
+                    <img
+                      src={URL.createObjectURL(fileWrapper.file)}
+                      alt={fileWrapper.file.name}
+                      className="w-32 h-32 object-cover mb-2 rounded-lg"
+                    />
+                    {fileWrapper.errors.length > 0 && (
+                      <span className="text-red-500 mt-1">
+                        (Error: {fileWrapper.errors.join(", ")})
+                      </span>
+                    )}
+                  </div>
                 </li>
               ))}
             </ul>
