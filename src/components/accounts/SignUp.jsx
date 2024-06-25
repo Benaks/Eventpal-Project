@@ -13,21 +13,28 @@ const SignUp = () => {
   const [passwordShown, setPasswordShown] = useState(false);
   const [passwordMatchError, setPasswordMatchError] = useState(false);
   const [emptyInputError, setEmptyInputError] = useState(false);
-
-  const emailRef = useRef(null);
-  const passwordRef = useRef(null);
-  const confirmPasswordRef = useRef(null);
+  const [userData, setUserData] = useState({
+    username: "",
+    email: "",
+    password1: "",
+    password2: "",
+  });
 
   const togglePasswordVisibility = () => {
     setPasswordShown(!passwordShown);
   };
 
-  const handleSubmit = () => {
-    const password = passwordRef.current.value;
-    const confirmPassword = confirmPasswordRef.current.value;
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUserData({ ...userData, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const { username, email, password1, password2 } = userData;
 
     // Check if passwords match
-    if (password !== confirmPassword) {
+    if (password1 !== password2) {
       setPasswordMatchError(true);
       return;
     } else {
@@ -35,25 +42,51 @@ const SignUp = () => {
     }
 
     // Check if any input is empty
-    if (
-      emailRef.current.value === "" ||
-      password === "" ||
-      confirmPassword === ""
-    ) {
+    if (!username || !password1 || !password2) {
       setEmptyInputError(true);
       return;
     } else {
       setEmptyInputError(false);
     }
 
-    // Continue with sign up logic
-    const formData = {
-      email: emailRef.current.value,
-      password: password,
-    };
+    const API_URL = `${import.meta.env.VITE_APP_EVENTRYBE_AUTH_URL}/register/`;
+     const requestData = {
+       username,
+       email: username,
+       password1,
+       password2,
+     };
+    try {
+      const res = await fetch(API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestData),
+      });
 
-    console.log("User Sign Up data:", formData);
-    // Add logic to send formData to backend or perform further actions
+      if (res.ok) {
+        const result = await res.json();
+        console.log("Successfully created user", result);
+        setUserData({
+          username: "",
+          password1: "",
+          password2: "",
+        });
+      } else {
+        const errorData = await res.json();
+        console.log(
+          "Error registering user: ",
+          res.status,
+          res.statusText,
+          errorData
+        );
+      }
+    } catch (error) {
+      console.log("Error creating user: ", error);
+    }
+
+    console.log("User Sign Up data:", userData);
   };
 
   return (
@@ -67,11 +100,7 @@ const SignUp = () => {
       <main className="flex justify-center lg:justify-around items-center bg-signup-image lg:bg-none bg-center bg-contain bg-no-repeat w-full lg:w-[90%] mx-auto">
         {/* image ctn for large screens */}
         <div className="hidden lg:w-[60%] lg:flex justify-center items-center">
-          <img
-            src={SignUpImg}
-            alt="Sign-up-hero-image"
-            className="w-[85%]"
-          />
+          <img src={SignUpImg} alt="Sign-up-hero-image" className="w-[85%]" />
         </div>
 
         <div className="w-[90%] md:w-1/2 lg:w-[30%] relative z-10">
@@ -93,12 +122,24 @@ const SignUp = () => {
             className="flex flex-col justify-around items-center my-10"
             onSubmit={handleSubmit}
           >
+            {/* <input
+              id="username"
+              name="username"
+              type="username"
+              value={userData.username}
+              autoComplete="username"
+              onChange={handleChange}
+              placeholder="Username"
+              className="w-full h-16 mb-10 rounded-2xl p-4 border-[0.2em] text-slate-400 text-[0.9em] border-black shadow-md"
+              required
+            /> */}
             <input
-              id="email"
-              name="email"
+              id="username"
+              name="username"
               type="email"
+              value={userData.username}
               autoComplete="email"
-              ref={emailRef}
+              onChange={handleChange}
               placeholder="Email address"
               className="w-full h-16 mb-10 rounded-2xl p-4 border-[0.2em] text-slate-400 text-[0.9em] border-black shadow-md"
               required
@@ -109,7 +150,9 @@ const SignUp = () => {
               <input
                 type={passwordShown ? "text" : "password"}
                 autoComplete="new-password"
-                ref={passwordRef}
+                name="password1"
+                value={userData.password1}
+                onChange={handleChange}
                 placeholder="Password"
                 className="w-full h-16 mb-10 rounded-2xl p-6 border-[0.2em] border-black shadow-md text-slate-400 text-[0.9em]"
                 required
@@ -130,7 +173,9 @@ const SignUp = () => {
 
             <input
               type="password"
-              ref={confirmPasswordRef}
+              name="password2"
+              value={userData.password2}
+              onChange={handleChange}
               placeholder="Confirm password"
               className={`w-full h-16 mb-10 rounded-2xl p-4 border-[0.2em] border-black shadow-md text-slate-400 text-[0.9em] ${
                 passwordMatchError ? "border-red-500" : ""

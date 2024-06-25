@@ -40,10 +40,10 @@ function Signin() {
             </h1>
             <div className="my-3">
               <h1 className="capitalize text-black font-bold text-2xl my-4">
-                sign up
+                log in
               </h1>
               <p className="text-slate-400 text-sm">
-                Create your account in seconds
+                Enter your personal details to get started
               </p>
             </div>
 
@@ -82,7 +82,7 @@ function Signin() {
               </div>
 
               <Button
-                text="Create Account"
+                text="Log In"
                 bgColor="red"
                 textColor="white"
                 btnWidth={300}

@@ -1,13 +1,28 @@
 import DragDrop from "./DragDrop";
 import Button from "./Button";
-import { useState, useRef } from "react";
+import { useState } from "react";
+import OnSite from "./OnSite";
+import Online from "./Online";
+import Pending from "./Pending";
 
 const Create = () => {
   const [venue, setVenue] = useState("");
-  const [data, setData] = useState([]);
   const [price, setPrice] = useState("");
-  // const [online, setOnline]= useState('')
-  // const [noVenue, setNoVenue] = useState('')
+  const [data, setData] = useState({
+    event_name: "",
+    event_date: "",
+    event_image: "",
+    event_location: "",
+    event_category: "",
+    event_description: "",
+    event_start_time: "",
+    event_end_time: "",
+    event_price: "",
+    event_state: "",
+    event_town: "",
+    event_street: "",
+    event_website: "",
+  });
 
   const handleOnSite = () => {
     setVenue("onSite");
@@ -19,308 +34,233 @@ const Create = () => {
     setVenue("unAnnounced");
   };
 
-  const nameRef = useRef(null);
-  const dateRef = useRef(null);
-  const startTimeRef = useRef(null);
-  const endTimeRef = useRef(null);
-  const stateRef = useRef(null);
-  const townRef = useRef(null);
-  const streetRef = useRef(null);
-  const descRef = useRef(null);
-  const websiteRef = useRef(null);
-
   const handlePricing = () => {
-    const btn = "free";
-    setPrice(btn);
+    setPrice("free");
   };
 
-  // const handleSubmit = async () => {
-  //   const formData = {
-  //     name: nameRef.current.value,
-  //     date: dateRef.current.value,
-  //     time: {
-  //       start: startTimeRef.current.value,
-  //       end: endTimeRef.current.value,
-  //     },
-  //     price: price,
-  //     location: {
-  //       venue: {
-  //         state: stateRef.current.value,
-  //         town: townRef.current.value,
-  //         street: streetRef.current.value,
-  //       },
-  //       online: venue === "online",
-  //       toBeAnnounced: venue === "unAnnounced",
-  //     },
-  //     desc: descRef.current.value,
-  //     website: websiteRef.current.value,
-  //   };
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setData({ ...data, [name]: value });
+  };
 
-  //   try {
-  //     const API_URL = `${
-  //       import.meta.env.VITE_APP_EVENTRYBE_API_URL
-  //     }/create event`;
-  //     const res = await fetch(API_URL, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(formData),
-  //     });
-  //     if (res.ok) {
-  //       const result = await res.json();
-  //       console.log("Successfully created event", result);
-  //       setData(result);
-  //     } else {
-  //       console.error("Error creating event", res.status, res.statusText);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error creating event", error);
-  //   }
-  // };
-  
-  const handleSubmit = () => {
-    const formData = {
-      name: nameRef.current.value,
-      date: dateRef.current.value,
-      time: {
-        start: startTimeRef.current.value,
-        end: endTimeRef.current.value,
-      },
-      price: price,
-      location: {
-        venue: {
-          state: stateRef.current.value,
-          town: townRef.current.value,
-          street: streetRef.current.value,
-        },
-        online: venue === "online",
-        toBeAnnounced: venue === "unAnnounced",
-      },
-      desc: descRef.current.value,
-      website: websiteRef.current.value,
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const formData1 = {
+      event_name: data.event_name,
+      event_date: data.event_date,
+      event_image: data.event_image,
+      event_location: data.event_location,
+      event_category: data.event_category,
+      event_description: data.event_description,
     };
-    setData(formData)
-    console.log('Form data:', formData);
+
+    const formData2 = {
+      event_start_time: data.event_start_time,
+      event_end_time: data.event_end_time,
+      event_state: data.event_state,
+      event_town: data.event_town,
+      event_street: data.event_street,
+      event_website: data.event_website,
+    };
+
+    try {
+      const API_URL1 = `${
+        import.meta.env.VITE_APP_EVENTRYBE_API_URL
+      }/create_event`;
+      const API_URL2 = `${import.meta.env.VITE_APP_EVENTRYBE_API_URL}/ticket`;
+      const res = await fetch(API_URL1, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData1),
+      });
+      if (res.ok) {
+        const result = await res.json();
+        console.log("Successfully created event", result);
+        setData(result);
+      } else {
+        console.error("Error creating event", res.status, res.statusText);
+      }
+    } catch (error) {
+      console.error("Error creating event", error);
+    }
   };
 
   return (
-    //   main ctn
-    <div className=" my-20 flex justify-center font-poppins">
-      {/* create section */}
-      <section className="flex flex-col justify-around h-full w-3/4 lg:w-2/4">
-        {/* headers */}
-        <div className="mb-20">
-          <h1 className="text-4xl font-bold">Basic details</h1>
-          <p className="font-semibold text-md">
+    <div className="my-20 flex justify-center font-poppins">
+      <section className="flex flex-col justify-around h-full w-[90%] md:w-3/4 lg:w-2/4">
+        <div className="mb-12">
+          <h1 className="text-xl md:text-2xl font-bold">Basic details</h1>
+          <p className="font-semibold text-sm md:text-md">
             This section contains the basic details of your events
           </p>
         </div>
 
-        {/* Name of Event */}
-        <div className="flex flex-col mb-10">
-          <label htmlFor="event" className="text-[1.2em] mb-1 font-[600]">
-            Name of Event
-          </label>
-          <input
-            type="text"
-            placeholder="Event title"
-            ref={nameRef}
-            className="py-4 px-4 rounded-md border-black border-[0.2em]"
-          />
-        </div>
-
-        {/* Date and time inputs */}
-        <div className="grid grid-cols-3 gap-6 mb-10">
-          <div className="flex flex-col">
-            <label htmlFor="date" className="text-[1.2em] pb-1 font-[600]">
-              Date
+        <form onSubmit={handleSubmit} className="text-sm">
+          {/* Name of Event */}
+          <div className="flex flex-col mb-6">
+            <label htmlFor="event_name" className="mb-1 font-semibold">
+              Name of Event
             </label>
             <input
-              type="date"
-              placeholder="choose a date"
-              ref={dateRef}
-              className="py-4 px-4 rounded-md border-black border-[0.2em]"
+              type="text"
+              name="event_name"
+              placeholder="Event title"
+              value={data.event_name}
+              onChange={handleChange}
+              className="py-3 px-4 rounded-md border border-black"
             />
           </div>
 
-          <div className="flex flex-col">
-            <label
-              htmlFor="Start Time"
-              className="text-[1.2em] pb-1 font-[600]"
+          {/* Date and time inputs */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            <div className="flex flex-col">
+              <label htmlFor="event_date" className="pb-1 font-semibold">
+                Date
+              </label>
+              <input
+                type="date"
+                name="event_date"
+                placeholder="choose a date"
+                value={data.event_date}
+                onChange={handleChange}
+                className="py-3 px-4 rounded-md border border-black"
+              />
+            </div>
+
+            <div className="flex flex-col">
+              <label htmlFor="event_start_time" className="pb-1 font-semibold">
+                Begins at
+              </label>
+              <input
+                type="time"
+                name="event_start_time"
+                value={data.event_start_time}
+                onChange={handleChange}
+                className="py-3 px-4 rounded-md border border-black"
+              />
+            </div>
+
+            <div className="flex flex-col">
+              <label htmlFor="event_end_time" className="pb-1 font-semibold">
+                Ends at
+              </label>
+              <input
+                type="time"
+                name="event_end_time"
+                value={data.event_end_time}
+                onChange={handleChange}
+                className="py-3 px-4 rounded-md border border-black"
+              />
+            </div>
+          </div>
+
+          {/* Category */}
+          <div className="flex flex-col mb-6">
+            <label htmlFor="event_category" className="font-bold">
+              Category
+            </label>
+            <select
+              name="event_category"
+              value={data.event_category}
+              onChange={handleChange}
+              className="py-3 px-4 rounded-md cursor-pointer border border-black w-full md:w-48 mb-4"
             >
-              Begins at
-            </label>
-            <input
-              type="time"
-              name=""
-              id=""
-              placeholder="00:00 AM"
-              ref={startTimeRef}
-              className="py-4 px-4 rounded-md border-black border-[0.2em]"
-            />
+              <option value="">Select Category</option>
+              <option value="church">Church</option>
+              <option value="party">Party</option>
+              <option value="mosque">Mosque</option>
+              <option value="concert">Concert</option>
+              <option value="seminar">Seminar</option>
+            </select>
           </div>
 
-          <div className="flex flex-col">
-            <label htmlFor="End Time" className="text-[1.2em] pb-1 font-[600]">
-              End at
-            </label>
-            <input
-              type="time"
-              name=""
-              id=""
-              placeholder="00:00 PM"
-              ref={endTimeRef}
-              className="py-4 px-4 rounded-md border-black border-[0.2em]"
-            />
-          </div>
-        </div>
-
-        {/* Category */}
-        <div className="py-4 px-4 rounded-md border-black border-[0.2em] w-48 mb-10">
-          <label htmlFor="category" className="text-[1.2em] pr-4">
-            Category
-          </label>
-          <select name="" id="">
-            Select a Category
-          </select>
-        </div>
-
-        {/* Add price  */}
-        <div className="flex flex-row">
-          <div className="flex flex-col">
-            <label htmlFor="pricing" className="text-[1.2em] pb-1 font-[600]">
+          {/* Add price  */}
+          <div className="flex flex-col mb-6">
+            <label htmlFor="pricing" className="pb-1 font-semibold">
               Add price
             </label>
-            <div>
+            <div className="flex items-center space-x-4">
               <input
                 type="number"
                 name="price"
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
                 placeholder="Ticket price"
-                className="py-4 px-4 rounded-md border-black border-[0.2em] w-48"
+                className="py-3 px-4 rounded-md border border-black w-full md:w-48"
               />
               <Button text="free" onClick={handlePricing} />
             </div>
           </div>
-        </div>
 
-        {/* Drag and drop */}
-        <div className="my-10">
-          <p className="text-[1.2em]  font-[600]">Upload photo</p>
-          <DragDrop />
-        </div>
-
-        {/* Location */}
-        <section className=" flex flex-col justify-around">
-          <div className="">
-            <h1 className="font-bold text-3xl py-2">Location</h1>
-            <p>
-              Help people discover your event and let your atendees know where
-              to show up
-            </p>
-          </div>
-          {/* buttons */}
-          <div className="my-10">
-            <Button text="venue" onClick={handleOnSite} />
-            <Button text="online" onClick={handleOnline} />
-            <Button text="to be announced" onClick={handleToBeAnnounced} />
+          {/* Drag and drop */}
+          <div className="my-6">
+            <p className="font-semibold">Upload photo</p>
+            <DragDrop
+              event_image={data.event_image}
+              handleChange={handleChange}
+            />
           </div>
 
-          {/* Venue Address */}
-          {venue === "onSite" && (
+          {/* Location */}
+          <section className="flex flex-col justify-around mb-6">
             <div>
-              <p className="font-[600] pb-1 text-[1.2em]">Venue Address</p>
-              <div className="grid grid-cols-3 gap-6 mb-10">
-                <div className="flex flex-col">
-                  <input
-                    type="text"
-                    placeholder="State"
-                    ref={stateRef}
-                    className="py-4 px-4 rounded-md border-black border-[0.2em]"
-                  />
-                </div>
-
-                <div className="flex flex-col">
-                  <input
-                    type="text"
-                    name=""
-                    id=""
-                    placeholder="Town/Area"
-                    ref={townRef}
-                    className="py-4 px-4 rounded-md border-black border-[0.2em]"
-                  />
-                </div>
-
-                <div className="flex flex-col">
-                  <input
-                    type="text"
-                    name=""
-                    id=""
-                    placeholder="Street"
-                    ref={streetRef}
-                    className="py-4 px-4 rounded-md border-black border-[0.2em]"
-                  />
-                </div>
-              </div>
-
-              {/* Upload photo for venue */}
-              <div className="my-8">
-                <p className="font-[600] pb-1 text-[1.2em]">
-                  Upload Photo of the Place
-                </p>
-                <div className="grid grid-cols-3 gap-2">
-                  <DragDrop />
-                  <DragDrop />
-                  <DragDrop />
-                </div>
-              </div>
+              <h1 className="font-bold py-2">Location</h1>
+              <p>
+                Help people discover your event and let your attendees know
+                where to show up
+              </p>
             </div>
-          )}
 
-          {venue === "online" && <p>This is the section for online events</p>}
+            {/* buttons */}
+            <div className="flex flex-wrap justify-around items-center my-6">
+              <Button text="venue" onClick={handleOnSite} />
+              <Button text="online" onClick={handleOnline} />
+              <Button text="pending" onClick={handleToBeAnnounced} />
+            </div>
 
-          {venue === "unAnnounced" && (
-            <p>This is the section for unknown date events</p>
-          )}
-        </section>
+            {/* Venue Address */}
+            {venue === "onSite" && <OnSite data={data} handleChange={handleChange} />}
 
-        {/* Short Description */}
-        <div>
-          <p className="font-[600] pb-1 text-[1.2em]">Short description</p>
-          <textarea
-            name=""
-            id=""
-            cols="10"
-            rows="10"
-            placeholder="Description"
-            ref={descRef}
-            className="py-4 px-4 rounded-md border-black border-[0.2em] w-3/4 h-[12em] mb-10"
-          ></textarea>
-        </div>
+            {venue === "online" && <Online />}
 
-        {/* Website or link */}
-        <div className="flex flex-col mb-10">
-          <label htmlFor="event" className="text-[1.2em] mb-1 font-[600]">
-            Website or link
-          </label>
-          <div>
+            {venue === "unAnnounced" && (
+              <Pending />
+            )}
+          </section>
+
+          {/* Short Description */}
+          <div className="mb-6">
+            <p className="font-semibold pb-1">Short description</p>
+            <textarea
+              name="event_description"
+              cols="10"
+              rows="10"
+              placeholder="Description"
+              value={data.event_description}
+              onChange={handleChange}
+              className="py-3 px-4 rounded-md border border-black w-full h-[12em]"
+            ></textarea>
+          </div>
+
+          {/* Website or link */}
+          <div className="flex flex-col mb-6">
+            <label htmlFor="event_website" className="mb-1 font-semibold">
+              Website or link
+            </label>
             <input
               type="text"
+              name="event_website"
               placeholder="https://"
-              disabled
-              className="w-1/4 py-4 px-4 rounded-md border-black border-[0.2em]"
-            />
-            <input
-              type="text"
-              placeholder="URL"
-              ref={websiteRef}
-              className="w-3/4 py-4 px-4 rounded-md border-black border-[0.2em]"
+              value={data.event_website}
+              onChange={handleChange}
+              className="w-full py-3 px-4 rounded-md border border-black"
             />
           </div>
-        </div>
-        <Button text="submit" onClick={handleSubmit} />
+          <Button text="submit" type="submit" />
+        </form>
       </section>
     </div>
   );

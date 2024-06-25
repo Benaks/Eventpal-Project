@@ -44,13 +44,13 @@ loadEventsData();
 
 
   // Check if eventData is null before accessing its properties [for pagination]
-  const currentEvents =
-    eventData?.hasOwnProperty("_embedded") && eventData._embedded.events
-      ? eventData._embedded.events.slice(
-          (currentPage - 1) * eventsPerPage,
-          currentPage * eventsPerPage
-        )
-      : [];
+  // const currentEvents =
+  //   eventData?.hasOwnProperty("_embedded") && eventData._embedded.events
+  //     ? eventData._embedded.events.slice(
+  //         (currentPage - 1) * eventsPerPage,
+  //         currentPage * eventsPerPage
+  //       )
+  //     : [];
 
   return (
     <>
@@ -75,7 +75,6 @@ loadEventsData();
         <Categories
           error={error}
           eventData={eventData}
-          currentEvents={currentEvents}
         />
       </CarouselSection>
 
@@ -87,7 +86,6 @@ loadEventsData();
         <Popular
           error={error}
           eventData={eventData}
-          currentEvents={currentEvents}
         />
       </CarouselSection>
 

@@ -11,7 +11,7 @@ import { TiSocialGooglePlus } from "react-icons/ti";
 // import { MutatingDots } from "react-loader-spinner";
 import { ThreeDots } from "react-loader-spinner";
 
-const Carousel = ({ error, eventData, currentEvents }) => {
+const Carousel = ({ error, eventData}) => {
   // const { error, eventData, currentEvents } = useContext(AppContext);
 
   // options for date conversion
@@ -31,7 +31,7 @@ const Carousel = ({ error, eventData, currentEvents }) => {
       {error ? (
         <small>no avialable events</small>
       ) : eventData ? (
-        currentEvents.map((result) => (
+        eventData.map((result) => (
           // carousel
           <div
             key={result.id}
@@ -40,8 +40,8 @@ const Carousel = ({ error, eventData, currentEvents }) => {
             {/* image */}
             <div className="w-full h-1/2 overflow-y-hidden">
               <img
-                src={result.images[0].url}
-                alt={result.name}
+                src={result.event_image}
+                alt={result.event_name}
                 className="w-full h-full rounded-tl-2xl rounded-tr-2xl"
               />
             </div>
@@ -50,7 +50,7 @@ const Carousel = ({ error, eventData, currentEvents }) => {
 
             <div className="h-1/2 p-4 w-full">
               {/* event name */}
-              <h1 className="font-bold text-2xl  py-1">{result.name}</h1>
+              <h1 className="font-bold text-2xl  py-1">{result.event_name}</h1>
 
               {/* location arrow and venue */}
               <div className=" flex py-1 font-[600]">
@@ -58,9 +58,7 @@ const Carousel = ({ error, eventData, currentEvents }) => {
                   <CiLocationArrow1 className="text-xl  mx-1 text-red-700 font-bold" />
                 </i>
                 <p className="text-bold text-sm">
-                  {result._embedded.venues[0].name}
-                  {result._embedded.venues[0].address.line1}
-                  {result._embedded.venues[0].city.name}
+                  {result.event_location}
                 </p>
               </div>
               <div className="ml-6 py-1">
@@ -68,18 +66,18 @@ const Carousel = ({ error, eventData, currentEvents }) => {
                 <div className="">
                   <p className="text-[0.7em] text-purple-900 font-[700]">
                     {new Intl.DateTimeFormat("en-GB", dateOptions).format(
-                      new Date(result.dates.start.dateTime)
+                      new Date(result.event_start_date)
                     )}
                     {/* date convertion */}
                   </p>
-                  <p className="text-sm text-purple-900 text-[0.7em] font-[700]">
+                  {/* <p className="text-sm text-purple-900 text-[0.7em] font-[700]">
                     {new Intl.DateTimeFormat("en-US", timeOptions).format(
                       new Date().setHours(
-                        ...result.dates.start.localTime.split(":")
+                        // ...result.dates.start.localTime.split(":")
                       )
                     )}
-                    {/* time convertion */}
-                  </p>
+                    i am for the time
+                  </p> */}
                 </div>
 
                 {/* get tickets and button div */}
