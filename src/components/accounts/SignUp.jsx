@@ -1,4 +1,5 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import SignUpImg from "../../assets/signup-hero.svg";
 import Button from "../Button";
@@ -19,6 +20,8 @@ const SignUp = () => {
     password1: "",
     password2: "",
   });
+
+  const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
     setPasswordShown(!passwordShown);
@@ -73,6 +76,8 @@ const SignUp = () => {
           password1: "",
           password2: "",
         });
+        navigate("/SignUp2");
+        
       } else {
         const errorData = await res.json();
         console.log(
@@ -82,11 +87,13 @@ const SignUp = () => {
           errorData
         );
       }
-    } catch (error) {
+    } 
+    catch (error) {
       console.log("Error creating user: ", error);
     }
 
     console.log("User Sign Up data:", userData);
+
   };
 
   return (

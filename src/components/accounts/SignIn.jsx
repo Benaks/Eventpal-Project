@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import SignUpImg from "../../assets/signup-hero.svg";
 import SignInImg from "../../assets/Standing.png";
@@ -10,11 +10,75 @@ import Footer from "../footers/Footer";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 
-function Signin() {
+const Signin = () => {
   const [passwordShown, setPasswordShown] = useState(false);
+  const [emptyInputError, setEmptyInputError] = useState(false);
+  const [userData, setUserData] = useState({
+    username: "",
+    password: "",
+  });
+  const { userIsActive, setUserIsActive } = useContext(AppContext);
 
   const togglePasswordVisibility = () => {
     setPasswordShown(!passwordShown);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUserData({ ...userData, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const { username, password } = userData;
+
+    // Check if any input is empty
+    if (!username || !password) {
+      setEmptyInputError(true);
+      return;
+    } else {
+      setEmptyInputError(false);
+    }
+    const API_URL = `${import.meta.env.VITE_APP_EVENTRYBE_AUTH_URL}/login/`;
+
+    const requestData = {
+      username,
+      password,
+    };
+
+    try {
+      const res = await fetch(API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestData),
+      });
+      if (res.ok) {
+        const result = await res.json();
+        console.log("Successfully logged in", result);
+        setUserData({
+          username: "",
+          password: "",
+        });
+        // toggle the state of the user activness
+        setUserIsActive(true)
+        // Redirect to home page
+        window.location.href = "/";
+      } else {
+        const errorData = await res.json();
+        console.log(
+          "Error logging in: ",
+          res.status,
+          res.statusText,
+          errorData
+        );
+      }
+    } catch (error) {
+      console.log("Error logging in: ", error);
+    }
+
+    console.log("Form submitted");
   };
   return (
     <div>
@@ -49,11 +113,13 @@ function Signin() {
 
             <form className="flex flex-col justify-around items-center my-10">
               <input
-                id="email"
-                name="email"
+                id="username"
+                name="username"
                 type="email"
+                value={userData.username}
+                onChange={handleChange}
                 autoComplete="email"
-                placeholder="Email address"
+                placeholder="Username or Email"
                 className="w-full h-16 mb-10 rounded-2xl p-4 border-[0.2em] text-slate-400 text-[0.9em] border-black shadow-md"
                 required
               />
@@ -63,6 +129,9 @@ function Signin() {
                 <input
                   type={passwordShown ? "text" : "password"}
                   autoComplete="new-password"
+                  name="password"
+                  value={userData.password}
+                  onChange={handleChange}
                   placeholder="Password"
                   className="w-full h-16 mb-10 rounded-2xl p-6 border-[0.2em] border-black shadow-md text-slate-400 text-[0.9em]"
                   required
@@ -87,7 +156,12 @@ function Signin() {
                 textColor="white"
                 btnWidth={300}
                 btnHeight={60}
+                onClick={handleSubmit}
               />
+
+              {emptyInputError && (
+                <p className="my-2 text-sm text-red-500">Fill in all inputs.</p>
+              )}
             </form>
 
             <hr className="" />
@@ -116,6 +190,6 @@ function Signin() {
       </div>
     </div>
   );
-}
+};
 
 export default Signin;

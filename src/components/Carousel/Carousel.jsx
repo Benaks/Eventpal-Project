@@ -1,6 +1,4 @@
-/* eslint-disable react/prop-types */
-// import { useContext } from "react";
-// import { AppContext } from "../../Landing";
+
 import Button from "../Button";
 import { FaArrowRightToBracket } from "react-icons/fa6";
 import { CiLocationArrow1 } from "react-icons/ci";

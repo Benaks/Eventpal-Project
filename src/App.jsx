@@ -1,5 +1,3 @@
-
-
 import Landing from "./Landing.jsx";
 import Location from "./Routes/Location.jsx";
 import TestOrganizer from "./TestOrganizer.jsx";

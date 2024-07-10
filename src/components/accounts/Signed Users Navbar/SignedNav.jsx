@@ -1,25 +1,26 @@
 import { useState, useContext } from "react";
-import { AppContext } from "../Landing";
+import { AppContext } from "../../../Landing";
 import { Link } from "react-router-dom";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { FiSearch } from "react-icons/fi";
-import Button from "./Button";
+import Button from "../../Button";
+import Userimg from "../../../assets/Mosque.png"
 
-const Navbar = () => {
+const SignedNav = () => {
   const [nav, setNav] = useState(false);
 
   const menuItems = [
     {
-      text: "Locate Events",
+      text: "Create Events",
+      link: "/locate",
+    },
+    {
+      text: "Locate events",
       link: "/locatePage",
     },
     {
-      text: "Create events",
-      link: "/create",
-    },
-    {
-      text: "Blog",
-      link: "/blog",
+      text: "Tickets",
+      link: "/tickets",
     },
     {
       text: "Help center",
@@ -39,20 +40,8 @@ const Navbar = () => {
           </h1>
         </div>
 
-        {/* desktop navbar */}
-        <div className="hidden lg:flex text-gray-600 font-thin">
-          {menuItems.map((item) => (
-            <li
-              key={item.link}
-              className="font-semibold px-3 cursor-pointer list-none"
-            >
-              <Link to={item.link}>{item.text}</Link>
-            </li>
-          ))}
-        </div>
-
-        {/* deskotp search ctn */}
-        <div className="hidden lg:block bg-white p-1 w-[25%] shadow-2xl rounded-lg h-auto my-2">
+        {/*  search ctn */}
+        <div className="hidden lg:block bg-white p-1 w-[25%] shadow-2xl rounded-lg h-auto my-2 border-[1px] border-black">
           <Link to="/SearchApp">
             <i className="text-gray-700 font-bold text-2xl absolute m-2">
               <FiSearch />
@@ -64,32 +53,29 @@ const Navbar = () => {
             />
           </Link>
         </div>
-        {/* login & signin ctn */}
-        <div className="flex justify-around items-center lg:w-[18%]">
-          <Link to="/SignIn">
-            <Button
-              text="Login"
-              bgColor="transparent"
-              textColor="red"
-              btnWidth={100}
-              btnHeight={40}
-            />
-          </Link>
 
-          <Link to="/SignUp" className="">
-            <Button
-              text="Sign Up"
-              bgColor="red"
-              textColor="#fff"
-              btnWidth={100}
-              btnHeight={40}
-              textSize={12}
-            />
-          </Link>
+        {/* desktop navbar */}
+        <div className="hidden lg:flex  text-gray-600 font-thin">
+          {menuItems.map((item) => (
+            <li
+              key={item.link}
+              className="font-semibold px-3 cursor-pointer list-none"
+            >
+              <Link to={item.link}>{item.text}</Link>
+            </li>
+          ))}
+        </div>
+
+        {/* user dp */}
+        <div className="flex justify-around items-center px-4 ">
+          <img
+            className="h-12 w-12 border-2 border-red-500 rounded-full object-cover"
+            src={Userimg}
+          />
         </div>
 
         {/* condition to display mobile menu bar */}
-        <div
+        {/* <div
           onClick={() => setNav(!nav)}
           className="lg:hidden text-slate-500 cursor-pointer mx-4"
         >
@@ -102,7 +88,7 @@ const Navbar = () => {
               className=""
             />
           )}
-        </div>
+        </div> */}
       </nav>
 
       {/* mobile search ctn */}
@@ -134,4 +120,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default SignedNav;
