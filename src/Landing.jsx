@@ -1,7 +1,7 @@
 import { useState, useEffect, createContext } from "react";
-import { Link } from "react-router-dom";
-import "./App.css";
+// import { Link } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import SignedNav from "./components/accounts/Signed Users Navbar/SignedNav";
 import Hero from "./components/HeroSection/Hero";
 import MenuBar from "./components/MenuBar";
 import Footer from "./components/footers/Footer";
@@ -23,6 +23,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const eventsPerPage = 6;
   const [inputLocation, setInputLocation] = useState("");
+  const [userIsActive, setUserIsActive] = useState( false)
 
   // fetch event data [imported from api/data.js file]
     
@@ -53,10 +54,10 @@ loadEventsData();
   //     : [];
 
   return (
-    <>
+    <AppContext.Provider value={{ userIsActive, setUserIsActive }}>
       {/* navigation bar */}
-      <div className="my-6">
-        <Navbar />
+      <div>
+        {userIsActive ? (<Navbar />) : (<SignedNav />)}
       </div>
       {/* hero section */}
       <Hero
@@ -72,10 +73,7 @@ loadEventsData();
         head="Categories"
         subHead="Select an event to attend today"
       >
-        <Categories
-          error={error}
-          eventData={eventData}
-        />
+        <Categories error={error} eventData={eventData} />
       </CarouselSection>
 
       {/* carousel for popular events */}
@@ -83,10 +81,7 @@ loadEventsData();
         head="Popular events"
         subHead="Most engaged events you might be interested to attend"
       >
-        <Popular
-          error={error}
-          eventData={eventData}
-        />
+        <Popular error={error} eventData={eventData} />
       </CarouselSection>
 
       {/* carousel for today events */}
@@ -125,7 +120,7 @@ loadEventsData();
       </div>
 
       <Footer />
-    </>
+    </AppContext.Provider>
   );
 }
 

@@ -9,22 +9,34 @@ const Create = () => {
   const [venue, setVenue] = useState("");
   const [price, setPrice] = useState("");
   const [data, setData] = useState({
-    event_name: "",
+    // event_name: "",
+    // event_date: "",
+    // event_image: "",
+    // event_location: "",
+    // event_category: "",
+    // event_description: "",
+    // event_start_time: "",
+    // event_end_time: "",
+    // event_price: "",
+    // event_state: "",
+    // event_town: "",
+    // event_street: "",
+    // event_website: "",
+    // event_link: "",
+    // event_type: "",
+    // platform_details: "",
+
+    event_attendees: "",
     event_date: "",
+    event_description: "",
+    event_end_date: "",
+    event_id: "",
     event_image: "",
     event_location: "",
-    event_category: "",
-    event_description: "",
-    event_start_time: "",
-    event_end_time: "",
-    event_price: "",
-    event_state: "",
-    event_town: "",
-    event_street: "",
-    event_website: "",
-    event_website: "",
-    event_link: "",
-    platform_details: "",
+    event_name: "",
+    event_owner: "",
+    event_start_date: "",
+    event_type: "",
   });
 
   const handleOnSite = () => {
@@ -50,17 +62,30 @@ const Create = () => {
     e.preventDefault();
 
     const formData1 = {
-      event_name: data.event_name,
+      // event_name: data.event_name,
+      // event_date: data.event_date,
+      // event_start_time: data.event_start_time,
+      // event_end_time: data.event_end_time,
+      // event_type: data.event_type,
+      // event_image: data.event_image,
+      // event_location: data.event_location,
+      // event_category: data.event_category,
+      // event_description: data.event_description,
+
+      event_attendees: data.event_attendees,
       event_date: data.event_date,
-      event_image: data.event_image,
-      event_location: data.event_location,
-      event_category: data.event_category,
       event_description: data.event_description,
+      event_end_date: data.event_end_date,
+      event_id: data.event_id,
+      event_image: data.event_image,
+      // event_location: data.event_location,
+      event_name: data.event_name,
+      event_owner: data.event_owner,
+      event_start_date: data.event_start_date,
+      event_type: data.event_type,
     };
 
     const formData2 = {
-      event_start_time: data.event_start_time,
-      event_end_time: data.event_end_time,
       event_state: data.event_state,
       event_town: data.event_town,
       event_street: data.event_street,
@@ -74,7 +99,7 @@ const Create = () => {
       const API_URL1 = `${
         import.meta.env.VITE_APP_EVENTRYBE_API_URL
       }/create_event`;
-      const API_URL2 = `${import.meta.env.VITE_APP_EVENTRYBE_API_URL}/ticket`;
+      // const API_URL2 = `${import.meta.env.VITE_APP_EVENTRYBE_API_URL}/ticket`;
       const res = await fetch(API_URL1, {
         method: "POST",
         headers: {
@@ -273,3 +298,7 @@ const Create = () => {
 };
 
 export default Create;
+
+
+
+

@@ -8,13 +8,13 @@ import footerData from "./data";
 const Footer = () => {
   return (
     <div className="font-roboto2 mt-20">
-      <div className=" grid grid-cols-4 bg-primary p-4 text-slate-300 mt-4 mx-auto pl-10 font-poppins ">
+      <div className=" grid grid-cols-1 gap-4 items-center  md:grid-cols-4 bg-primary p-4 text-slate-300 mt-4 mx-auto pl-10 font-poppins ">
         <div>
           <ul className=" ">
             <h6 className="font-[600] pb-2">Event Pal</h6>
             {footerData.eventrybe.map((item) => (
               <Link to={item.link}>
-                <li className="text-[0.9em]" key={item.text}>
+                <li className="text-[0.7em]" key={item.text}>
                   {item.text}
                 </li>
               </Link>
@@ -27,7 +27,7 @@ const Footer = () => {
 
             {footerData.services.map((item) => (
               <a href="https://facebook.com">
-                <li className="text-[0.9em]" key={item.text}>
+                <li className="text-[0.6em]" key={item.text}>
                   {item.text}
                 </li>
               </a>
@@ -40,7 +40,7 @@ const Footer = () => {
 
             {footerData.help.map((item) => (
               <Link to={item.link}>
-                <li className="text-[0.9em]" key={item.text}>
+                <li className="text-[0.7em]" key={item.text}>
                   {item.text}
                 </li>
               </Link>
@@ -53,7 +53,7 @@ const Footer = () => {
 
             {footerData.contactUs.map((item) => (
               <Link to={item.link}>
-                <li className="text-[0.9em] " key={item.text}>
+                <li className="text-[0.7em] " key={item.text}>
                   {item.text}
                 </li>
               </Link>
@@ -63,7 +63,7 @@ const Footer = () => {
       </div>
 
       <div className="bg-[#563c5c] flex justify-around p-2 items-center font-poppins">
-        <p className="text-[0.9em] text-slate-300">
+        <p className="text-[0.7em] text-slate-300">
           2024. All Rights Reserved, Eventrybe Limited{" "}
         </p>
         <div className="flex gap-3">
