@@ -1,12 +1,12 @@
 import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import SignUpImg from "../../assets/signup-hero.svg";
 import SignInImg from "../../assets/Standing.png";
 import Button from "../Button";
 import AppleLogo from "../../assets/icons8-apple-logo.svg";
 import FacebookLogo from "../../assets/icons8-facebook.svg";
 import GoogleLogo from "../../assets/icons8-google.svg";
 import Footer from "../footers/Footer";
+import { AppContext } from "../../Landing";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 

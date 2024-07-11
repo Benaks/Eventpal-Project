@@ -11,7 +11,7 @@ const CarouselSection = ({
   return (
     <div className="w-[95%] m-auto">
       <CarouselHead head={head} subHead={subHead} />
-      <div className="flex flex-col md:flex-row flex-wrap justify-around items-center w-full bg-red-900">
+      <div className="flex flex-col md:flex-row flex-wrap justify-around items-center w-full">
         {children}
       </div>
       <Pagination

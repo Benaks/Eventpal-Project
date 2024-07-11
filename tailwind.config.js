@@ -8,7 +8,12 @@ export default {
     extend: {
       backgroundImage: (theme) => ({
         "signup-image": "url('./assets/signup-hero.svg')",
-        "signin-image": "url('./assets/Standing.png')"
+        "signin-image": "url('./assets/Standing.png')",
+        "church-image": "url('./assets/Church.png')",
+        "party-image": "url('./assets/Party.png')",
+        "mosque-image": "url('./assets/Mosque.png')",
+        "concert-image": "url('./assets/Concert.png')",
+        "seminar-image": "url('./assets/Seminar.png')",
       }),
 
       colors: {
