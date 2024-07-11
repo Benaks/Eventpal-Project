@@ -15,7 +15,7 @@ import { fetchData } from "./components/api/data";
 import CarouselSection from "./components/Carousel/CarouselSection";
 import Personalize from "./components/Personalize";
 
-export const AppContext = createContext(null);
+export const AppContext = createContext({});
 
 function App() {
   const [eventData, setEventData] = useState(null);
@@ -23,7 +23,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const eventsPerPage = 6;
   const [inputLocation, setInputLocation] = useState("");
-  const [userIsActive, setUserIsActive] = useState( false)
+  const [userIsActive, setUserIsActive] = useState(false);
 
   // fetch event data [imported from api/data.js file]
     
@@ -56,9 +56,7 @@ loadEventsData();
   return (
     <AppContext.Provider value={{ userIsActive, setUserIsActive }}>
       {/* navigation bar */}
-      <div>
-        {userIsActive ? (<Navbar />) : (<SignedNav />)}
-      </div>
+      <div>{userIsActive === false ? <Navbar /> : <SignedNav />}</div>
       {/* hero section */}
       <Hero
         inputLocation={inputLocation}
