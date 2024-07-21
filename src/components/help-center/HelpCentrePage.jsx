@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Navbar from "../../components/Navbar";
-import Footer from "../../components/footers/Footer";
+import Navbar from "../navbar/Navbar";
+import Footer from "../footers/Footer";
 import HelpBox from "./HelpBox";
 import helpData from "./data";
 

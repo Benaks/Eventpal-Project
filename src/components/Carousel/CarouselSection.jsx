@@ -1,4 +1,4 @@
-import Pagination from "../Pagination"
+import Pagination from "../utils/Pagination"
 import CarouselHead from "./CarouselHead"
 
 const CarouselSection = ({

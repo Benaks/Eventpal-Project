@@ -1,18 +1,15 @@
 import { useState } from "react";
 import Heroimg from "../../assets/concert.svg";
-import { Link } from "react-router-dom";
-// import Location from "./Location";
-// import { useContext } from "react";
-// import { AppContext } from "../../Landing";
+import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineDown } from "react-icons/ai";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import { FiSearch } from "react-icons/fi";
-import Button from "../Button";
+import Button from "../utils/Button";
 import heroData from "./data";
 
-function Hero({ inputLocation, setInputLocation, loadEventsData }) {
-  const [showLocationBox, setShowLocationBox] = useState(false);
-  // const {inputLocation, setInputLocation, loadEventsData} = useContext(AppContext);
+function Hero() {  
+
+  const navigate = useNavigate()
   return (
     <div
       className="bg-cover bg-center flex justify-center items-center w-full"
@@ -30,35 +27,15 @@ function Hero({ inputLocation, setInputLocation, loadEventsData }) {
         {/* location & search ctn */}
         <div className="flex flex-col md:flex-row justify-between items-center md:items-start mt-20 w-80 md:w-[90%] lg:w-[56%]">
           {/* location ctn */}
-          <div className="flex flex-col justify-between items-start w-3/4 md:w-[25%]">
-            <div className="bg-gray-200 p-1 w-full flex justify-between items-center shadow-2xl rounded-md cursor-pointer">
+          <div
+            className="flex flex-col justify-between items-start w-3/4 md:w-[25%]"
+            onClick={()=> navigate('/locatePage')}
+          >
+            <div className="bg-gray-200 p-3 w-full flex justify-between items-center shadow-2xl rounded-md cursor-pointer">
               <p className="ml-2 md:text-md lg:text-lg text-gray-700 font-[600]">
                 Location
               </p>
-              <i
-                className="my-3 mx-3"
-                onClick={() => setShowLocationBox(!showLocationBox)}
-              >
-                <AiOutlineDown className="text-secondary md:text-sm lg:text-xl cursor-pointer font-[600]" />
-              </i>
             </div>
-            {showLocationBox ? (
-              <div className="flex justify-around items-center bg-gray-200 p-1 my-3 w-full">
-                <input
-                  className="text-[1em] bg-gray-200 text-slate-800 justify-between h-10 outline-none mx-3 w-full"
-                  placeholder="location"
-                  type="text"
-                  value={inputLocation}
-                  onChange={(e) => setInputLocation(e.target.value)}
-                />
-                <i
-                  onClick={loadEventsData}
-                  className="text-lg text-gray-700 cursor-pointer mx-2"
-                >
-                  <AiOutlineArrowRight />
-                </i>
-              </div>
-            ) : null}
           </div>
 
           {/* search ctn */}

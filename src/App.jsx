@@ -1,13 +1,10 @@
-import Landing from "./Landing.jsx";
-import Location from "./Routes/Location.jsx";
-import TestOrganizer from "./TestOrganizer.jsx";
+import Landing from "./components/pages/Landing";
+import LocalEvents from  './components/pages/LocalEvents'
 
 const App = () => {
   return (
     <Landing />
-    // <TestOrganizer />
-    // <Location />
-
+    // <LocalEvents />
   );
 };
 

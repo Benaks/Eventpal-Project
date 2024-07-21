@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {fetchData} from '../components/api/data';
+import {fetchData} from '../api/data';
 
 const Location = () => {
   const [city, setCity] = useState("");

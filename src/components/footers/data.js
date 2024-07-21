@@ -57,9 +57,9 @@ const footerData = {
   ],
   help: [
     { text: "Your account", link: "/" },
-    { text: "Cant attend events", link: "/" },
-    { text: "Cant get tickets", link: "/" },
-    { text: "Cant buy tickets", link: "/" },
+    { text: "Can't attend events", link: "/" },
+    { text: "Can't get tickets", link: "/" },
+    { text: "Can't buy tickets", link: "/" },
     { text: "Terms and condition", link: "/" },
     { text: "Privacy and Policy", link: "/" },
   ],

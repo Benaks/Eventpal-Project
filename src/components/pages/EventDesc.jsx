@@ -1,5 +1,4 @@
-import Navbar from '../components/Navbar'
-import Footer from '../components/footers/Footer'
+import Footer from '../footers/Footer'
 import CoverImg from '../assets/LocalCoverImg.webp'
 import EventImg from  '../assets/concert.svg'
 import { Link } from "react-router-dom";

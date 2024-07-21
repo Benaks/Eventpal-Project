@@ -1,8 +1,8 @@
-import churchImg from "../assets/Church.png";
-import partyImg from "../assets/Party.png";
-import mosqueImg from "../assets/Mosque.png";
-import concertImg from "../assets/Concert.png";
-import seminarImg from "../assets/Seminar.png";
+import churchImg from "../../assets/Church.png";
+import partyImg from "../../assets/Party.png";
+import mosqueImg from "../../assets/Mosque.png";
+import concertImg from "../../assets/Concert.png";
+import seminarImg from "../../assets/Seminar.png";
 import { list } from "postcss";
 
 const Personalize = () => {

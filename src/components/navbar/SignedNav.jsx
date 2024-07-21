@@ -1,10 +1,9 @@
 import { useState, useContext } from "react";
-import { AppContext } from "../../../Landing";
 import { Link } from "react-router-dom";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { FiSearch } from "react-icons/fi";
-import Button from "../../Button";
-import Userimg from "../../../assets/Mosque.png"
+import Button from "../utils/Button";
+import Userimg from "../../assets/logo.png"
 
 const SignedNav = () => {
   const [nav, setNav] = useState(false);
@@ -12,7 +11,7 @@ const SignedNav = () => {
   const menuItems = [
     {
       text: "Create Events",
-      link: "/locate",
+      link: "/create",
     },
     {
       text: "Locate events",
@@ -34,7 +33,7 @@ const SignedNav = () => {
         {/* logo */}
         <div className="mx-3">
           <h1 className=" md:text-xl lg:text-2xl font-bold cursor-pointer">
-            <Link to="/">
+            <Link to="/localevents">
               <span className="text-secondary">e</span>ventrybe
             </Link>
           </h1>

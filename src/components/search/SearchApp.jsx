@@ -1,10 +1,10 @@
 import { useState, useEffect} from "react";
-import Footer from "../components/footers/Footer";
-import Navbar from "../components/Navbar";
-import Heroimg from "../assets/concert.svg";
+import Footer from "../footers/Footer";
+import Navbar from "../navbar/SignedNav";
+import Heroimg from "../../assets/concert.svg";
 import { MutatingDots } from "react-loader-spinner";
 import { FaArrowRightLong } from "react-icons/fa6";
-import { fetchData } from "../components/api/data";
+import { fetchData } from "../api/data";
 
 const SearchApp = () => {
   const [searchTerm, setSearchTerm] = useState("");
