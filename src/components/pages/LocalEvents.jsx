@@ -1,19 +1,17 @@
 import { useState, useEffect, createContext } from "react";
-// import { Link } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import SignedNav from "./components/accounts/Signed Users Navbar/SignedNav";
-import Hero from "./components/HeroSection/Hero";
-import MenuBar from "./components/MenuBar";
-import Footer from "./components/footers/Footer";
-import Categories from "./components/Carousel/Carousel";
-import Popular from "./components/Carousel/Carousel";
-import Today from "./components/Carousel/Carousel";
-import Online from "./components/Carousel/Carousel";
-import Pagination from "./components/Pagination";
-import CarouselHead from "./components/Carousel/CarouselHead";
-import { fetchData } from "./components/api/data";
-import CarouselSection from "./components/Carousel/CarouselSection";
-import Personalize from "./components/Personalize";
+import SignedNav from "../navbar/SignedNav";
+import Hero from "../HeroSection/Hero";
+import MenuBar from "../utils/MenuBar";
+import Footer from "../footers/Footer";
+import Categories from "../Carousel/Carousel";
+import Popular from "../Carousel/Carousel";
+import Today from "../Carousel/Carousel";
+import Online from "../Carousel/Carousel";
+import Pagination from "../utils/Pagination";
+import CarouselHead from "../Carousel/CarouselHead";
+import { fetchData } from "../api/data";
+import CarouselSection from "../Carousel/CarouselSection";
+import Personalize from "../modals/Personalize";
 
 export const AppContext = createContext({});
 
@@ -23,10 +21,9 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const eventsPerPage = 6;
   const [inputLocation, setInputLocation] = useState("");
-  const [userIsActive, setUserIsActive] = useState(false);
 
   // fetch event data [imported from api/data.js file]
-    
+
   const loadEventsData = async () => {
     const { data, error } = await fetchData();
     console.log(inputLocation);
@@ -39,10 +36,9 @@ function App() {
     }
   };
 
-  useEffect(()=> {
-loadEventsData();
-  }, [])
-
+  useEffect(() => {
+    loadEventsData();
+  }, []);
 
   // Check if eventData is null before accessing its properties [for pagination]
   // const currentEvents =
@@ -54,9 +50,11 @@ loadEventsData();
   //     : [];
 
   return (
-    <AppContext.Provider value={{ userIsActive, setUserIsActive }}>
+    <div>
       {/* navigation bar */}
-      <div>{userIsActive === false ? <Navbar /> : <SignedNav />}</div>
+      <div>
+        <SignedNav />
+      </div>
       {/* hero section */}
       <Hero
         inputLocation={inputLocation}
@@ -118,7 +116,7 @@ loadEventsData();
       </div>
 
       <Footer />
-    </AppContext.Provider>
+    </div>
   );
 }
 

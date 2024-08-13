@@ -1,12 +1,12 @@
 import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import SignInImg from "../../assets/Standing.png";
-import Button from "../Button";
+import Button from "../utils/Button";
 import AppleLogo from "../../assets/icons8-apple-logo.svg";
 import FacebookLogo from "../../assets/icons8-facebook.svg";
 import GoogleLogo from "../../assets/icons8-google.svg";
 import Footer from "../footers/Footer";
-import { AppContext } from "../../Landing";
+import { AppContext } from "../pages/Landing";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 
@@ -62,9 +62,9 @@ const Signin = () => {
           password: "",
         });
         // toggle the state of the user activness
-        setUserIsActive(true)
-        // Redirect to home page
-        window.location.href = "/";
+        setUserIsActive(true);
+        // // Redirect to home page
+        // window.location.href = "/";
       } else {
         const errorData = await res.json();
         console.log(
@@ -77,7 +77,8 @@ const Signin = () => {
     } catch (error) {
       console.log("Error logging in: ", error);
     }
-
+    // Redirect to home page
+    window.location.href = "/localevents";
     console.log("Form submitted");
   };
   return (

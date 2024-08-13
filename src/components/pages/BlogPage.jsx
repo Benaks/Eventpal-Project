@@ -1,6 +1,6 @@
 
-import Navbar from '../components/Navbar'
-import Footer from "../components/footers/Footer";
+import Navbar from '../navbar/Navbar'
+import Footer from "../footers/Footer";
 
 function BlogPage()  {
   return (

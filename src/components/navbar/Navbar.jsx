@@ -1,9 +1,8 @@
 import { useState, useContext } from "react";
-import { AppContext } from "../Landing";
 import { Link } from "react-router-dom";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { FiSearch } from "react-icons/fi";
-import Button from "./Button";
+import Button from "../utils/Button";
 
 const Navbar = () => {
   const [nav, setNav] = useState(false);
@@ -11,11 +10,11 @@ const Navbar = () => {
   const menuItems = [
     {
       text: "Locate Events",
-      link: "/locatePage",
+      link: "/SignUp",
     },
     {
       text: "Create events",
-      link: "/create",
+      link: "/SignUp",
     },
     {
       text: "Blog",

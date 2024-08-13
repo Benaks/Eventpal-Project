@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import SignUpImg from "../../assets/signup-hero.svg";
-import Button from "../Button";
+import Button from "../utils/Button";
 import AppleLogo from "../../assets/icons8-apple-logo.svg";
 import FacebookLogo from "../../assets/icons8-facebook.svg";
 import GoogleLogo from "../../assets/icons8-google.svg";
@@ -53,12 +53,12 @@ const SignUp = () => {
     }
 
     const API_URL = `${import.meta.env.VITE_APP_EVENTRYBE_AUTH_URL}/register/`;
-     const requestData = {
-       username,
-       email: username,
-       password1,
-       password2,
-     };
+    const requestData = {
+      username,
+      email: username,
+      password1,
+      password2,
+    };
     try {
       const res = await fetch(API_URL, {
         method: "POST",
@@ -77,7 +77,6 @@ const SignUp = () => {
           password2: "",
         });
         navigate("/SignUp2");
-        
       } else {
         const errorData = await res.json();
         console.log(
@@ -87,14 +86,12 @@ const SignUp = () => {
           errorData
         );
       }
-    } 
-    catch (error) {
+    } catch (error) {
       console.log("Error creating user: ", error);
     }
 
     console.log("User Sign Up data:", userData);
-
-  };
+  }; 
 
   return (
     <div className="font-poppins w-full">

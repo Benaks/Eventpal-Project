@@ -1,14 +1,12 @@
 import React from 'react'
 import { Link } from "react-router-dom";
-import Navbar from "../Navbar";
- import image from "./images/Mosque.png";
+ import image from "../../assets/Mosque.png";
  import Card from "../Admin/Card";
 import Footer from "../footers/Footer";
-import { AiOutlineArrowLeft } from "react-icons/ai";
 import { FiSearch } from "react-icons/fi";
-import AdminDashboard from './AdminDashboard';
+import AdminDashboard from '../Admin/AdminDashboard';
 import { IoIosArrowBack } from "react-icons/io";
-import SignedNav from '../accounts/Signed Users Navbar/SignedNav';
+import SignedNav from '../navbar/SignedNav';
 
 const Tickets = () => {
     const customers = [

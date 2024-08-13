@@ -1,12 +1,10 @@
-
-import Button from "../Button";
+import Button from "../utils/Button";
 import { FaArrowRightToBracket } from "react-icons/fa6";
 import { CiLocationArrow1 } from "react-icons/ci";
 import { BiLogoFacebook } from "react-icons/bi";
 import { RiTwitterXLine } from "react-icons/ri";
 import { FaInstagram } from "react-icons/fa";
 import { TiSocialGooglePlus } from "react-icons/ti";
-// import { MutatingDots } from "react-loader-spinner";
 import { ThreeDots } from "react-loader-spinner";
 
 const Carousel = ({ error, eventData}) => {
@@ -24,7 +22,7 @@ const Carousel = ({ error, eventData}) => {
   const timeOptions = { hour: "numeric", hour12: true };
 
   return (
-    <>
+    <div className="bg-red-700 flex justify-around items-start">
       {/* carousel ctn */}
       {error ? (
         <small>no avialable events</small>
@@ -33,7 +31,7 @@ const Carousel = ({ error, eventData}) => {
           // carousel
           <div
             key={result.id}
-            className="my-10 md:my-10 mx-5 font-roboto bg-purple-100 cursor-pointer rounded-3xl w-[90%] md:w-[25%] h-[45em] md:h-[35em] hover:scale-105 duration-300 hover:bg-purple-200 hover:shadow-lg flex flex-col justify-around items-start"
+            className="my-10 md:my-10 mx-5 font-roboto bg-purple-100 cursor-pointer rounded-3xl w-[90%] md:w-[30%] h-[45em] md:h-[35em] hover:scale-105 duration-300 hover:bg-purple-200 hover:shadow-lg flex flex-col justify-around items-start"
           >
             {/* image */}
             <div className="w-full h-1/2 overflow-y-hidden">
@@ -48,14 +46,14 @@ const Carousel = ({ error, eventData}) => {
 
             <div className="h-1/2 p-4 w-full">
               {/* event name */}
-              <h1 className="font-bold text-2xl  py-1">{result.event_name}</h1>
+              <h1 className="font-bold text-xl  py-1">{result.event_name}</h1>
 
               {/* location arrow and venue */}
               <div className=" flex py-1 font-[600]">
                 <i className="  mr-2 ">
                   <CiLocationArrow1 className="text-xl  mx-1 text-red-700 font-bold" />
                 </i>
-                <p className="text-bold text-sm">
+                <p className="text-bold text-xs">
                   {result.event_location}
                 </p>
               </div>
@@ -85,16 +83,16 @@ const Carousel = ({ error, eventData}) => {
 
                   <div>
                     <div className=" py-1 ">
-                      {result.accessibility ? (
+                      {result.tickets ? (
                         <Button text="Buy tickets!" />
                       ) : (
                         <Button text="Get tickets!" />
                       )}
                     </div>
                     <div className="text-xs text-gray-400 md:text-sm ml ">
-                      {result.accessibility ? (
+                      {result.tickets ? (
                         <p>
-                          {result.accessibility.ticketLimit} tickets avialable
+                          {result.ticketLimit} tickets avialable
                         </p>
                       ) : (
                         <p>No tickets restrictions</p>
@@ -154,19 +152,8 @@ const Carousel = ({ error, eventData}) => {
           ariaLabel="three-dots-loading"
         />
       )}
-    </>
+    </div>
   );
 };
 
 export default Carousel;
-
-/* name 
-  venue
-  day, date
-  time
-  ticket btn
-  no. of tickets purchaced
-  download btn 
-  price
-  share on (facebk, X, insta, google)
-  */

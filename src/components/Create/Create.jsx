@@ -29,13 +29,15 @@ const Create = () => {
     event_attendees: "",
     event_date: "",
     event_description: "",
-    event_end_date: "",
+    event_end_time: "",
     event_id: "",
     event_image: "",
-    event_location: "",
+    event_state: "",
+    event_town: "",
+    event_street: "",
     event_name: "",
     event_owner: "",
-    event_start_date: "",
+    event_start_time: "",
     event_type: "",
   });
 
@@ -61,51 +63,32 @@ const Create = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const formData1 = {
-      // event_name: data.event_name,
-      // event_date: data.event_date,
-      // event_start_time: data.event_start_time,
-      // event_end_time: data.event_end_time,
-      // event_type: data.event_type,
-      // event_image: data.event_image,
-      // event_location: data.event_location,
-      // event_category: data.event_category,
-      // event_description: data.event_description,
-
+    const formData = {
       event_attendees: data.event_attendees,
       event_date: data.event_date,
       event_description: data.event_description,
-      event_end_date: data.event_end_date,
+      event_end_date: data.event_end_time,
       event_id: data.event_id,
       event_image: data.event_image,
-      // event_location: data.event_location,
+      event_location: [data.event_state, data.event_town, data.event_street],
       event_name: data.event_name,
       event_owner: data.event_owner,
-      event_start_date: data.event_start_date,
+      event_start_date: data.event_start_time,
       event_type: data.event_type,
     };
 
-    const formData2 = {
-      event_state: data.event_state,
-      event_town: data.event_town,
-      event_street: data.event_street,
-      event_website: data.event_website,
-      event_website: data.event_website,
-      event_link: data.event_link,
-      platform_details: data.platform_details,
-    };
 
     try {
-      const API_URL1 = `${
+      const API_URL = `${
         import.meta.env.VITE_APP_EVENTRYBE_API_URL
       }/create_event`;
       // const API_URL2 = `${import.meta.env.VITE_APP_EVENTRYBE_API_URL}/ticket`;
-      const res = await fetch(API_URL1, {
+      const res = await fetch(API_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData1),
+        body: JSON.stringify(formData),
       });
       if (res.ok) {
         const result = await res.json();
@@ -117,6 +100,7 @@ const Create = () => {
     } catch (error) {
       console.error("Error creating event", error);
     }
+    console.log(data);
   };
 
   return (
@@ -129,7 +113,7 @@ const Create = () => {
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="text-sm">
+        <div className="text-sm">
           {/* Name of Event */}
           <div className="flex flex-col mb-6">
             <label htmlFor="event_name" className="mb-1 font-semibold">
@@ -195,8 +179,8 @@ const Create = () => {
             </label>
             <select
               name="event_category"
-              value={data.event_category}
-              onChange={handleChange}
+              // value={data.event_category}
+              // onChange={handleChange}
               className="py-3 px-4 rounded-md cursor-pointer border border-black w-full md:w-48 mb-4"
             >
               <option value="">Select Category</option>
@@ -209,7 +193,7 @@ const Create = () => {
           </div>
 
           {/* Add price  */}
-          <div className="flex flex-col mb-6">
+          {/* <div className="flex flex-col mb-6">
             <label htmlFor="pricing" className="pb-1 font-semibold">
               Add price
             </label>
@@ -224,7 +208,7 @@ const Create = () => {
               />
               <Button text="free" onClick={handlePricing} />
             </div>
-          </div>
+          </div> */}
 
           {/* Drag and drop */}
           <div className="my-6">
@@ -277,7 +261,7 @@ const Create = () => {
           </div>
 
           {/* Website or link */}
-          <div className="flex flex-col mb-6">
+          {/* <div className="flex flex-col mb-6">
             <label htmlFor="event_website" className="mb-1 font-semibold">
               Website or link
             </label>
@@ -289,9 +273,9 @@ const Create = () => {
               onChange={handleChange}
               className="w-full py-3 px-4 rounded-md border border-black"
             />
-          </div>
-          <Button text="submit" type="submit" />
-        </form>
+          </div> */}
+          <Button text="submit" type="submit" onClick={handleSubmit} />
+        </div>
       </section>
     </div>
   );

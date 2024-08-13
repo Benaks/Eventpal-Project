@@ -13,18 +13,18 @@ const Online = ({ data, handleChange }) => {
         />
       </div>
 
-      <div className="flex flex-col mb-6">
+      {/* <div className="flex flex-col mb-6">
         <label htmlFor="platform_details" className="mb-1 font-semibold">
           Platform Details
         </label>
         <textarea
           name="platform_details"
           placeholder="Zoom, Google Meet, etc."
-          value={data?.platform_details || ""}
+          value={data?.event_platform_details || ""}
           onChange={handleChange}
           className="py-3 px-4 rounded-md border border-black"
         />
-      </div>
+      </div> */}
     </div>
   );
 };

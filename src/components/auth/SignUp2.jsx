@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SignUpImg from "../../assets/signup-hero.svg";
-import Button from "../Button";
+import Button from "../utils/Button";
 import Footer from "../footers/Footer";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 
@@ -11,6 +11,7 @@ const SignUp2 = () => {
     firstname: "",
     lastname: "",
   });
+  const navigate = useNavigate()
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,14 +30,14 @@ const SignUp2 = () => {
       setEmptyInputError(false);
     }
 
-    const API_URL = `${import.meta.env.VITE_APP_EVENTRYBE_AUTH_URL}/register/`;
+    const API_URL = `${import.meta.env.VITE_APP_EVENTRYBE_AUTH_URL}/user/user_id`;
     const requestData = {
       firstname,
       lastname,
     };
     try {
       const res = await fetch(API_URL, {
-        method: "POST",
+        method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
@@ -45,30 +46,31 @@ const SignUp2 = () => {
 
       if (res.ok) {
         const result = await res.json();
-        console.log("Successfully created user", result);
+        console.log("Successfully updated user", result);
         setUserData({
           firstname: "",
           lastname: "",
         });
+        navigate('/localEvents')
       } else {
         const errorData = await res.json();
         console.log(
-          "Error registering user: ",
+          "Error updating user: ",
           res.status,
           res.statusText,
           errorData
         );
       }
     } catch (error) {
-      console.log("Error creating user: ", error);
+      console.log("Error updating user: ", error);
     }
 
-    console.log("User Sign Up data:", userData);
+    console.log("User updated data:", userData);
   };
 
   return (
     <div className="font-poppins w-full">
-      <Link to="/">
+      <Link to="/SignUp">
         <div className="p-4">
           <AiOutlineArrowLeft className="cursor-pointer font-bold text-black text-2xl" />
         </div>
