@@ -8,7 +8,7 @@ import Tickets from "./Tickets";
 
 const Create = () => {
   const [venue, setVenue] = useState("");
-  const [price, setPrice] = useState("");
+  const [price, setPrice] = useState(null);
   const [isTicket, setIsTicket] = useState(false);
   const [data, setData] = useState({
     // event_name: "",
