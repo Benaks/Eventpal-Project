@@ -14,6 +14,7 @@ const SignUp = () => {
   const [passwordShown, setPasswordShown] = useState(false);
   const [passwordMatchError, setPasswordMatchError] = useState(false);
   const [emptyInputError, setEmptyInputError] = useState(false);
+  const [apiError, setApiError] = useState("");
   const [userData, setUserData] = useState({
     username: "",
     email: "",
@@ -59,6 +60,7 @@ const SignUp = () => {
       password1,
       password2,
     };
+
     try {
       const res = await fetch(API_URL, {
         method: "POST",
@@ -69,13 +71,14 @@ const SignUp = () => {
       });
 
       if (res.ok) {
-        const result = await res.json();
-        console.log("Successfully created user", result);
+          const result = await res.json();
+          console.log("Successfully created user", result);
         setUserData({
           username: "",
           password1: "",
           password2: "",
         });
+        setApiError(""); // Clear any previous error message
         navigate("/SignUp2");
       } else {
         const errorData = await res.json();
@@ -85,14 +88,21 @@ const SignUp = () => {
           res.statusText,
           errorData
         );
+        // Extract the first error message (adjust this depending on the actual structure of errorData)
+        const errorMessage =
+          errorData.non_field_errors?.[0] ||
+          errorData.password1?.[0] ||
+          errorData.username?.[0] ||
+          "Error registering user.";
+        setApiError(errorMessage);
       }
     } catch (error) {
       console.log("Error creating user: ", error);
+      setApiError("Error creating user."); // Set a generic error message
     }
 
     console.log("User Sign Up data:", userData);
-  }; 
-
+  };
   return (
     <div className="font-poppins w-full">
       <Link to="/">
@@ -193,6 +203,14 @@ const SignUp = () => {
               </p>
             )}
 
+            {apiError && (
+              <p className="my-2 text-sm text-red-500">{apiError}</p>
+            )}
+
+            {emptyInputError && (
+              <p className="my-2 text-sm text-red-500">Fill in all inputs.</p>
+            )}
+
             <Button
               text="Create Account"
               bgColor="red"
@@ -201,10 +219,6 @@ const SignUp = () => {
               btnHeight={60}
               onClick={handleSubmit}
             />
-
-            {emptyInputError && (
-              <p className="my-2 text-sm text-red-500">Fill in all inputs.</p>
-            )}
           </form>
 
           <hr className="" />

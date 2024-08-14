@@ -4,10 +4,12 @@ import { useState } from "react";
 import OnSite from "./OnSite";
 import Online from "./Online";
 import Pending from "./Pending";
+import Tickets from "./Tickets";
 
 const Create = () => {
   const [venue, setVenue] = useState("");
   const [price, setPrice] = useState("");
+  const [isTicket, setIsTicket] = useState(false);
   const [data, setData] = useState({
     // event_name: "",
     // event_date: "",
@@ -39,6 +41,14 @@ const Create = () => {
     event_owner: "",
     event_start_time: "",
     event_type: "",
+    event_link: "",
+    event_platform_details: "",
+    ticket_name: "",
+    ticket_desc: "",
+    ticket_price: "",
+    ticket_quant: "",
+    ticket_avial_date: "",
+    ticket_per_user: "",
   });
 
   const handleOnSite = () => {
@@ -53,6 +63,10 @@ const Create = () => {
 
   const handlePricing = () => {
     setPrice("free");
+  };
+
+  const handleTicket = () => {
+    setIsTicket(!isTicket);
   };
 
   const handleChange = (e) => {
@@ -77,12 +91,22 @@ const Create = () => {
       event_type: data.event_type,
     };
 
+    const ticketData = {
+      ticket_name: data.ticket_name,
+      ticket_desc: data.ticket_desc,
+      ticket_price: data.ticket_price,
+      ticket_quant: data.ticket_quant,
+      ticket_avial_date: data.ticket_avial_date,
+      ticket_per_user: data.ticket_per_user,
+    };
 
     try {
       const API_URL = `${
         import.meta.env.VITE_APP_EVENTRYBE_API_URL
       }/create_event`;
-      // const API_URL2 = `${import.meta.env.VITE_APP_EVENTRYBE_API_URL}/ticket`;
+      const API_URL2 = `${
+        import.meta.env.VITE_APP_EVENTRYBE_API_URL
+      }/generate_tickets`;
       const res = await fetch(API_URL, {
         method: "POST",
         headers: {
@@ -192,23 +216,18 @@ const Create = () => {
             </select>
           </div>
 
-          {/* Add price  */}
-          {/* <div className="flex flex-col mb-6">
-            <label htmlFor="pricing" className="pb-1 font-semibold">
-              Add price
-            </label>
-            <div className="flex items-center space-x-4">
-              <input
-                type="number"
-                name="price"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-                placeholder="Ticket price"
-                className="py-3 px-4 rounded-md border border-black w-full md:w-48"
+          {/* Add Tickets  */}
+          <div className="flex flex-col mb-6">
+            <Button text="Create Ticket" onClick={handleTicket} />
+            {isTicket ? (
+              <Tickets
+                data={data}
+                handlePricing={handlePricing}
+                handleChange={handleChange} 
+                setPrice={setPrice}
               />
-              <Button text="free" onClick={handlePricing} />
-            </div>
-          </div> */}
+            ) : null}
+          </div>
 
           {/* Drag and drop */}
           <div className="my-6">
@@ -237,13 +256,15 @@ const Create = () => {
             </div>
 
             {/* Venue Address */}
-            {venue === "onSite" && <OnSite data={data} handleChange={handleChange} />}
-
-            {venue === "online" && <Online />}
-
-            {venue === "unAnnounced" && (
-              <Pending />
+            {venue === "onSite" && (
+              <OnSite data={data} handleChange={handleChange} />
             )}
+
+            {venue === "online" && (
+              <Online data={data} handleChange={handleChange} />
+            )}
+
+            {venue === "unAnnounced" && <Pending />}
           </section>
 
           {/* Short Description */}
@@ -282,7 +303,3 @@ const Create = () => {
 };
 
 export default Create;
-
-
-
-
