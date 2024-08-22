@@ -14,6 +14,7 @@ const Signin = () => {
   const [passwordShown, setPasswordShown] = useState(false);
   const [emptyInputError, setEmptyInputError] = useState(false);
   const [userData, setUserData] = useState({
+    email: "",
     username: "",
     password: "",
   });
@@ -30,7 +31,7 @@ const Signin = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { username, password } = userData;
+    const { email, username, password } = userData;
 
     // Check if any input is empty
     if (!username || !password) {
@@ -43,6 +44,7 @@ const Signin = () => {
 
     const requestData = {
       username,
+      email: username,
       password,
     };
 
@@ -59,12 +61,11 @@ const Signin = () => {
         console.log("Successfully logged in", result);
         setUserData({
           username: "",
+          email: "",
           password: "",
         });
         // toggle the state of the user activness
         setUserIsActive(true);
-        // // Redirect to home page
-        // window.location.href = "/";
       } else {
         const errorData = await res.json();
         console.log(
@@ -120,7 +121,7 @@ const Signin = () => {
                 value={userData.username}
                 onChange={handleChange}
                 autoComplete="email"
-                placeholder="Username or Email"
+                placeholder="Email"
                 className="w-full h-16 mb-10 rounded-2xl p-4 border-[0.2em] text-slate-400 text-[0.9em] border-black shadow-md"
                 required
               />
