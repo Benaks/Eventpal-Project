@@ -136,17 +136,6 @@ const SignUp = () => {
             className="flex flex-col justify-around items-center my-10"
             onSubmit={handleSubmit}
           >
-            {/* <input
-              id="username"
-              name="username"
-              type="username"
-              value={userData.username}
-              autoComplete="username"
-              onChange={handleChange}
-              placeholder="Username"
-              className="w-full h-16 mb-10 rounded-2xl p-4 border-[0.2em] text-slate-400 text-[0.9em] border-black shadow-md"
-              required
-            /> */}
             <input
               id="username"
               name="username"
