@@ -22,7 +22,7 @@ const Carousel = ({ error, eventData}) => {
   const timeOptions = { hour: "numeric", hour12: true };
 
   return (
-    <div className="bg-red-700 flex justify-around items-start">
+    <div className=" flex justify-around items-start">
       {/* carousel ctn */}
       {error ? (
         <small>no avialable events</small>
@@ -39,6 +39,7 @@ const Carousel = ({ error, eventData}) => {
                 src={result.event_image}
                 alt={result.event_name}
                 className="w-full h-full rounded-tl-2xl rounded-tr-2xl"
+                loading="lazy"
               />
             </div>
 

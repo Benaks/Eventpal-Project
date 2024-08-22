@@ -14,6 +14,7 @@ import Location from './components/location/Location'
 import Tickets from './components/pages/Tickets'
 import Locate from "./components/location/Locate";
 import LocalEvents from "./components/pages/LocalEvents";
+import CreateOrganizer from "./components/organizer/CreateOrganizer"
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
@@ -32,6 +33,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Route path="/location" element={<Location />} />
       <Route path="/tickets" element={<Tickets />} />
       <Route path="/create-event" element={<Tickets />} />
+      <Route path="/create-organizer" element={<CreateOrganizer />} />
     </Routes>
   </BrowserRouter>
 );

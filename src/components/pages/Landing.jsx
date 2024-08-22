@@ -54,7 +54,6 @@ function App() {
     <div>
       {/* navigation bar */}
       <div>
-        {" "}
         <Navbar />
       </div>
       {/* hero section */}
@@ -85,7 +84,7 @@ function App() {
           subHead="You may be interested to know what's up today"
         />
         <div className="w-full overflow-x-auto">
-          <div className="flex justify-around items-center w-[500%] md:w-[200%] my-10">
+          <div className="flex justify-around items-center w-[500%] md:w-[150%] my-10">
             <Today error={error} eventData={eventData} />
           </div>
         </div>

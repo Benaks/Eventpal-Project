@@ -3,15 +3,23 @@ import { Link } from "react-router-dom";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { FiSearch } from "react-icons/fi";
 import Button from "../utils/Button";
-import Userimg from "../../assets/logo.png"
+import Userimg from "../../assets/logo.png";
 
-const SignedNav = () => {
+const OrganizerNav = () => {
   const [nav, setNav] = useState(false);
 
   const menuItems = [
     {
+      text: "Create Events",
+      link: "/create",
+    },
+    {
       text: "Locate events",
       link: "/locatePage",
+    },
+    {
+      text: "Tickets",
+      link: "/tickets",
     },
     {
       text: "Help center",
@@ -55,9 +63,6 @@ const SignedNav = () => {
               <Link to={item.link}>{item.text}</Link>
             </li>
           ))}
-          <Link to='/create-organizer'>
-            <button className="bg-red-500">Be an organizer</button>
-          </Link>
         </div>
 
         {/* user dp */}
@@ -114,4 +119,4 @@ const SignedNav = () => {
   );
 };
 
-export default SignedNav;
+export default OrganizerNav;
