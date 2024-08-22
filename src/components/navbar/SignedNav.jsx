@@ -10,16 +10,8 @@ const SignedNav = () => {
 
   const menuItems = [
     {
-      text: "Create Events",
-      link: "/create",
-    },
-    {
       text: "Locate events",
       link: "/locatePage",
-    },
-    {
-      text: "Tickets",
-      link: "/tickets",
     },
     {
       text: "Help center",
@@ -63,6 +55,9 @@ const SignedNav = () => {
               <Link to={item.link}>{item.text}</Link>
             </li>
           ))}
+          <Link to='/create-organizer'>
+            <button className="bg-red-500">Be an organizer</button>
+          </Link>
         </div>
 
         {/* user dp */}
