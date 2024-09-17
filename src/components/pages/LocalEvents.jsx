@@ -7,7 +7,7 @@ import Categories from "../Carousel/Carousel";
 import Popular from "../Carousel/Carousel";
 import Today from "../Carousel/Carousel";
 import Online from "../Carousel/Carousel";
-import Pagination from "../utils/Pagination";
+// import Pagination from "../utils/Pagination";
 import CarouselHead from "../Carousel/CarouselHead";
 import { fetchData } from "../api/data";
 import CarouselSection from "../Carousel/CarouselSection";
@@ -18,8 +18,8 @@ export const AppContext = createContext({});
 function App() {
   const [eventData, setEventData] = useState(null);
   const [error, setError] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1);
-  const eventsPerPage = 6;
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const eventsPerPage = 6;
   const [inputLocation, setInputLocation] = useState("");
 
   // fetch event data [imported from api/data.js file]

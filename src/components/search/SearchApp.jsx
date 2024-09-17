@@ -73,7 +73,7 @@ const SearchApp = () => {
         </div>
       </div>
 
-      <div className=" grid lg:grid-cols-3 sm:grid-cols-2 p-6 md:p-20">
+      <div className=" grid lg:grid-cols-3 sm:grid-cols-2 p-6 md:p-20 bg-red-900">
         {isLoading ? (
           <div className="flex  justify-center ml-[45vw]">
             {/* loading animation */}
