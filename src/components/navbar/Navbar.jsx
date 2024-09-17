@@ -7,7 +7,8 @@ import { fetchData } from "../api/data";
 
 const Navbar = ({handleKeyPress, setIsLoading, setIsSearching}) => {
   const [nav, setNav] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");  const [eventData, setEventData] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");  
+  const [eventData, setEventData] = useState(null);
   const [error, setError] = useState(null);
 
 

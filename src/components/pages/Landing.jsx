@@ -14,7 +14,7 @@ import { fetchData } from "../api/data";
 import CarouselSection from "../Carousel/CarouselSection";
 import Personalize from "../modals/Personalize";
 import { MutatingDots } from "react-loader-spinner";
-import SearchApp from "../search/SearchApp";
+
 
 export const AppContext = createContext({});
 
@@ -102,7 +102,8 @@ function App() {
             </div>
           ))
         ) : null}
-      </div>) : (
+      </div>
+      ) : (
       <div>
   {/* carousel for categories */}
   <CarouselSection
