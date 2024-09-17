@@ -3,9 +3,13 @@ import { Link } from "react-router-dom";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { FiSearch } from "react-icons/fi";
 import Button from "../utils/Button";
+import { fetchData } from "../api/data";
 
-const Navbar = () => {
+const Navbar = ({handleKeyPress, setIsLoading, setIsSearching}) => {
   const [nav, setNav] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");  const [eventData, setEventData] = useState(null);
+  const [error, setError] = useState(null);
+
 
   const menuItems = [
     {
@@ -25,6 +29,31 @@ const Navbar = () => {
       link: "/help",
     },
   ];
+
+// func to handle searching of items
+ const handleSearch = async () => {
+  setIsLoading(true);
+  const { data, error } = await fetchData(searchTerm);
+  if (error) {
+    setError(error);
+    setEventData(null);
+  } else {
+    setError(null);
+    setEventData(data);
+  }
+  setIsLoading(false);
+};
+
+// func to handle change on search box
+const handleChange = (e)=> {
+  setSearchTerm(e.target.value)
+}
+
+// function to handle keypress on search box (handleKeyPress is a prop from Landing)
+handleKeyPress = (e)=> {
+  e.key === 'Enter' ? handleSearch() : null;
+  setIsSearching(true)
+} 
 
   return (
     <header className="w-full py-8 px-4 flex bg-white flex-col justify-center items-center">
@@ -52,16 +81,18 @@ const Navbar = () => {
 
         {/* deskotp search ctn */}
         <div className="hidden lg:block bg-white p-1 w-[25%] shadow-2xl rounded-lg h-auto my-2">
-          <Link to="/SearchApp">
             <i className="text-gray-700 font-bold text-2xl absolute m-2">
               <FiSearch />
             </i>
             <input
               type="text"
+              value={searchTerm}
+              onChange={handleChange}
+              onKeyDown={handleKeyPress}
               placeholder="Search events ..."
               className="border-none outline-none mx-10 placeholder:text-xs w-[75%] lg:w-[85%] h-10"
             />
-          </Link>
+      
         </div>
         {/* login & signin ctn */}
         <div className="flex justify-around items-center lg:w-[18%]">
@@ -110,8 +141,11 @@ const Navbar = () => {
           <FiSearch />
         </i>
         <input
-          type="text"
-          placeholder="Search events ..."
+           type="text"
+              value={searchTerm}
+              onChange={handleChange}
+              onKeyDown={handleKeyPress}
+              placeholder="Search events ..."
           className="border-none outline-none mx-10 placeholder:text-xs w-[75%] lg:w-[85%] h-10"
         />
       </div>
