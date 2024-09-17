@@ -4,9 +4,13 @@ import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { FiSearch } from "react-icons/fi";
 import Button from "../utils/Button";
 import Userimg from "../../assets/logo.png"
+import { fetchData } from "../api/data";
 
-const SignedNav = () => {
-  const [nav, setNav] = useState(false);
+const SignedNav = ({handleKeyPress, setIsLoading, setIsSearching}) => {
+  const [nav, setNav] = useState(false); 
+  const [searchTerm, setSearchTerm] = useState("");  
+  const [eventData, setEventData] = useState(null);
+  const [error, setError] = useState(null);
 
   const menuItems = [
     {
@@ -18,6 +22,31 @@ const SignedNav = () => {
       link: "/help",
     },
   ];
+
+  // func to handle searching of items
+ const handleSearch = async () => {
+  setIsLoading(true);
+  const { data, error } = await fetchData(searchTerm);
+  if (error) {
+    setError(error);
+    setEventData(null);
+  } else {
+    setError(null);
+    setEventData(data);
+  }
+  setIsLoading(false);
+};
+
+// func to handle change on search box
+const handleChange = (e)=> {
+  setSearchTerm(e.target.value)
+}
+
+// function to handle keypress on search box (handleKeyPress is a prop from Landing)
+handleKeyPress = (e)=> {
+  e.key === 'Enter' ? handleSearch() : null;
+  setIsSearching(true)
+} 
 
   return (
     <header className="w-full py-8 px-4 flex bg-white flex-col justify-center items-center">
@@ -31,18 +60,19 @@ const SignedNav = () => {
           </h1>
         </div>
 
-        {/*  search ctn */}
+        {/* desktop search ctn */}
         <div className="hidden lg:block bg-white p-1 w-[25%] shadow-2xl rounded-lg h-auto my-2 border-[1px] border-black">
-          <Link to="/SearchApp">
             <i className="text-gray-700 font-bold text-2xl absolute m-2">
               <FiSearch />
             </i>
             <input
               type="text"
+              value={searchTerm}
+              onChange={handleChange}
+              onKeyDown={handleKeyPress}
               placeholder="Search events ..."
               className="border-none outline-none mx-10 placeholder:text-xs w-[75%] lg:w-[85%] h-10"
             />
-          </Link>
         </div>
 
         {/* desktop navbar */}
@@ -92,6 +122,9 @@ const SignedNav = () => {
         </i>
         <input
           type="text"
+          value={searchTerm}
+          onChange={handleChange}
+          onKeyDown={handleKeyPress}
           placeholder="Search events ..."
           className="border-none outline-none mx-10 placeholder:text-xs w-[75%] lg:w-[85%] h-10"
         />
