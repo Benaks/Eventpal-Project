@@ -1,4 +1,4 @@
-import Pagination from "../utils/Pagination"
+// import Pagination from "../utils/Pagination"
 import CarouselHead from "./CarouselHead"
 
 const CarouselSection = ({
@@ -14,12 +14,12 @@ const CarouselSection = ({
       <div className="flex flex-col md:flex-row flex-wrap justify-around items-center w-full">
         {children}
       </div>
-      <Pagination
+      {/* <Pagination
         eventData={eventData}
         eventsPerPage={eventsPerPage}
         // setCurrentPage={setCurrentPage}
         // currentPage={currentPage}
-      />
+      /> */}
     </div>
   );
 };
