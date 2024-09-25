@@ -71,7 +71,8 @@ function App() {
 
       {/* renders search results if isSearching is true */}
 
-    {isSearching ? (<div className=" grid lg:grid-cols-3 sm:grid-cols-2 p-6 md:p-20">
+    {isSearching ? (
+      <div className=" grid lg:grid-cols-3 sm:grid-cols-2 p-6 md:p-20">
         {isLoading ? (
           <div className="flex  justify-center ml-[45vw]">
             {/* loading animation */}

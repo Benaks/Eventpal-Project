@@ -72,7 +72,7 @@ const Signin = () => {
           "Error logging in: ",
           res.status,
           res.statusText,
-          errorData
+          errorData,
         );
       }
     } catch (error) {

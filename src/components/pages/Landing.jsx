@@ -8,7 +8,7 @@ import Categories from "../Carousel/Carousel";
 import Popular from "../Carousel/Carousel";
 import Today from "../Carousel/Carousel";
 import Online from "../Carousel/Carousel";
-// import Pagination from "../utils/Pagination";
+import Pagination from "../utils/Pagination";
 import CarouselHead from "../Carousel/CarouselHead";
 import { fetchData } from "../api/data";
 import CarouselSection from "../Carousel/CarouselSection";
@@ -18,13 +18,13 @@ import { MutatingDots } from "react-loader-spinner";
 
 export const AppContext = createContext({});
 
-function App() {
+const Landing = () => {
   const [eventData, setEventData] = useState(null);
   const [error, setError] = useState(null);
   const [isSearching, setIsSearching] = useState(false)
   const [isLoading, setIsLoading] = useState(false);
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const eventsPerPage = 6;
+  const [currentPage, setCurrentPage] = useState(1);
+  const eventsPerPage = 6;
   const [inputLocation, setInputLocation] = useState("");
   const [userIsActive, setUserIsActive] = useState(false);
 
@@ -60,10 +60,14 @@ function App() {
     <div>
       {/* navigation bar */}
       <div>
-        <Navbar setIsSearching={setIsSearching} handleKeyPress={handleKeyPress}  setIsLoading={setIsLoading} />
+        <Navbar 
+        setIsSearching={setIsSearching} 
+        handleKeyPress={handleKeyPress}  
+        setIsLoading={setIsLoading} 
+        />
       </div>
       {/* hero section */}
-      <Hero />
+      <Hero handleKeyPress={handleKeyPress} />
       {/* menubar */}
       <MenuBar />
 
@@ -112,6 +116,12 @@ function App() {
       >
         <Categories error={error} eventData={eventData} />
       </CarouselSection>
+      <Pagination 
+          eventData={eventData} 
+          eventsPerPage={eventsPerPage} 
+          setCurrentPage={setCurrentPage} 
+          currentPage={currentPage} 
+      />
 
       {/* carousel for popular events */}
       <CarouselSection
@@ -120,6 +130,12 @@ function App() {
       >
         <Popular error={error} eventData={eventData} />
       </CarouselSection>
+      <Pagination 
+          eventData={eventData} 
+          eventsPerPage={eventsPerPage} 
+          setCurrentPage={setCurrentPage} 
+          currentPage={currentPage} 
+      />
 
       {/* carousel for today events */}
       <div className="w-[95%] mx-auto">
@@ -148,7 +164,7 @@ function App() {
       </div>
       </div>
     )
-    };
+    }
 
       {/* carousel for personalize events */}
       <div className="w-[95%] mx-auto">
@@ -164,4 +180,4 @@ function App() {
   );
 }
 
-export default App;
+export default Landing;

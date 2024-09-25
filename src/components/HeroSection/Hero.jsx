@@ -7,7 +7,7 @@ import { FiSearch } from "react-icons/fi";
 import Button from "../utils/Button";
 import heroData from "./data";
 
-function Hero() {  
+function Hero({handleKeyPress}) {  
 
   const navigate = useNavigate()
   return (
@@ -25,9 +25,9 @@ function Hero() {
         </p>
 
         {/* location & search ctn */}
-        <div className="flex flex-col md:flex-row justify-between items-center md:items-start mt-20 w-80 md:w-[90%] lg:w-[56%]">
+        {/* <div className="flex flex-col md:flex-row justify-between items-center md:items-start mt-20 w-80 md:w-[90%] lg:w-[56%]"> */}
           {/* location ctn */}
-          <div
+          {/* <div
             className="flex flex-col justify-between items-start w-3/4 md:w-[25%]"
             onClick={()=> navigate('/locatePage')}
           >
@@ -36,10 +36,10 @@ function Hero() {
                 Location
               </p>
             </div>
-          </div>
+          </div> */}
 
           {/* search ctn */}
-          <div className="bg-gray-200 w-full md:w-1/2 shadow-custom rounded-lg p-1 h-auto my-4 md:my-0">
+          {/* <div className="bg-gray-200 w-full md:w-1/2 shadow-custom rounded-lg p-1 h-auto my-4 md:my-0">
             <i className="text-gray-700 font-bold text-nd absolute m-3">
               <FiSearch />
             </i>
@@ -50,16 +50,15 @@ function Hero() {
             />
           </div>
 
-          <Link to="SearchApp">
             <Button
               text="search"
               bgColor="red"
               textColor="white"
               btnWidth={110}
               btnHeight={50}
+              onClick={handleKeyPress}
             />
-          </Link>
-        </div>
+        </div> */}
       </div>
     </div>
   );
