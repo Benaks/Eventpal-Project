@@ -16,6 +16,7 @@ import Locate from "./components/location/Locate";
 import LocalEvents from "./components/pages/LocalEvents";
 import CreateOrganizer from "./components/organizer/CreateOrganizer"
 
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <Routes>

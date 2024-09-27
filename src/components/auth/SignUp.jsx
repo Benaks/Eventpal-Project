@@ -36,7 +36,7 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { username, email, password1, password2 } = userData;
-
+  
     // Check if passwords match
     if (password1 !== password2) {
       setPasswordMatchError(true);
@@ -44,23 +44,23 @@ const SignUp = () => {
     } else {
       setPasswordMatchError(false);
     }
-
+  
     // Check if any input is empty
-    if (!username || !password1 || !password2) {
+    if (!username || !email || !password1 || !password2) {
       setEmptyInputError(true);
       return;
     } else {
       setEmptyInputError(false);
     }
-
+  
     const API_URL = `${import.meta.env.VITE_APP_EVENTRYBE_AUTH_URL}/register/`;
     const requestData = {
       username,
-      email: username,
+      email,
       password1,
       password2,
     };
-
+  
     try {
       const res = await fetch(API_URL, {
         method: "POST",
@@ -69,40 +69,42 @@ const SignUp = () => {
         },
         body: JSON.stringify(requestData),
       });
-
+  
+      const contentType = res.headers.get("content-type");
+      
       if (res.ok) {
-          const result = await res.json();
-          console.log("Successfully created user", result);
+        const result = contentType && contentType.includes("application/json") ? await res.json() : {};
+        console.log("Successfully created user");
         setUserData({
           username: "",
+          email: "",
           password1: "",
           password2: "",
         });
         setApiError(""); // Clear any previous error message
-        navigate("/SignUp2");
+        navigate("/SignIn");
       } else {
-        const errorData = await res.json();
-        console.log(
-          "Error registering user: ",
-          res.status,
-          res.statusText,
-          errorData
-        );
-        // Extract the first error message (adjust this depending on the actual structure of errorData)
-        const errorMessage =
-          errorData.non_field_errors?.[0] ||
-          errorData.password1?.[0] ||
-          errorData.username?.[0] ||
-          "Error registering user.";
+        let errorMessage = "Error registering user.";
+        if (contentType && contentType.includes("application/json")) {
+          const errorData = await res.json();
+          errorMessage =
+            errorData.non_field_errors?.[0] ||
+            errorData.password1?.[0] ||
+            errorData.username?.[0] ||
+            errorData.email?.[0] ||
+            errorMessage;
+        }
+        console.log("Error registering user: ", res.status, res.statusText);
         setApiError(errorMessage);
       }
     } catch (error) {
       console.log("Error creating user: ", error);
       setApiError("Error creating user."); // Set a generic error message
     }
-
+  
     console.log("User Sign Up data:", userData);
   };
+  
   return (
     <div className="font-poppins w-full">
       <Link to="/">
@@ -136,15 +138,27 @@ const SignUp = () => {
             className="flex flex-col justify-around items-center my-10"
             onSubmit={handleSubmit}
           >
-            <input
+             <input
               id="username"
               name="username"
-              type="email"
+              type="text"
               value={userData.username}
+              autoComplete="useername"
+              onChange={handleChange}
+              placeholder="User name"
+              className="w-full h-16 mb-10 rounded-2xl p-4 border-[0.2em] text-slate-700 text-[0.9em] border-black shadow-md"
+              required
+            />
+
+            <input
+              id="email"
+              name="email"
+              type="email"
+              value={userData.email}
               autoComplete="email"
               onChange={handleChange}
               placeholder="Email address"
-              className="w-full h-16 mb-10 rounded-2xl p-4 border-[0.2em] text-slate-400 text-[0.9em] border-black shadow-md"
+              className="w-full h-16 mb-10 rounded-2xl p-4 border-[0.2em] text-slate-700 text-[0.9em] border-black shadow-md"
               required
             />
 
@@ -157,7 +171,7 @@ const SignUp = () => {
                 value={userData.password1}
                 onChange={handleChange}
                 placeholder="Password"
-                className="w-full h-16 mb-10 rounded-2xl p-6 border-[0.2em] border-black shadow-md text-slate-400 text-[0.9em]"
+                className="w-full h-16 mb-10 rounded-2xl p-6 border-[0.2em] border-black shadow-md text-slate-700 text-[0.9em]"
                 required
               />
 
@@ -180,7 +194,7 @@ const SignUp = () => {
               value={userData.password2}
               onChange={handleChange}
               placeholder="Confirm password"
-              className={`w-full h-16 mb-10 rounded-2xl p-4 border-[0.2em] border-black shadow-md text-slate-400 text-[0.9em] ${
+              className={`w-full h-16 mb-10 rounded-2xl p-4 border-[0.2em] border-black shadow-md text-slate-700 text-[0.9em] ${
                 passwordMatchError ? "border-red-500" : ""
               }`}
               required
@@ -206,7 +220,6 @@ const SignUp = () => {
               textColor="white"
               btnWidth={300}
               btnHeight={60}
-              onClick={handleSubmit}
             />
           </form>
 
@@ -217,12 +230,12 @@ const SignUp = () => {
             <div className="p-2 border border-slate-500 bg-slate-200 rounded-md w-20 h-14 flex justify-center items-center cursor-pointer">
               <img src={GoogleLogo} alt="Google logo" className="w-8" />
             </div>
-            <div className="p-4 border border-slate-500 bg-slate-200 w-20 h-14 flex justify-center items-center rounded-md cursor-pointer">
+            {/* <div className="p-4 border border-slate-500 bg-slate-200 w-20 h-14 flex justify-center items-center rounded-md cursor-pointer">
               <img src={FacebookLogo} alt="Facebook logo" className="w-10" />
             </div>
             <div className="p-4 border border-slate-500 bg-slate-200 w-20 h-14 flex justify-center items-center rounded-md cursor-pointer">
               <img src={AppleLogo} alt="Apple logo" className="w-9" />
-            </div>
+            </div> */}
           </div>
 
           <p className="mt-8 mx-auto text-slate-400 w-[80%] text-sm">

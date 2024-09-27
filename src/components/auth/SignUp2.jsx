@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import SignUpImg from "../../assets/signup-hero.svg";
 import Button from "../utils/Button";
@@ -11,12 +11,49 @@ const SignUp2 = () => {
     firstname: "",
     lastname: "",
   });
-  const navigate = useNavigate()
+  const [userId, setUserId] = useState(null)
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUserData({ ...userData, [name]: value });
+    setEmptyInputError(false)
   };
+
+   //fetch useId when the component mounts
+   useEffect(()=> {
+    const fetchUserId = async () => {
+      const API_URL = `${import.meta.env.VITE_APP_EVENTRYBE_AUTH_URL}/user/`;
+      const token = localStorage.getItem('authToken')
+      console.log(token);
+      
+      const res = await fetch(API_URL, {
+        method: 'GET',
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization" : `Bearer ${token}`
+        },
+      })
+
+      if (!res.ok) {
+        throw new Error(`Error: ${res.status}`);
+      }
+      const data = await res.json();
+      console.log('auth user data: ' + data);
+      
+      const id = data?.userId;
+
+      if (id) {
+        setUserId(id)
+        console.log('user id is: ' + userId);
+      } else{
+        console.log('error getting user id');
+        
+      }
+    };
+
+    fetchUserId()
+  }, [])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,11 +63,11 @@ const SignUp2 = () => {
     if (!firstname || !lastname) {
       setEmptyInputError(true);
       return;
-    } else {
-      setEmptyInputError(false);
-    }
+    } 
 
-    const API_URL = `${import.meta.env.VITE_APP_EVENTRYBE_AUTH_URL}/user/user_id`;
+    const API_URL = `${
+      import.meta.env.VITE_APP_EVENTRYBE_AUTH_URL
+    }/user/${userId}/update/`;
     const requestData = {
       firstname,
       lastname,
@@ -51,7 +88,7 @@ const SignUp2 = () => {
           firstname: "",
           lastname: "",
         });
-        navigate('/localEvents')
+        navigate("/localEvents");
       } else {
         const errorData = await res.json();
         console.log(
@@ -89,9 +126,7 @@ const SignUp2 = () => {
             </Link>
           </h1>
           <div className="my-3">
-            <p className="text-slate-400 text-sm">
-              Complete your registration
-            </p>
+            <p className="text-slate-400 text-sm">Complete your registration</p>
           </div>
 
           <form
@@ -128,7 +163,6 @@ const SignUp2 = () => {
               textColor="white"
               btnWidth={300}
               btnHeight={60}
-              onClick={handleSubmit}
             />
 
             {emptyInputError && (

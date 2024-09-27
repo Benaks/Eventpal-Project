@@ -15,11 +15,11 @@ const Personalize = () => {
   ];
   return (
     <div className="w-full overflow-x-auto">
-      <div className="flex justify-around items-center w-[500%] md:w-[100%] mb-10">
+      <div className="flex justify-around items-center w-[235%] md:w-[150%] lg:w-[100%] mb-10">
         {data.map((result) => (
           <li
             key={result.name}
-            className="capitalize list-none p-16 text-2xl text-white font-semibold rounded-full bg-center bg-contain bg-no-repeat cursor-pointer"
+            className="capitalize list-none p-10 md:p-14 lg:p-16 text-lg md:text-xl lg:text-2xl text-white font-semibold rounded-full bg-center bg-contain bg-no-repeat cursor-pointer"
             style={{ backgroundImage: `url(${result.img})` }}
           >
             {result.name}
