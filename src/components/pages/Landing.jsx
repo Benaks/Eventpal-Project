@@ -39,6 +39,7 @@ const Landing = () => {
       setError(null);
       setEventData(data);
     }
+    
   };
 
   useEffect(() => {

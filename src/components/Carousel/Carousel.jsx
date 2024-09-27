@@ -27,7 +27,7 @@ const Carousel = ({ error, eventData}) => {
       {error ? (
         <small>no avialable events</small>
       ) : eventData ? (
-        eventData.map((result) => (
+        Array.isArray(eventData) && eventData.map((result) => (
           // carousel
           <div
             key={result.id}

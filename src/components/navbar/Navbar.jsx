@@ -72,7 +72,7 @@ handleKeyPress = (e)=> {
         <div className="hidden lg:flex text-gray-600 font-thin">
           {menuItems.map((item) => (
             <li
-              key={item.link}
+              key={item.text}
               className="font-semibold px-3 cursor-pointer list-none text-sm"
             >
               <Link to={item.link}>{item.text}</Link>

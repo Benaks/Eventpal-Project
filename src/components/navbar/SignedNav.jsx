@@ -5,6 +5,7 @@ import { FiSearch } from "react-icons/fi";
 import Button from "../utils/Button";
 import Userimg from "../../assets/logo.png"
 import { fetchData } from "../api/data";
+import Logout from "../auth/Logout";
 
 const SignedNav = ({handleKeyPress, setIsLoading, setIsSearching}) => {
   const [nav, setNav] = useState(false); 
@@ -114,23 +115,7 @@ handleKeyPress = (e)=> {
           />
         </div>
 
-        
       </nav>
-
-      {/* mobile search ctn */}
-      {/* <div className="lg:hidden border-[1px] border-gray-300 bg-white p-1 w-[85%] md:w-[50%] shadow-2xl rounded-lg h-auto mt-6">
-        <i className="text-gray-700 font-bold text-2xl absolute m-2">
-          <FiSearch />
-        </i>
-        <input
-          type="text"
-          value={searchTerm}
-          onChange={handleChange}
-          onKeyDown={handleKeyPress}
-          placeholder="Search events ..."
-          className="border-none outline-none mx-10 placeholder:text-xs w-[75%] lg:w-[85%] h-10"
-        />
-      </div> */}
 
       {/* mobile nav box */}
       {!nav ? null : (
@@ -147,6 +132,7 @@ handleKeyPress = (e)=> {
             className="block md:hidden h-12 w-12 border-2 border-red-500 rounded-full object-cover"
             src={Userimg}
           />
+          <Logout />
         </ul>
       )}
     </header>

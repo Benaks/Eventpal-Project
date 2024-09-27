@@ -52,7 +52,7 @@ function App() {
   //       )
   //     : [];
 
-  let handleKeyPress;  //variable to declare func for searching
+  let handleKeyPress;  //variable to declare func for searching  
 
   return (
     <div>

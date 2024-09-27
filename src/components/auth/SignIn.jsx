@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SignInImg from "../../assets/Standing.png";
 import Button from "../utils/Button";
 import AppleLogo from "../../assets/icons8-apple-logo.svg";
@@ -19,6 +19,7 @@ const Signin = () => {
     password: "",
   });
   const { userIsActive, setUserIsActive } = useContext(AppContext);
+  const navigate = useNavigate()
 
   const togglePasswordVisibility = () => {
     setPasswordShown(!passwordShown);
@@ -58,6 +59,8 @@ const Signin = () => {
       });
       if (res.ok) {
         const result = await res.json();
+        const token = result.key
+        localStorage.setItem('authToken', token) //save auth token to localstorage
         console.log("Successfully logged in", result);
         setUserData({
           username: "",
@@ -65,7 +68,8 @@ const Signin = () => {
           password: "",
         });
         // toggle the state of the user activness
-        setUserIsActive(true);
+        // setUserIsActive(true)
+        navigate('/localevents')
       } else {
         const errorData = await res.json();
         console.log(
@@ -78,8 +82,6 @@ const Signin = () => {
     } catch (error) {
       console.log("Error logging in: ", error);
     }
-    // Redirect to home page
-    window.location.href = "/localevents";
     console.log("Form submitted");
   };
   return (
@@ -173,12 +175,12 @@ const Signin = () => {
               <div className="p-2 border border-slate-500 bg-slate-200 rounded-md w-20 h-14 flex justify-center items-center cursor-pointer">
                 <img src={GoogleLogo} alt="Google logo" className="w-8" />
               </div>
-              <div className="p-4 border border-slate-500 bg-slate-200 w-20 h-14 flex justify-center items-center rounded-md cursor-pointer">
+              {/* <div className="p-4 border border-slate-500 bg-slate-200 w-20 h-14 flex justify-center items-center rounded-md cursor-pointer">
                 <img src={FacebookLogo} alt="Facebook logo" className="w-10" />
               </div>
               <div className="p-4 border border-slate-500 bg-slate-200 w-20 h-14 flex justify-center items-center rounded-md cursor-pointer">
                 <img src={AppleLogo} alt="Apple logo" className="w-9" />
-              </div>
+              </div> */}
             </div>
 
             <Link to="/SignUp">
