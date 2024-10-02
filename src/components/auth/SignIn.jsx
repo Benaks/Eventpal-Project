@@ -6,19 +6,19 @@ import AppleLogo from "../../assets/icons8-apple-logo.svg";
 import FacebookLogo from "../../assets/icons8-facebook.svg";
 import GoogleLogo from "../../assets/icons8-google.svg";
 import Footer from "../footers/Footer";
-import { AppContext } from "../pages/Landing";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import { AuthContext } from "./AuthContext";
 
 const Signin = () => {
   const [passwordShown, setPasswordShown] = useState(false);
   const [emptyInputError, setEmptyInputError] = useState(false);
   const [userData, setUserData] = useState({
-    email: "",
     username: "",
+    email: "",
     password: "",
   });
-  const { userIsActive, setUserIsActive } = useContext(AppContext);
+  const {setIsLoggedIn} = useContext(AuthContext)
   const navigate = useNavigate()
 
   const togglePasswordVisibility = () => {
@@ -32,10 +32,10 @@ const Signin = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { email, username, password } = userData;
+    const { username, email, password } = userData;
 
     // Check if any input is empty
-    if (!username || !password) {
+    if (!email || !username || !password) {
       setEmptyInputError(true);
       return;
     } else {
@@ -45,7 +45,7 @@ const Signin = () => {
 
     const requestData = {
       username,
-      email: username,
+      email,
       password,
     };
 
@@ -67,8 +67,8 @@ const Signin = () => {
           email: "",
           password: "",
         });
-        // toggle the state of the user activness
-        // setUserIsActive(true)
+          // toggle the state of the user activness
+          setIsLoggedIn(true)
         navigate('/localevents')
       } else {
         const errorData = await res.json();
@@ -116,11 +116,23 @@ const Signin = () => {
             </div>
 
             <form className="flex flex-col justify-around items-center my-10">
-              <input
+            <input
                 id="username"
                 name="username"
-                type="email"
+                type="text"
                 value={userData.username}
+                onChange={handleChange}
+                autoComplete="username"
+                placeholder="Username"
+                className="w-full h-16 mb-10 rounded-2xl p-4 border-[0.2em] text-slate-400 text-[0.9em] border-black shadow-md"
+                required
+              />
+
+              <input
+                id="email"
+                name="email"
+                type="email"
+                value={userData.email}
                 onChange={handleChange}
                 autoComplete="email"
                 placeholder="Email"

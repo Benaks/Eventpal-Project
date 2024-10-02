@@ -1,6 +1,7 @@
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
+import { AuthProvider } from "./components/auth/AuthContext.jsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Blog from './components/pages/BlogPage';
 import SignUp from "./components/auth/SignUp";
@@ -16,8 +17,8 @@ import Locate from "./components/location/Locate";
 import LocalEvents from "./components/pages/LocalEvents";
 import CreateOrganizer from "./components/organizer/CreateOrganizer"
 
-
 ReactDOM.createRoot(document.getElementById("root")).render(
+ <AuthProvider> 
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />} />
@@ -37,4 +38,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Route path="/create-organizer" element={<CreateOrganizer />} />
     </Routes>
   </BrowserRouter>
+  </AuthProvider>
 );

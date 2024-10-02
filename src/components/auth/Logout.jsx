@@ -10,7 +10,7 @@ const Logout = ()=> {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
+                    "Authorization": `Token ${token}`
                 },
                 // credentials: 'include'
             })
@@ -19,7 +19,7 @@ const Logout = ()=> {
                 localStorage.removeItem('authToken')
                 sessionStorage.removeItem('authToken')
                 console.log('successfully logged out user');
-                navigate('/landing')
+                navigate('/SignIn')
             } else {
                 console.error('Logout Failed: ', res.statusText);
                 
@@ -31,7 +31,7 @@ const Logout = ()=> {
     }
 return(
     <div className="bg-red-900">
-        <button className="text-lg" onClick={handleLogout}>Logout</button>
+        <button className="text-lg text-white" onClick={handleLogout}>Logout</button>
     </div>
 )
 }

@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../utils/Button";
+import { AuthContext } from "../auth/AuthContext";
 const CreateOrganizer = () => {
   const [apiError, setApiError] = useState("");
   const [OrganizerData, setOrganizerData] = useState({
     name: "",
     email: "",
-    image: "",
+    image: null,
     phoneNumber: "",
     website: "",
     address: "",
@@ -18,6 +19,8 @@ const CreateOrganizer = () => {
   const [userId, setUserId] = useState(null)
 
   const navigate = useNavigate();
+
+  const {setIsOrganizer} = useContext(AuthContext)
 
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
@@ -43,7 +46,7 @@ const CreateOrganizer = () => {
     formData.append('organizer_name', OrganizerData.name)
     formData.append('organizer_description', OrganizerData.desc)
     formData.append('organizer_email', OrganizerData.email)
-    formData.append('organizer_display_image', e.target.image.files[0])
+    formData.append('organizer_display_image', OrganizerData.image)
     formData.append('organizer_phone_number', OrganizerData.phoneNumber)
     formData.append('organizer_website', OrganizerData.website)
     formData.append('organizer_address', OrganizerData.address)
@@ -51,7 +54,7 @@ const CreateOrganizer = () => {
     formData.append('organizer_country', OrganizerData.country)
     formData.append('organizer_city', OrganizerData.city)
     formData.append('organizer_account_details', OrganizerData.accountDetails)
-    formData.append('organizer_user', OrganizerData.user)
+    formData.append('organizer_user', userId)
 
 
     try {
@@ -67,16 +70,18 @@ const CreateOrganizer = () => {
           name: "",
           desc: "",
           email: "",
-          image: "",
+          image: null,
           phoneNumber: "",
           website: "",
           address: "",
           city: "",
           country: "",
           accountDetails: "",
+          user: null,
         });
         setApiError(""); // clears all previous error message
-        navigate("/loccalevents");
+        setIsOrganizer(true)
+        navigate("/localevents");
       } else {
         const errorData = await res.json();
         console.log(
@@ -117,7 +122,7 @@ const CreateOrganizer = () => {
           method: 'GET',
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`,
+            "Authorization": `Token ${token}`,
           },
         });
   
@@ -130,7 +135,7 @@ const CreateOrganizer = () => {
         const data = await res.json();
         console.log('Auth user data: ', data);
   
-        const id = data?.user_id; // Make sure the field name matches your API response
+        const id = data.pk; // Make sure the field name matches your API response
   
         if (id) {
           setUserId(id); // Update state with the user ID
@@ -187,7 +192,7 @@ const CreateOrganizer = () => {
       requiredStatus: 'required',
       onChange: handleChange,
       placeholder: 'img',
-      value: OrganizerData.image,
+      // value: 'e.target.image.files[0]',
       autoComplete: 'image',
       name: 'image',
       type: 'file'
@@ -199,7 +204,7 @@ const CreateOrganizer = () => {
       requiredStatus: 'required',
       onChange: handleChange,
       placeholder: '+1 234 5678 90',
-      value: OrganizerData.phoneNUmber,
+      value: OrganizerData.phoneNumber,
       autoComplete: 'phoneNumber',
       name: 'phoneNumber',
       type: 'number'

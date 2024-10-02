@@ -75,7 +75,7 @@ handleKeyPress = (e)=> {
               key={item.text}
               className="font-semibold px-3 cursor-pointer list-none text-sm"
             >
-              <Link to={item.link}>{item.text}</Link>
+              <Link to={item.text}>{item.text}</Link>
             </li>
           ))}
         </div>
