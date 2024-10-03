@@ -15,12 +15,25 @@ const SignedNav = ({handleKeyPress, setIsLoading, setIsSearching}) => {
 
   const menuItems = [
     {
-      text: "Locate events",
-      link: "/locatePage",
+      text: "Locate Events",
+      link: "/locate",
+    },
+    {
+      text: "Create events",
+      link: "/create-organizer",
+    },
+    {
+      text: "Blog",
+      link: "/blog",
     },
     {
       text: "Help center",
       link: "/help",
+    },
+
+    {
+      text: "Be an Organizer",
+      link: "/create-organizer",
     },
   ];
 
@@ -86,9 +99,6 @@ handleKeyPress = (e)=> {
               <Link to={item.link}>{item.text}</Link>
             </li>
           ))}
-          <Link to='/create-organizer'>
-            <button className="bg-red-500">Be an organizer</button>
-          </Link>
         </div>
 
         {/* condition to display mobile menu bar */}

@@ -15,9 +15,6 @@ import CarouselSection from "../Carousel/CarouselSection";
 import Personalize from "../modals/Personalize";
 import { MutatingDots } from "react-loader-spinner";
 
-
-export const AppContext = createContext({});
-
 const Landing = () => {
   const [eventData, setEventData] = useState(null);
   const [error, setError] = useState(null);
