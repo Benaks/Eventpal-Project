@@ -1,38 +1,64 @@
-/* eslint-disable react/no-unescaped-entities */
-import { useCallback, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import { IoImageOutline } from "react-icons/io5";
 
-const DragDrop = ({ event_image, handleChange }) => {
+const DragDrop = ({ handleChange }) => {
   const [files, setFiles] = useState([]);
-  const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
-    const mapAccepted = acceptedFiles.map((file) => ({ file, errors: [] }));
-    const mapRejected = rejectedFiles.map((file) => ({
-      file,
-      errors: file.errors,
-    }));
-    setFiles((currentFiles) => [
-      ...currentFiles,
-      ...mapAccepted,
-      ...mapRejected,
-    ]);
-  }, []);
+
+  const onDrop = useCallback(
+    (acceptedFiles, rejectedFiles) => {
+      const mapAccepted = acceptedFiles.map((file) => ({
+        file,
+        errors: [],
+      }));
+
+      const mapRejected = rejectedFiles.map((file) => ({
+        file,
+        errors: file.errors.map((err) => err.message), // Map error messages
+      }));
+
+      // Update files for preview (both accepted and rejected)
+      setFiles([...mapAccepted, ...mapRejected]);
+
+      // Trigger handleChange with the first accepted file to pass to the parent
+      if (acceptedFiles.length > 0) {
+        handleChange(acceptedFiles[0]); // Pass the first accepted file to parent component
+      }
+    },
+    [handleChange]
+  );
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
+    accept: {
+      "image/png": [".png"],
+      "image/jpeg": [".jpg", ".jpeg"],
+      "image/gif": [".gif"]
+    },
+    maxSize: 5242880, // 5MB file size limit
   });
 
+  // Clean up object URLs to avoid memory leaks
+  useEffect(() => {
+    return () => {
+      files.forEach((fileWrapper) =>
+        URL.revokeObjectURL(fileWrapper.file.preview)
+      );
+    };
+  }, [files]);
+
   return (
-    <div className="">
+    <div>
       <div
         {...getRootProps()}
         className="flex justify-center items-center flex-col-reverse border-[0.2em] p-5 md:p-6 lg:p-8 border-red-500 rounded-md cursor-pointer border-dashed"
       >
         <input
           {...getInputProps()}
-          value={event_image}
-          onChange={handleChange}
+          type="file"
+          accept="image/jpeg, image/png, image/gif"
         />
+        {/* Updated accept */}
         <p className="cursor-pointer text-xs font-[600] text-gray-400 text-center">
           Click or drag image
         </p>

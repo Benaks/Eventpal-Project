@@ -4,7 +4,6 @@ import Popular from "../Carousel/Carousel";
 import Today from "../Carousel/Carousel";
 import Online from "../Carousel/Carousel";
 import { Link } from "react-router-dom";
-import SignedNav from "../navbar/SignedNav";
 import Footer from "../footers/Footer";
 import CoverImg from "../../assets/bannerimg.jpg";
 import { FiSearch } from "react-icons/fi";
@@ -50,7 +49,6 @@ const Locate = () => {
 
   return (
     <div>
-      <SignedNav />
       {/* banner */}
       <div className="bg-red-200 h-[50vh] my-5 font-poppins mx-10 rounded-xl">
         <img src={CoverImg} alt="" className="h-[100%] w-[100%] rounded-xl" />

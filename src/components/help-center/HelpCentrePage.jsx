@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Navbar from "../navbar/Navbar";
 import Footer from "../footers/Footer";
 import HelpBox from "./HelpBox";
 import helpData from "./data";
@@ -7,7 +6,6 @@ import helpData from "./data";
 function HelpCentrePage() {
   return (
     <div className="bg-gray-100 font-sans leading-normal tracking-normal">
-      <Navbar />
       <header className="bg-purple-700 p-4 shadow-lg">
         <div className="container mx-auto flex justify-between items-center">
           <h1 className="text-white text-3xl font-bold">

@@ -107,7 +107,7 @@ const SignUp = () => {
   
   return (
     <div className="font-poppins w-full">
-      <Link to="/">
+      <Link to="/localevents">
         <div className="p-4">
           <AiOutlineArrowLeft className="cursor-pointer font-bold text-black text-2xl" />
         </div>
@@ -121,7 +121,7 @@ const SignUp = () => {
 
         <div className="w-[90%] md:w-1/2 lg:w-[30%] relative z-10">
           <h1 className="text-1xl font-bold cursor-pointer sh pb-3">
-            <Link to="/">
+            <Link to="/localevents">
               <span className="text-secondary">e</span>ventrybe
             </Link>
           </h1>

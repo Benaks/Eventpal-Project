@@ -1,5 +1,6 @@
 import DragDrop from "./DragDrop";
-const OnSite = ({data, handleChange}) => {
+const OnSite = ({ data, handleChange}) => {
+ 
   return (
     <div>
       <p className="font-semibold pb-1">Venue Address</p>

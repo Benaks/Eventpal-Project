@@ -192,7 +192,6 @@ const CreateOrganizer = () => {
       requiredStatus: 'required',
       onChange: handleChange,
       placeholder: 'img',
-      // value: 'e.target.image.files[0]',
       autoComplete: 'image',
       name: 'image',
       type: 'file'
