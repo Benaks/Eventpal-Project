@@ -27,9 +27,9 @@ export const fetchUserId = async () => {
       console.log('Auth user data: ', data);
 
       //store value of user_id in id
-      const id = data.pk;
+      const UserId = data.pk;
       
-      return {id, error: null}
+      return {UserId, error: null}
     } catch (err) {
       console.log("Fetch error: ", err.message);
       return{id: null, error: err}

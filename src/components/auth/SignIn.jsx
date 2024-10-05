@@ -21,6 +21,7 @@ const Signin = () => {
   const {setIsLoggedIn} = useContext(AuthContext)
   const navigate = useNavigate()
 
+
   const togglePasswordVisibility = () => {
     setPasswordShown(!passwordShown);
   };
@@ -68,7 +69,7 @@ const Signin = () => {
           password: "",
         });
           // toggle the state of the user activness
-          setIsLoggedIn(true)
+        setIsLoggedIn(true)
         navigate('/localevents')
       } else {
         const errorData = await res.json();
@@ -88,7 +89,7 @@ const Signin = () => {
     <div>
       <div className="font-poppins">
         {/* Back arrow div */}
-        <Link to="/">
+        <Link to="/localevents">
           <div className=" p-4">
             {/* Back Arrow */}
             <AiOutlineArrowLeft className=" cursor-pointer font-bold text-black text-2xl" />
@@ -102,7 +103,7 @@ const Signin = () => {
 
           <div className="w-[90%] md:w-1/2 lg:w-[30%] relative z-10">
             <h1 className="text-1xl font-bold cursor-pointer sh pb-3">
-              <Link to="/">
+              <Link to="/localevents">
                 <span className="text-secondary">e</span>ventrybe
               </Link>
             </h1>
@@ -115,8 +116,11 @@ const Signin = () => {
               </p>
             </div>
 
-            <form className="flex flex-col justify-around items-center my-10">
-            <input
+            <form
+              className="flex flex-col justify-around items-center my-10"
+              onSubmit={handleSubmit}
+            >
+              <input
                 id="username"
                 name="username"
                 type="text"
@@ -166,14 +170,13 @@ const Signin = () => {
                 </button>
               </div>
 
-              <Button
-                text="Log In"
-                bgColor="red"
-                textColor="white"
-                btnWidth={300}
-                btnHeight={60}
-                onClick={handleSubmit}
-              />
+                <Button
+                  text="Log In"
+                  bgColor="red"
+                  textColor="white"
+                  btnWidth={300}
+                  btnHeight={60}
+                />
 
               {emptyInputError && (
                 <p className="my-2 text-sm text-red-500">Fill in all inputs.</p>

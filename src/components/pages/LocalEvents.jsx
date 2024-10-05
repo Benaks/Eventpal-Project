@@ -1,6 +1,4 @@
 import { useState, useEffect, useContext, useMemo } from "react";
-import SignedNav from "../navbar/SignedNav";
-import OrganizerNav from "../navbar/OrganizerNav";
 import Hero from "../HeroSection/Hero";
 import MenuBar from "../utils/MenuBar";
 import Footer from "../footers/Footer";
@@ -15,24 +13,15 @@ import CarouselSection from "../Carousel/CarouselSection";
 import Personalize from "../modals/Personalize";
 import { MutatingDots } from "react-loader-spinner";
 import { AuthContext } from "../auth/AuthContext";
-import Navbar from "../navbar/Navbar";
 
 
 function App() {
+  const {isSearching, isLoading, setIsSearchng} = useContext(AuthContext)
   const [eventData, setEventData] = useState(null);
   const [error, setError] = useState(null);
-  const [isSearching, setIsSearching] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   // const [currentPage, setCurrentPage] = useState(1);
   // const eventsPerPage = 6;
   const [inputLocation, setInputLocation] = useState("");
-
-  const { isOrganizer, isLoggedIn, navLoading } = useContext(AuthContext);
-
-  let handleKeyPress; //variable to declare func for searching
-
-  console.log("The value of Organizer is: ", isOrganizer);
-  console.log("The value of Logged in is: ", isLoggedIn);
 
   // fetch event data [imported from api/data.js file]
   const loadEventsData = async () => {
@@ -51,31 +40,8 @@ function App() {
     loadEventsData();
   }, []);
 
-  const renderedNavbar = useMemo(() => {
-    if (navLoading) {
-      return <div className="spinner"></div>;
-    }
-    if (!isLoggedIn) {
-      return <Navbar />;
-    }
-    return isOrganizer ? (
-      <OrganizerNav />
-    ) : (
-      <SignedNav
-        setIsSearching={setIsSearching}
-        handleKeyPress={handleKeyPress}
-        setIsLoading={setIsLoading}
-      />
-    );
-  }, [navLoading, isLoggedIn, isOrganizer]);
-
   return (
     <div>
-      {/* navigation bar */}
-      <div>
-        {renderedNavbar}
-      </div>
-      
       {/* hero section */}
       <Hero
         inputLocation={inputLocation}

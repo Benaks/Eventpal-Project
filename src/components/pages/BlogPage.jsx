@@ -1,11 +1,11 @@
 
-import Navbar from '../navbar/Navbar'
 import Footer from "../footers/Footer";
 
-function BlogPage()  {
+function BlogPage() {
+  
+  
   return (
     <div className="bg-gray-100 font-sans leading-normal tracking-normal">
-      <Navbar />
       <header class="bg-purple-700 p-4 shadow-lg">
         <div class="container mx-auto">
           <h1 class="text-white text-4xl font-bold">

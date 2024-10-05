@@ -2,12 +2,10 @@ import Footer from '../footers/Footer'
 import CoverImg from '../assets/LocalCoverImg.webp'
 import EventImg from  '../assets/concert.svg'
 import { Link } from "react-router-dom";
-import SignedNav from '../components/accounts/Signed Users Navbar/SignedNav';
 
 function LocalEventsPage()  {
   return (
     <>
-      <SignedNav/>
       <div className="bg-red-200 h-[40vh] my-5 font-poppins">
         <img src={CoverImg} alt="" srcset="" className="h-[100%] w-[100%]" />
       </div>

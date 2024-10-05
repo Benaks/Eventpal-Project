@@ -7,7 +7,7 @@ const Online = ({ data, handleChange }) => {
           type="text"
           name="event_link"
           placeholder="https://"
-          value={data?.event_link || ""}
+          value={data.event_link}
           onChange={handleChange}
           className="py-3 px-4 rounded-md border border-black"
         />

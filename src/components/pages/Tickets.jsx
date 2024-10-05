@@ -6,7 +6,7 @@ import Footer from "../footers/Footer";
 import { FiSearch } from "react-icons/fi";
 import AdminDashboard from '../Admin/AdminDashboard';
 import { IoIosArrowBack } from "react-icons/io";
-import SignedNav from '../navbar/SignedNav';
+
 
 const Tickets = () => {
     const customers = [
@@ -37,7 +37,6 @@ const Tickets = () => {
     ];
   return (
     <div className="">
-      <SignedNav/>
       <div className="py-5 ">
         <Link to="/">
           <div className=" p-4 flex flex-row ">

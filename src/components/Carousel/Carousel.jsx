@@ -8,7 +8,6 @@ import { TiSocialGooglePlus } from "react-icons/ti";
 import { ThreeDots } from "react-loader-spinner";
 
 const Carousel = ({ error, eventData}) => {
-  // const { error, eventData, currentEvents } = useContext(AppContext);
 
   // options for date conversion
   const dateOptions = {
@@ -22,30 +21,30 @@ const Carousel = ({ error, eventData}) => {
   const timeOptions = { hour: "numeric", hour12: true };
 
   return (
-    <div className=" flex justify-around items-start">
+    <div className="flex flex-wrap justify-around items-start">
       {/* carousel ctn */}
       {error ? (
         <small>no avialable events</small>
       ) : eventData ? (
-        Array.isArray(eventData) && eventData.map((result) => (
+        eventData.results.map((result) => (
           // carousel
           <div
-            key={result.id}
-            className="my-10 md:my-10 mx-5 font-roboto bg-purple-100 cursor-pointer rounded-3xl w-[90%] md:w-[30%] h-[45em] md:h-[35em] hover:scale-105 duration-300 hover:bg-purple-200 hover:shadow-lg flex flex-col justify-around items-start"
+            key={result.event_id}
+            className="my-10 md:my-10 mx-2 font-roboto bg-purple-100 cursor-pointer rounded-3xl w-[90%] md:w-[30%] lg:w-[20%] h-[45em] md:h-[25em] hover:scale-105 duration-300 hover:bg-purple-200 hover:shadow-lg flex flex-col justify-between items-start"
           >
             {/* image */}
-            <div className="w-full h-1/2 overflow-y-hidden">
+            <div className="relative w-full pb-[65%]">
               <img
                 src={result.event_image}
                 alt={result.event_name}
-                className="w-full h-full rounded-tl-2xl rounded-tr-2xl"
+                className="absolute top-0 left-0 w-full h-full object-cover rounded-tl-2xl rounded-tr-2xl"
                 loading="lazy"
               />
             </div>
 
             {/* text */}
 
-            <div className="h-1/2 p-4 w-full">
+            <div className="h-3/4 p-4 w-full">
               {/* event name */}
               <h1 className="font-bold text-xl  py-1">{result.event_name}</h1>
 
@@ -54,9 +53,7 @@ const Carousel = ({ error, eventData}) => {
                 <i className="  mr-2 ">
                   <CiLocationArrow1 className="text-xl  mx-1 text-red-700 font-bold" />
                 </i>
-                <p className="text-bold text-xs">
-                  {result.event_location}
-                </p>
+                <p className="text-bold text-xs">{result.event_location}</p>
               </div>
               <div className="ml-6 py-1">
                 {/* time and date */}
@@ -65,16 +62,7 @@ const Carousel = ({ error, eventData}) => {
                     {new Intl.DateTimeFormat("en-GB", dateOptions).format(
                       new Date(result.event_start_date)
                     )}
-                    {/* date convertion */}
                   </p>
-                  {/* <p className="text-sm text-purple-900 text-[0.7em] font-[700]">
-                    {new Intl.DateTimeFormat("en-US", timeOptions).format(
-                      new Date().setHours(
-                        // ...result.dates.start.localTime.split(":")
-                      )
-                    )}
-                    i am for the time
-                  </p> */}
                 </div>
 
                 {/* get tickets and button div */}
@@ -92,9 +80,7 @@ const Carousel = ({ error, eventData}) => {
                     </div>
                     <div className="text-xs text-gray-400 md:text-sm ml ">
                       {result.tickets ? (
-                        <p>
-                          {result.ticketLimit} tickets avialable
-                        </p>
+                        <p>{result.ticketLimit} tickets avialable</p>
                       ) : (
                         <p>No tickets restrictions</p>
                       )}

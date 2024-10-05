@@ -1,8 +1,9 @@
-import LocalEvents from  './components/pages/LocalEvents'
+import LocalEvents from "./components/pages/LocalEvents";
 
 const App = () => {
   return (
-     <LocalEvents />
+    <LocalEvents
+    />
   );
 };
 
