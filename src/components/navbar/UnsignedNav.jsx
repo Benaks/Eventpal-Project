@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { FiSearch } from "react-icons/fi";
@@ -10,62 +10,63 @@ import { AuthContext } from "../auth/AuthContext";
 const UnsignedNav = ({ handleKeyPress }) => {
   const { setIsLoading, setIsSearching } = useContext(AuthContext);
   const [nav, setNav] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");  
+  const [searchTerm, setSearchTerm] = useState("");
   const [eventData, setEventData] = useState(null);
   const [error, setError] = useState(null);
 
+  const menuRef = useRef(null);
 
   const menuItems = [
-    {
-      text: "Locate Events",
-      link: "/SignUp",
-    },
-    {
-      text: "Create events",
-      link: "/SignUp",
-    },
-    {
-      text: "Blog",
-      link: "/blog",
-    },
-    {
-      text: "Help center",
-      link: "/help",
-    },
+    { text: "Locate Events", link: "/SignUp" },
+    { text: "Create Events", link: "/SignUp" },
+    { text: "Blog", link: "/blog" },
+    { text: "Help Center", link: "/help" },
   ];
 
-// func to handle searching of items
- const handleSearch = async () => {
-  setIsLoading(true);
-  const { data, error } = await fetchData(searchTerm);
-  if (error) {
-    setError(error);
-    setEventData(null);
-  } else {
-    setError(null);
-    setEventData(data);
-  }
-  setIsLoading(false);
-};
+  const handleSearch = async () => {
+    setIsLoading(true);
+    const { data, error } = await fetchData(searchTerm);
+    if (error) {
+      setError(error);
+      setEventData(null);
+    } else {
+      setError(null);
+      setEventData(data);
+    }
+    setIsLoading(false);
+  };
 
-// func to handle change on search box
-const handleChange = (e)=> {
-  setSearchTerm(e.target.value)
-}
+  const handleChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
 
-// function to handle keypress on search box (handleKeyPress is a prop from Landing)
-handleKeyPress = (e)=> {
-  e.key === 'Enter' ? handleSearch() : null;
-  setIsSearching(true)
-} 
+   handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSearch();
+      setIsSearching(true);
+    }
+  };
+
+  const handleOutsideClick = (e) => {
+    if (nav && menuRef.current && !menuRef.current.contains(e.target)) {
+      setNav(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [nav]);
 
   return (
     <header className="w-full py-2 px-4 flex flex-col justify-center items-center">
       <nav className="flex justify-between items-center w-full h-auto">
-        {/* logo */}
-       <Logo />
+        {/* Logo */}
+        <Logo />
 
-        {/* desktop navbar */}
+        {/* Desktop Navbar */}
         <div className="hidden lg:flex text-gray-600 font-thin">
           {menuItems.map((item) => (
             <li
@@ -77,11 +78,9 @@ handleKeyPress = (e)=> {
           ))}
         </div>
 
-        {/* deskotp search ctn */}
-        <div className="bg-white p-1 w-full md:w-[40%] lg:w-[25%] shadow-2xl rounded-lg h-auto my-2">
-          <i className="text-gray-400 font-bold text-md md:text-lg lg:text-2xl absolute m-1">
-            <FiSearch />
-          </i>
+        {/* Desktop Search Container */}
+        <div className="bg-white p-1 w-full md:w-[40%] lg:w-[25%] shadow-2xl rounded-lg h-auto my-2 relative">
+          <FiSearch className="text-gray-400 font-bold text-md md:text-lg lg:text-2xl absolute m-1" />
           <input
             type="text"
             value={searchTerm}
@@ -91,7 +90,8 @@ handleKeyPress = (e)=> {
             className="border-none outline-none mx-6 md:mx-8 lg:mx-10 placeholder:text-xs w-[75%] lg:w-[85%] h-6 md:h-8"
           />
         </div>
-        {/* login & signin ctn */}
+
+        {/* Login & Sign Up Container */}
         <div className="hidden md:flex justify-around items-center lg:w-[18%]">
           <Link to="/SignIn">
             <Button
@@ -103,8 +103,7 @@ handleKeyPress = (e)=> {
               textSize={12}
             />
           </Link>
-
-          <Link to="/SignUp" className="">
+          <Link to="/SignUp">
             <Button
               text="Sign Up"
               bgColor="red"
@@ -116,7 +115,7 @@ handleKeyPress = (e)=> {
           </Link>
         </div>
 
-        {/* condition to display mobile menu bar */}
+        {/* Mobile Menu Toggle */}
         <div className="lg:hidden text-slate-500 cursor-pointer mx-4">
           {!nav ? (
             <AiOutlineMenu onClick={() => setNav(true)} size={25} />
@@ -126,40 +125,50 @@ handleKeyPress = (e)=> {
         </div>
       </nav>
 
-      {/* mobile nav box */}
-      {!nav ? null : (
-        <ul className="w-full h-[50vh] bg-slate-300 flex flex-col justify-around my-4">
-          {/* login and signup ctn */}
-          <div className="flex md:hidden justify-around items-center">
-            <Link to="/SignIn">
-              <Button
-                text="Login"
-                bgColor="transparent"
-                textColor="red"
-                btnWidth={100}
-                btnHeight={40}
-                textSize={12}
-              />
-            </Link>
+      {/* Mobile Navigation */}
+      {nav && (
+        <div
+          ref={menuRef}
+          className="absolute top-0 left-0 w-full h-screen bg-slate-700 bg-opacity-90 flex flex-col items-center justify-center"
+        >
+          <ul className="w-full h-auto bg-slate-300 flex flex-col justify-center text-center py-4">
+            {/* Login and Sign Up Buttons */}
+            <div className="flex md:hidden justify-around items-center">
+              <Link to="/SignIn">
+                <Button
+                  text="Login"
+                  bgColor="transparent"
+                  textColor="red"
+                  btnWidth={100}
+                  btnHeight={40}
+                  textSize={12}
+                />
+              </Link>
+              <Link to="/SignUp">
+                <Button
+                  text="Sign Up"
+                  bgColor="red"
+                  textColor="#fff"
+                  btnWidth={100}
+                  btnHeight={40}
+                  textSize={12}
+                />
+              </Link>
+            </div>
 
-            <Link to="/SignUp" className="">
-              <Button
-                text="Sign Up"
-                bgColor="red"
-                textColor="#fff"
-                btnWidth={100}
-                btnHeight={40}
-                textSize={12}
-              />
-            </Link>
-          </div>
-
-          {menuItems.map((item) => (
-            <li key={item.text} className="cursor-pointer p-2 flex w-full">
-              <Link to={item.link}>{item.text}</Link>
-            </li>
-          ))}
-        </ul>
+            {/* Menu Items */}
+            {menuItems.map((item) => (
+              <li
+                key={item.text}
+                className="cursor-pointer p-4 hover:bg-gray-200 transition-all duration-300"
+              >
+                <Link to={item.link} onClick={() => setNav(false)}>
+                  {item.text}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
     </header>
   );

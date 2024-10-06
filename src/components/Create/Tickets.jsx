@@ -6,7 +6,6 @@ import Button from "./Button";
 const Tickets = () => {
   const [ticketEvents, setTicketEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState("");
-  const [price, setPrice] = useState('')
   const [data, setData] = useState({
     ticket_name: "",
     ticket_desc: "",
@@ -18,21 +17,21 @@ const Tickets = () => {
     ticket_holders: [],
   });
 
-  // Fetch events and assign to ticket_event
+  // Fetch events and assign to ticket_events
   useEffect(() => {
     const getAllOrganizerEvents = async () => {
       try {
         const { orgId, error: orgIdError } = await fetchOrganizerId();
         const { allEvents, error: eventsError } = await fetchEvents();
+
         if (orgId && allEvents) {
           const organizerEvents = allEvents.results.filter(
             (event) => event.event_owner === orgId
           );
           console.log("Organizer events are: ", organizerEvents);
           setTicketEvents(organizerEvents);
-          
+
           if (organizerEvents.length > 0) {
-            // Set the last event as the selected event
             const lastEventIndex = organizerEvents.length - 1; // Get the last index
             setSelectedEvent(organizerEvents[lastEventIndex].event_id); // Use event_id here
             setData((prevData) => ({
@@ -40,14 +39,14 @@ const Tickets = () => {
               ticket_event: organizerEvents[lastEventIndex].event_id,
             }));
           }
-
         } else {
-          console.log("no organizer id and organizer events");
+          console.log("No organizer ID or organizer events found.");
         }
       } catch (err) {
         console.log("Error fetching organizer ID:", err.message);
       }
     };
+
     getAllOrganizerEvents();
   }, []);
 
@@ -62,14 +61,12 @@ const Tickets = () => {
 
     // Update ticket_event in the data state
     setData((prevData) => ({ ...prevData, ticket_event: selectedEventId }));
-
     console.log("The selected event ID is: ", selectedEventId);
   }, []);
 
   const handleTicketPrice = () => {
-    setPrice('free')
-    setData((prevData) => ({...prevData, ticket_price: 0}))
-  }
+    setData((prevData) => ({ ...prevData, ticket_price: 0 }));
+  };
 
   const ticketsFormData = useMemo(() => {
     const formData = new FormData();
@@ -86,7 +83,7 @@ const Tickets = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Data before submit:", data); // Check values
+    console.log("Data before submit:", data); // Log form data for debugging
     try {
       const TICKETS_API_URL = `${
         import.meta.env.VITE_APP_EVENTRYBE_API_URL
@@ -113,72 +110,71 @@ const Tickets = () => {
     }
   };
 
-   const inputData = [
-     {
-       label: "Ticket Name",
-       requiredStatus: "required",
-       onChange: handleChange,
-       placeholder: "Front row seats",
-       value: data.ticket_name,
-       type: "text",
-     },
-
-     {
-       label: "Ticket Description",
-       requiredStatus: "required",
-       onChange: handleChange,
-       placeholder:
-         "Enjoy an evening of entertainment with a world-class performance.",
-       value: data.ticket_desc,
-       type: "text",
-     },
-
-     {
-       label: "Ticket Quantity",
-       requiredStatus: "required",
-       onChange: handleChange,
-       placeholder: "100",
-       value: data.ticket_quant,
-       type: "number",
-     },
-
-     {
-       label: "Ticket Avialability Date",
-       requiredStatus: "required",
-       onChange: handleChange,
-       placeholder: "",
-       value: data.ticket_avial_date,
-       type: "datetime-local",
-     },
-
-     {
-       label: "Max tickect per user",
-       requiredStatus: "required",
-       onChange: handleChange,
-       placeholder: "5",
-       value: data.ticket_per_user,
-       type: "number",
-     },
-   ];
+  const inputData = [
+    {
+      label: "Ticket Name",
+      name: "ticket_name",
+      required: true,
+      placeholder: "Front row seats",
+      value: data.ticket_name,
+      type: "text",
+    },
+    {
+      label: "Ticket Description",
+      name: "ticket_desc",
+      required: true,
+      placeholder:
+        "Enjoy an evening of entertainment with a world-class performance.",
+      value: data.ticket_desc,
+      type: "text",
+    },
+    {
+      label: "Ticket Quantity",
+      name: "ticket_quant",
+      required: true,
+      placeholder: "100",
+      value: data.ticket_quant,
+      type: "number",
+    },
+    {
+      label: "Ticket Availability Date",
+      name: "ticket_avial_date",
+      required: true,
+      value: data.ticket_avial_date,
+      type: "datetime-local",
+    },
+    {
+      label: "Max Tickets per User",
+      name: "ticket_per_user",
+      required: true,
+      placeholder: "5",
+      value: data.ticket_per_user,
+      type: "number",
+    },
+  ];
 
   return (
-    <div className="bg-gray-200 my-5 rounded-xl">
+    <div className="bg-gray-200 my-5 rounded-xl p-4">
       {inputData.map((item) => (
-        <div className="flex justify-center items-center space-x-4 my-4">
-          <label htmlFor="">{item.label}</label>
+        <div
+          key={item.name}
+          className="flex justify-center items-center space-x-4 my-4"
+        >
+          <label htmlFor={item.name}>{item.label}</label>
           <input
             type={item.type}
+            name={item.name}
             value={item.value}
             onChange={handleChange}
             placeholder={item.placeholder}
-            required={requiredStatus}
+            required={item.required}
             className="py-3 px-4 rounded-md border border-black w-full md:w-3/4"
           />
         </div>
       ))}
 
-      <div className="flex justify-center items-center space-x-4 my-4 ">
-        <label htmlFor="">Ticket Price</label>
+      <div className="flex justify-center items-center space-x-4 my-4">
+        <label htmlFor="ticket_price">Ticket Price</label>
         <input
           type="number"
           name="ticket_price"
@@ -187,11 +183,11 @@ const Tickets = () => {
           placeholder="Ticket price"
           className="py-3 px-4 rounded-md border border-black w-full md:w-72"
         />
-        <Button text="free" onClick={handleTicketPrice} />
+        <Button text="Set to Free" onClick={handleTicketPrice} />
       </div>
 
-      <div className="flex justify-center items-center space-x-4 my-4 ">
-        <label htmlFor="">Ticket Event</label>
+      <div className="flex justify-center items-center space-x-4 my-4">
+        <label htmlFor="ticket_event">Ticket Event</label>
         <select
           value={selectedEvent}
           onChange={handleSelectChange}
