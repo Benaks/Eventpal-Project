@@ -1,5 +1,6 @@
+import React from "react";
 import Button from "../utils/Button";
-import { FaArrowRightToBracket } from "react-icons/fa6";
+import { LuDownload } from "react-icons/lu";
 import { CiLocationArrow1 } from "react-icons/ci";
 import { BiLogoFacebook } from "react-icons/bi";
 import { RiTwitterXLine } from "react-icons/ri";
@@ -7,9 +8,8 @@ import { FaInstagram } from "react-icons/fa";
 import { TiSocialGooglePlus } from "react-icons/ti";
 import { ThreeDots } from "react-loader-spinner";
 
-const Carousel = ({ error, eventData}) => {
-
-  // options for date conversion
+const Carousel = ({ error, eventData }) => {
+  // Date and time formatting options
   const dateOptions = {
     weekday: "long",
     day: "numeric",
@@ -17,112 +17,94 @@ const Carousel = ({ error, eventData}) => {
     year: "numeric",
   };
 
-  //options for time conversion
-  const timeOptions = { hour: "numeric", hour12: true };
-
   return (
-    <div className="flex flex-wrap justify-around items-start">
-      {/* carousel ctn */}
+    <div className="flex flex-wrap justify-around items-center w-full">
       {error ? (
-        <small>no avialable events</small>
+        <small>No available events</small>
       ) : eventData ? (
-        eventData.results.map((result) => (
-          // carousel
+        eventData.results.map((event) => (
           <div
-            key={result.event_id}
-            className="my-10 md:my-10 mx-2 font-roboto bg-purple-100 cursor-pointer rounded-3xl w-[90%] md:w-[30%] lg:w-[20%] h-[45em] md:h-[25em] hover:scale-105 duration-300 hover:bg-purple-200 hover:shadow-lg flex flex-col justify-between items-start"
+            key={event.event_id}
+            className="my-10 mx-2 font-roboto bg-purple-00 shadow-sm cursor-pointer rounded-3xl w-[90%] md:w-[37%] lg:w-[25%] h-auto md:h-auto hover:scale-105 duration-300 hover:shadow-md flex flex-col"
           >
-            {/* image */}
-            <div className="relative w-full pb-[65%]">
+            {/* Event image */}
+            <div className="relative w-full pb-[60%]">
               <img
-                src={result.event_image}
-                alt={result.event_name}
-                className="absolute top-0 left-0 w-full h-full object-cover rounded-tl-2xl rounded-tr-2xl"
+                src={event.event_image}
+                alt={event.event_name}
+                className="absolute w-full h-full object-cover rounded-t-2xl"
                 loading="lazy"
               />
             </div>
 
-            {/* text */}
-
+            {/* Event details */}
             <div className="h-3/4 p-4 w-full">
-              {/* event name */}
-              <h1 className="font-bold text-xl  py-1">{result.event_name}</h1>
+              {/* Event name */}
+              <h1 className="font-bold text-xl py-1 break-words">
+                {event.event_name}
+              </h1>
 
-              {/* location arrow and venue */}
-              <div className=" flex py-1 font-[600]">
-                <i className="  mr-2 ">
-                  <CiLocationArrow1 className="text-xl  mx-1 text-red-700 font-bold" />
-                </i>
-                <p className="text-bold text-xs">{result.event_location}</p>
+              {/* Location */}
+              <div className="flex py-1 font-semibold">
+                <div className="bg-white w-6 h-6 mx-1 rounded-xl">
+                  <CiLocationArrow1 className="text-md m-1 text-red-700" />
+                </div>
+                <p className="text-xs mx-2">{event.event_location}</p>
               </div>
-              <div className="ml-6 py-1">
-                {/* time and date */}
+
+              {/* Event date */}
+              <p className="text-xs mt-1">
+                {new Intl.DateTimeFormat("en-GB", dateOptions).format(
+                  new Date(event.event_start_date)
+                )}
+              </p>
+
+              {/* Tickets and share */}
+              <div className="flex flex-col justify-between items-start w-[90%] mt-2">
+                {/* Ticket button */}
                 <div className="">
-                  <p className="text-[0.7em] text-purple-900 font-[700]">
-                    {new Intl.DateTimeFormat("en-GB", dateOptions).format(
-                      new Date(result.event_start_date)
-                    )}
+                  <Button
+                    text={event.tickets ? "Buy tickets!" : "Get tickets!"}
+                    bgColor="red"
+                    textColor="white"
+                    btnWidth={100}
+                    btnHeight={50}
+                    textSize={14}
+                  />
+                  <p className="text-xs text-gray-400 my-2">
+                    {event.tickets
+                      ? `${event.ticketLimit} tickets available`
+                      : "No ticket restrictions"}
                   </p>
                 </div>
-
-                {/* get tickets and button div */}
-
-                <div className=" flex justify-between">
-                  {/* buy button */}
-
-                  <div>
-                    <div className=" py-1 ">
-                      {result.tickets ? (
-                        <Button text="Buy tickets!" />
-                      ) : (
-                        <Button text="Get tickets!" />
-                      )}
-                    </div>
-                    <div className="text-xs text-gray-400 md:text-sm ml ">
-                      {result.tickets ? (
-                        <p>{result.ticketLimit} tickets avialable</p>
-                      ) : (
-                        <p>No tickets restrictions</p>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* download and price range*/}
-
-                  <div className="mr-4 flex ">
-                    <div className="">
-                      <i className=" bg-red-100 w-6">
-                        <div className="bg-slate-200 shadow-lg p-3 rounded-full">
-                          <FaArrowRightToBracket className="text-2xl text-red-600 font-extrabold rotate-90 cursor-pointer ml-0.1  " />
-                        </div>
-                      </i>
-                      {result.priceRanges ? (
-                        <p className=" font-[400] text-slate-500 mt-1">
-                          {new Intl.NumberFormat("en-US", {
-                            style: "currency",
-                            currency: result.priceRanges[0].currency,
-                          }).format(result.priceRanges[0].min)}
-                        </p>
-                      ) : (
-                        <p className="   font-bold text-purple-300 capitalize">
-                          free
-                        </p>
-                      )}
-                    </div>
+                {/* Social Share */}
+                <div className="my-1">
+                  <p className="text-xs font-bold mb-1">Share on:</p>
+                  <div className="flex gap-2">
+                    <BiLogoFacebook className="bg-gray-300 p-1 rounded-full text-xl" />
+                    <RiTwitterXLine className="bg-gray-300 p-1 rounded-full text-xl" />
+                    <FaInstagram className="bg-gray-300 p-1 rounded-full text-xl" />
+                    <TiSocialGooglePlus className="bg-gray-300 p-1 rounded-full text-xl" />
                   </div>
                 </div>
-
-                {/* tickets */}
-
-                {/* share buttons */}
-                <div className="py-4 mb-2">
-                  <p className="text-[0.7em] pb-1 font-bold">Share on:</p>
-                  <div className="flex gap-3">
-                    <BiLogoFacebook className="bg-purple-300 py-1 rounded-full text-2xl" />
-                    <RiTwitterXLine className="bg-purple-300 py-1 rounded-full text-2xl" />
-                    <FaInstagram className="bg-purple-300 py-1 rounded-full text-2xl" />
-                    <TiSocialGooglePlus className="bg-purple-300 py-1 rounded-full text-2xl" />
-                  </div>
+              </div>
+              {/* Price and Download */}
+              <div className="flex flex-col items-end w-[90%]">
+                {/* download btn */}
+                <div className="bg-white cursor-pointer p-2 rounded-full shadow-xl">
+                  <LuDownload className="text-3xl text-red-600 font-bold" />
+                </div>
+                <div className="my-2 mx-2">
+                  <p className="font-medium text-slate-500">
+                    {event.priceRanges ? (
+                      new Intl.NumberFormat("en-US", {
+                        style: "currency",
+                        currency: event.priceRanges[0].currency,
+                      }).format(event.priceRanges[0].min)
+                    ) : (
+                      <span className="text-black">Free</span>
+                    )}
+                  </p>
                 </div>
               </div>
             </div>

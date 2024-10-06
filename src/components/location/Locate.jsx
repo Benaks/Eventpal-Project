@@ -50,8 +50,12 @@ const Locate = () => {
   return (
     <div>
       {/* banner */}
-      <div className="bg-red-200 h-[50vh] my-5 font-poppins mx-10 rounded-xl">
-        <img src={CoverImg} alt="" className="h-[100%] w-[100%] rounded-xl" />
+      <div className="relative w-[97%] m-auto pb-[30%] font-poppins rounded-xl">
+        <img
+          src={CoverImg}
+          alt=""
+          className="absolute top-0 left-0 w-full h-full object-cover rounded-xl"
+        />
       </div>
 
       {/*  search ctn */}

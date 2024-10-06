@@ -2,11 +2,13 @@ const Pending = () => {
   return (
     <div>
       <div className="mb-6">
-        <p className="text-gray-600">
-          The event details will be announced soon. Please check back later for
-          more information.
+        <p className="text-gray-600 mb-2">
+          We’re working on finalizing the details for this event. Please check
+          back soon for updates!
         </p>
-        <small>The above text is what the user will see</small>
+        <small className="text-gray-500">
+          This message informs users that event details are forthcoming.
+        </small>
       </div>
     </div>
   );

@@ -5,13 +5,12 @@ import Button from "./Button";
 import OnSite from "./OnSite";
 import Online from "./Online";
 import Pending from "./Pending";
-import Tickets from "./Tickets";
 import { fetchOrganizerId } from "../query/organizer-id";
 import { fetchUserId } from "../query/user-id";
 
 const Create = () => {
-  const [eventLocation, setEventLocation] = useState("");
-  const [venue, setVenue] = useState("");
+  const [eventLocation, setEventLocation] = useState(""); // Tracks event location dynamically
+  const [venue, setVenue] = useState(""); // Tracks the selected venue type
   const [data, setData] = useState({
     event_attendees: "",
     event_image: null,
@@ -28,92 +27,126 @@ const Create = () => {
     event_link: "",
     event_platform_details: "",
   });
+    const [errors, setErrors] = useState({
+      event_state: "",
+      event_town: "",
+      event_street: "",
+    }); // state for tracking input errors
+  const [apiError, setApiError] = useState(""); // Error message for API calls
 
   const navigate = useNavigate();
 
-  // Function to handle image changes from DragDrop
+  // Handle image change from DragDrop
   const handleImageChange = useCallback((file) => {
     setData((prevData) => ({ ...prevData, event_image: file }));
   }, []);
 
   // Fetch organizer ID and assign to event_owner and event_attendees
   useEffect(() => {
-    const getOrganizerId = async () => {
+    const fetchIds = async () => {
       try {
         const { orgId, error } = await fetchOrganizerId();
         if (orgId) {
-          console.log("Organizer id is: ", orgId);
-          setData((prevData) => ({
-            ...prevData,
-            event_owner: orgId,
-          }));
+          setData((prevData) => ({ ...prevData, event_owner: orgId }));
         } else {
           throw new Error(error || "No Organizer ID found");
         }
-        // fetch user email and assign to event_attendees
-        const { UserId, error: dataError } = await fetchUserId();
+
+        const { UserId, error: userError } = await fetchUserId();
         if (UserId) {
-          console.log("This is the id: ", UserId);
-          setData((prevData) => ({
-            ...prevData,
-            event_attendees: UserId,
-          }));
+          setData((prevData) => ({ ...prevData, event_attendees: UserId }));
         } else {
-          console.log("Erro trying to userId", dataError);
+          console.error("Error fetching UserId", userError);
         }
       } catch (err) {
-        console.log("Error fetching organizer ID:", err.message);
+        console.error("Error fetching IDs:", err.message);
       }
     };
-
-    getOrganizerId();
+    fetchIds();
   }, []);
 
+  // Handle input changes
   const handleChange = useCallback((e) => {
     const { name, value } = e.target;
     setData((prevData) => ({ ...prevData, [name]: value }));
+    setErrors((prevErrors) => ({ ...prevErrors, [name]: "" })); // Clear field error when user types
   }, []);
 
-  // Event handlers for venue
-  const handleVenueChange = useCallback((newVenue) => {
-  if (venue !== newVenue) {
-      setVenue(newVenue);
-
-      if (newVenue === "onSite") {
-        setData((prevData) => ({
-          ...prevData,
-          event_type: "Onsite",
-          // event_location: `${prevData.event_state},${prevData.event_town},${prevData.event_street}`
-        }));
-      } else if (newVenue === "online") {
-        setData((prevData) => ({
-          ...prevData,
-          event_type: "Online",
-          // event_location: prevData.event_link
-        }));
-      } else if (newVenue === "unAnnounced") {
-        setData((prevData) => ({
-          ...prevData,
-          event_type: "", // Set to empty or a specific string if needed
-          // event_location: "",
-        }));
+  // Handle venue selection and adjust event type
+  const handleVenueChange = useCallback(
+    (newVenue) => {
+      if (venue !== newVenue) {
+        setVenue(newVenue);
+        if (newVenue === "onSite") {
+          setData((prevData) => ({
+            ...prevData,
+            event_type: "Onsite",
+          }));
+        } else if (newVenue === "online") {
+          setData((prevData) => ({
+            ...prevData,
+            event_type: "Online",
+          }));
+        } else if (newVenue === "unAnnounced") {
+          setData((prevData) => ({
+            ...prevData,
+            event_type: "",
+          }));
+        }
       }
-  }
-  }, []);
+    },
+    [venue]
+  );
 
+  // Dynamically update event location based on venue type
   useEffect(() => {
-    if (venue === 'online') {
+    if (venue === "online") {
       setEventLocation(data.event_link);
-    } else if (venue === 'onSite') {
+    } else if (venue === "onSite") {
       setEventLocation(
-        `${data.event_state}, ${data.event_town}, ${data.event_street}`
+        `${data.event_street}, ${data.event_town}, ${data.event_state}`
       );
     } else {
       setEventLocation("");
     }
-  }, [data.event_link, data.event_state, data.event_town, data.event_street]); // Include relevant dependencies
+  }, [
+    venue,
+    data.event_link,
+    data.event_state,
+    data.event_town,
+    data.event_street,
+  ]);
 
-  // Create FormData for events and tickets
+  // Basic form validation
+  const validateForm = () => {
+    let formErrors = {};
+
+    if (!data.event_name) formErrors.event_name = "Event name is required.";
+    if (!data.event_start_date)
+      formErrors.event_start_date = "Start date is required.";
+    if (!data.event_end_date)
+      formErrors.event_end_date = "End date is required.";
+    if (!data.event_description)
+      formErrors.event_description = "Event description is required.";
+
+    // Additional validation for venue-specific fields
+    if (venue === "online" && !data.event_link) {
+      formErrors.event_link = "Online event link is required.";
+    }
+    if (venue === "onSite") {
+      if (!data.event_state)
+        formErrors.event_state = "State is required for on-site events.";
+      if (!data.event_town)
+        formErrors.event_town = "Town is required for on-site events.";
+      if (!data.event_street)
+        formErrors.event_street = "Street is required for on-site events.";
+    }
+
+    setErrors(formErrors);
+    return Object.keys(formErrors).length === 0; // Return true if no errors found
+  };
+
+  // Prepare FormData for event submission
   const eventsFormData = useMemo(() => {
     const formData = new FormData();
     formData.append("event_name", data.event_name);
@@ -125,22 +158,24 @@ const Create = () => {
     formData.append("event_location", eventLocation);
     formData.append("event_owner", data.event_owner);
     formData.append("event_attendees", data.event_attendees);
+    formData.append("event_link", data.event_link); // Include the event link
+    formData.append("event_platform_details", data.event_platform_details); // Include platform details
     return formData;
   }, [data, eventLocation]);
 
+  // Submit event data
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("Data before submit:", data); // Check values
+    if (!validateForm()) {
+      console.log("Form validation failed");
+      return; // Prevent submission if validation fails
+    }
 
     try {
       const EVENTS_API_URL = `${
         import.meta.env.VITE_APP_EVENTRYBE_API_URL
       }/create_event`;
-      const TICKETS_API_URL = `${
-        import.meta.env.VITE_APP_EVENTRYBE_API_URL
-      }/generate_tickets`;
-
       const res = await fetch(EVENTS_API_URL, {
         method: "POST",
         body: eventsFormData,
@@ -148,14 +183,19 @@ const Create = () => {
 
       if (res.ok) {
         const result = await res.json();
-        console.log("Successfully created event", result);
-        setData((prevData) => ({ ...prevData, ...result })); // Merge new data
-        navigate("/create-tickets");
+        setData((prevData) => ({ ...prevData, ...result }));
+        navigate("/create-tickets"); // Redirect on success
       } else {
-        const errorMessage = await res.text(); // Get the error message
+        const errorMessage = await res.text();
+        setApiError(
+          errorMessage || "An unexpected error occurred. Please try again."
+        );
         console.error("Error creating event:", errorMessage);
       }
     } catch (error) {
+      setApiError(
+        "An error occurred while creating the event. Please try again."
+      );
       console.error("Error creating event", error);
     }
   };
@@ -169,12 +209,13 @@ const Create = () => {
         <div className="mb-12">
           <h1 className="text-xl md:text-2xl font-bold">Basic details</h1>
           <p className="font-semibold text-sm md:text-md">
-            This section contains the basic details of your events
+            This section contains the basic details of your event
           </p>
         </div>
 
+        {/* Event details form */}
         <div className="text-sm">
-          {/* Name of Event */}
+          {/* Event name */}
           <div className="flex flex-col mb-6">
             <label htmlFor="event_name" className="mb-1 font-semibold">
               Name of Event
@@ -185,15 +226,19 @@ const Create = () => {
               placeholder="Event title"
               value={data.event_name}
               onChange={handleChange}
-              className="py-3 px-4 rounded-md border border-black"
+              className={`py-3 px-4 rounded-md border ${
+                errors.event_name ? "border-red-500" : "border-black"
+              }`}
             />
+            {errors.event_name && (
+              <p className="text-red-500 text-sm">{errors.event_name}</p>
+            )}
           </div>
 
-          {/* Date and time inputs */}
+          {/* Date and time */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-            {/* Category */}
-            <div className="flex flex-col mb-6">
-              <label htmlFor="event_category" className="font-bold">
+            <div className="flex flex-col">
+              <label htmlFor="event_start_date" className="pb-1 font-semibold">
                 Category
               </label>
               <select
@@ -208,7 +253,7 @@ const Create = () => {
                 <option value="seminar">Seminar</option>
               </select>
             </div>
-
+            {/* Start date */}
             <div className="flex flex-col">
               <label htmlFor="event_start_date" className="pb-1 font-semibold">
                 Begins at
@@ -218,10 +263,18 @@ const Create = () => {
                 name="event_start_date"
                 value={data.event_start_date}
                 onChange={handleChange}
-                className="py-3 px-4 rounded-md border border-black"
+                className={`py-3 px-4 rounded-md border ${
+                  errors.event_start_date ? "border-red-500" : "border-black"
+                }`}
               />
+              {errors.event_start_date && (
+                <p className="text-red-500 text-sm">
+                  {errors.event_start_date}
+                </p>
+              )}
             </div>
 
+            {/* End date */}
             <div className="flex flex-col">
               <label htmlFor="event_end_date" className="pb-1 font-semibold">
                 Ends at
@@ -231,12 +284,17 @@ const Create = () => {
                 name="event_end_date"
                 value={data.event_end_date}
                 onChange={handleChange}
-                className="py-3 px-4 rounded-md border border-black"
+                className={`py-3 px-4 rounded-md border ${
+                  errors.event_end_date ? "border-red-500" : "border-black"
+                }`}
               />
+              {errors.event_end_date && (
+                <p className="text-red-500 text-sm">{errors.event_end_date}</p>
+              )}
             </div>
           </div>
 
-          {/* Drag and drop */}
+          {/* Image upload */}
           <div className="my-6">
             <p className="font-semibold">Upload photo</p>
             <DragDrop handleChange={handleImageChange} />
@@ -252,7 +310,7 @@ const Create = () => {
               </p>
             </div>
 
-            {/* buttons */}
+            {/* Venue selection buttons */}
             <div className="flex flex-wrap justify-around items-center my-6">
               <Button
                 text="Venue"
@@ -274,6 +332,7 @@ const Create = () => {
                 data={data}
                 handleChange={handleChange}
                 setEventLocation={setEventLocation}
+                errors={errors}
               />
             )}
 
@@ -282,10 +341,17 @@ const Create = () => {
                 data={data}
                 handleChange={handleChange}
                 setEventLocation={setEventLocation}
+                errors={errors}
               />
             )}
 
             {venue === "unAnnounced" && <Pending />}
+            {errors.event_location && (
+              <p className="text-red-500 text-sm">{errors.event_location}</p>
+            )}
+            {errors.event_link && (
+              <p className="text-red-500 text-sm">{errors.event_link}</p>
+            )}
           </section>
 
           {/* Short Description */}
@@ -293,20 +359,32 @@ const Create = () => {
             <p className="font-semibold pb-1">Short description</p>
             <textarea
               name="event_description"
-              cols="10"
               rows="10"
               placeholder="Description"
               value={data.event_description}
               onChange={handleChange}
-              className="py-3 px-4 rounded-md border border-black w-full h-[12em]"
+              className={`py-3 px-4 rounded-md border w-full ${
+                errors.event_description ? "border-red-500" : "border-black"
+              }`}
+              style={{ resize: "none" }} // Prevents resizing to keep the textarea consistent
             ></textarea>
+            {errors.event_description && (
+              <p className="text-red-500 text-sm">{errors.event_description}</p>
+            )}
           </div>
-          <Button
-            text="Next"
-            type="submit"
-            onClick={handleSubmit}
-            disabled={!isFormComplete}
-          />
+
+          {/* API error message */}
+          {apiError && <p className="text-red-500 text-sm mb-4">{apiError}</p>}
+
+          {/* Next Button */}
+          <div className="flex justify-end">
+            <Button
+              text="Next"
+              type="submit"
+              onClick={handleSubmit}
+              disabled={!isFormComplete}
+            />
+          </div>
         </div>
       </section>
     </div>
@@ -314,3 +392,5 @@ const Create = () => {
 };
 
 export default Create;
+
+
